@@ -16,12 +16,14 @@ export default class App extends React.Component{
   
   render(){
     return(
-      <Image 
-        style={stylex.bgLogin}
-        source={require('./src/image/bgLogin.png')}
-      >
-        <Login/>
-      </Image>      
+      
+      <View style={stylex.bgLogin}>
+			<Image 
+			  style={stylex.bgLogin}
+			  source={require('./src/image/bgLogin.png')}
+			/>
+			<Login/>
+		</View>
     );
   }
 }
@@ -31,8 +33,8 @@ const stylex =StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#F5FCFF',
+    position: 'absolute',
     alignSelf: 'center',
-    resizeMode:'cover',
     height: '100%',
     width: '100%'
   }

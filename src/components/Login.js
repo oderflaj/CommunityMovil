@@ -19,11 +19,11 @@ const Login = () =>{
                 style={imgLogo}
                 source={require('./../image/tgslogo.jpg')}
             />
-            <View>
+            <View style={{justifyContent: 'space-around'}}>
                 <Text style={labelUser}>
                     CLAVE UNICA USUARIO
                 </Text>
-                <TextInput style={keyUser} placeholder="Introduzca la clave que llego a su email.">
+                <TextInput style={keyUser} placeholder="Introduzca la clave que llego a su email." multiline>
 
                 </TextInput>
 
@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontWeight: '600',
         alignSelf: 'center',
-        fontSize: 16
+        fontSize: 16,
+        backgroundColor:'transparent',
 
     },
     keyUser:{
@@ -61,7 +62,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFCC',
         borderColor: '#FFFFAA',
         borderRadius: 10,
-        
+        paddingRight: 10,
+		paddingLeft: 10,
+		paddingTop:15
     }
 })
 
