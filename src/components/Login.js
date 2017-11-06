@@ -39,7 +39,8 @@ const Login = () =>{
 const styles = StyleSheet.create({
     imgLogo:{
         height: 125,
-        width: 125
+        width: 125,
+        borderRadius: 10
     },
     mainContainer:{
         flex:1,
