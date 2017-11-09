@@ -8,6 +8,7 @@ import {
     StyleSheet
  } from 'react-native';
 import BigButton from './BigButton';
+import CustomMessage from "./items/CustomMessage";
 
 //Create Comnponents
 
@@ -23,11 +24,10 @@ const Login = () =>{
                 <Text style={labelUser}>
                     CLAVE UNICA USUARIO
                 </Text>
-                <TextInput style={keyUser} placeholder="Introduzca la clave que llego a su email." multiline>
-
-                </TextInput>
-
+                <TextInput style={keyUser} placeholder="Introduzca la clave que llego a su email." multiline />
+                
             </View>
+            <CustomMessage style={{alignSelf: 'center'}} />
             <BigButton onPress={()=>console.warn("Presiono el boton")}>
                 ENTRAR
             </BigButton> 
