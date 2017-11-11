@@ -7,8 +7,7 @@ import {
     TextInput,
     StyleSheet
  } from 'react-native';
-import BigButton from './BigButton';
-import CustomMessage from "./items/CustomMessage";
+import {BigButton, CustomMessage} from "./items/IndexItem";
 
 //Create Comnponents
 
@@ -29,7 +28,7 @@ const Login = () =>{
             </View>
             <CustomMessage style={{alignSelf: 'center'}} />
             <BigButton onPress={()=>console.warn("Presiono el boton")}>
-                ENTRAR
+                ENTRARX
             </BigButton> 
         </View>
     );

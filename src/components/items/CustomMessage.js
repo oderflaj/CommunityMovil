@@ -45,4 +45,5 @@ const styles = {
 };
 
 
-export default CustomMessage;
+//export default CustomMessage;
+export {CustomMessage};

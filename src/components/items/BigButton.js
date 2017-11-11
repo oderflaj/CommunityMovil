@@ -43,4 +43,5 @@ const styles={
     }
 };
 
-export default BigButton;
+//export default BigButton;
+export {BigButton};
