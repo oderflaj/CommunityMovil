@@ -1,19 +1,20 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 
-const Spinner = () =>{
+const Spinner = ({size}) =>{
     return(
-        <View>
-            <ActivityIndicator/>
+        <View style={styleMedia.spinnerStyle}>
+            <ActivityIndicator size={size||'large'}  />
         </View>
     );
 };
 
-const styles = {
+const styleMedia = {
     spinnerStyle:{
         flex:1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        maxHeight:40        
     }
 };
 

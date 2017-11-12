@@ -1,5 +1,5 @@
 //Import Libraries
-import React from 'react';
+import React, {Component} from 'react';
 import { 
     View,
     Text,
@@ -7,33 +7,79 @@ import {
     TextInput,
     StyleSheet
  } from 'react-native';
-import {BigButton, CustomMessage} from "./items/IndexItem";
+import {BigButton, CustomMessage, Spinner} from "./items/IndexItem";
 
 //Create Comnponents
+ class Login extends Component{
+     constructor(props){
+         super(props);
+         this.state = {login:false};
+     }
+     
+     onEntrarPress(){
+         console.log("Presiono OnEntrar");
+         this.setState({login:true})
+     }
 
-const Login = () =>{
-    const {imgLogo, mainContainer, keyUser,labelUser} = styles;
-    return(
-        <View style={mainContainer}> 
-            <Image
-                style={imgLogo}
-                source={require('./../image/tgslogo.jpg')}
-            />
-            <View style={{justifyContent: 'space-around'}}>
-                <Text style={labelUser}>
-                    CLAVE UNICA USUARIO
-                </Text>
-                <TextInput style={keyUser} placeholder="Introduzca la clave que llego a su email." multiline />
-                
-            </View>
-            <CustomMessage style={{alignSelf: 'center'}} />
-            <BigButton onPress={()=>console.warn("Presiono el boton")}>
-                ENTRARX
-            </BigButton> 
-        </View>
-    );
-    
-};
+     renderButton(){
+         if(this.state.login)
+         {
+             return <Spinner size=""/>;
+         }
+
+         return(
+            <BigButton onPress={
+                    this.onEntrarPress.bind(this)
+                }>
+                ENTRAR
+            </BigButton>
+         );
+     }
+
+     render(){
+        const {imgLogo, mainContainer, keyUser,labelUser} = styles;
+         return(
+             <View style={mainContainer}> 
+                 <Image
+                     style={imgLogo}
+                     source={require('./../image/tgslogo.jpg')}
+                 />
+                 <View style={{justifyContent: 'space-around'}}>
+                     <Text style={labelUser}>
+                         CLAVE UNICA USUARIO
+                     </Text>
+                     <TextInput style={keyUser} placeholder="Introduzca la clave que llego a su email." multiline />
+                  
+                 </View>
+                 <CustomMessage style={{alignSelf: 'center'}} />
+                 {this.renderButton()}
+             </View>
+         );
+     }
+ }
+
+// const Login = () =>{
+//     const {imgLogo, mainContainer, keyUser,labelUser} = styles;
+//     return(
+//         <View style={mainContainer}> 
+//             <Image
+//                 style={imgLogo}
+//                 source={require('./../image/tgslogo.jpg')}
+//             />
+//             <View style={{justifyContent: 'space-around'}}>
+//                 <Text style={labelUser}>
+//                     CLAVE UNICA USUARIO
+//                 </Text>
+//                 <TextInput style={keyUser} placeholder="Introduzca la clave que llego a su email." multiline />
+//           
+//             </View>
+//             <CustomMessage style={{alignSelf: 'center'}} />
+//             <BigButton onPress={()=>console.warn("Presiono el boton")}>
+//                 ENTRAR
+//             </BigButton> 
+//         </View>
+//     );
+//};
 
 const styles = StyleSheet.create({
     imgLogo:{
