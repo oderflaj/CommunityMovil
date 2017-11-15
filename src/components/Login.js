@@ -18,31 +18,34 @@ import axios from 'axios';
      }
      
      onEntrarPress(){
-        //////////////////////// 
+        
          const _host = 'http://community.tecstrag.com/token'
          const _user = 'oderflaj@gmail.com'
          const _pwrd = 'A1A1A1A1'
-        //axios.post(_host,{'headers':{'auth':{'username':_user, 'password':_pwrd},'grant_type': 'password'}})
-        //   .then(
-        //       x=>console.warn(x)
-        //   );
         
-        fetch('http://community.tecstrag.com/token', { 
+        fetch(_host, { 
             method: 'post', 
             headers: {
               //'Authorization': 'Basic '+ btoa('oderflaj@gmail.com:A1A1A1A1'), 
               'Content-Type': 'application/x-www-form-urlencoded'
             }, 
-            body: 'grant_type=password&password=A1A1A1A1&username=oderflaj@gmail.com'
+            body: 'grant_type=password&password=' + _pwrd +'&username=' + _user
           }).then((responsex)=>{
                 var _auth = JSON.parse(responsex._bodyText)
-                console.log(_auth)
-                console.log(_auth.access_token)
-                console.log(responsex)
+                if(_auth.access_token==undefined)
+                {
+                    console.log(_auth.error_description) 
+                }
+                else
+                {
+                    console.log(_auth.access_token) 
+                }
+                //console.log(_auth)
+                //console.log(_auth.access_token)
+                //console.log(responsex)
             });
 
-        //////////////////////// 
-         //this.setState({login:true, error:true, message:'XXXXXXXXX'})
+        
          this.setState({login:true})
      }
 
