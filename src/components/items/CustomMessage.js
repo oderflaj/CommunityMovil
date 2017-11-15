@@ -6,21 +6,31 @@ import { View, Text } from 'react-native';
 class CustomMessage extends Component{
     constructor(props){
         super(props);
-        this.state = {message:'Error al intentar ingresar a su cuenta.'};
+        this.state = {message:this.props.messageText};//Error al intentar ingresar a su cuenta.
     }
 
-    render(){
-        return(
-            <View style={styles.styleError}>
-                <Text style={styles.header}> 
-                    Error
-                </Text>
-                <Text style={styles.message}>
-                    {this.state.message}
-                </Text>
-            </View>
-            
-        );
+
+
+    render(){        
+        if(this.props.typeMessage=='Error')
+        {
+            return(
+                <View style={styles.styleError}>
+                    <Text style={styles.header}> 
+                        Error
+                    </Text>
+                    <Text style={styles.message}>
+                        {this.state.message}
+                    </Text>
+                </View>
+                
+            );
+        }
+        else
+        {
+            return(<View/>);
+        }
+        
     }
 
 }

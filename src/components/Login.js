@@ -8,19 +8,53 @@ import {
     StyleSheet
  } from 'react-native';
 import {BigButton, CustomMessage, Spinner} from "./items/IndexItem";
+import axios from 'axios';
 
 //Create Comnponents
  class Login extends Component{
      constructor(props){
          super(props);
-         this.state = {login:false};
+         this.state = {login:false,error:false, message:''};
      }
      
      onEntrarPress(){
-         console.log("Presiono OnEntrar");
+        //////////////////////// 
+         const _host = 'http://community.tecstrag.com/token'
+         const _user = 'oderflaj@gmail.com'
+         const _pwrd = 'A1A1A1A1'
+        //axios.post(_host,{'headers':{'auth':{'username':_user, 'password':_pwrd},'grant_type': 'password'}})
+        //   .then(
+        //       x=>console.warn(x)
+        //   );
+        
+        fetch('http://community.tecstrag.com/token', { 
+            method: 'post', 
+            headers: {
+              //'Authorization': 'Basic '+ btoa('oderflaj@gmail.com:A1A1A1A1'), 
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }, 
+            body: 'grant_type=password&password=A1A1A1A1&username=oderflaj@gmail.com'
+          }).then((responsex)=>{
+                var _auth = JSON.parse(responsex._bodyText)
+                console.log(_auth)
+                console.log(_auth.access_token)
+                console.log(responsex)
+            });
+
+        //////////////////////// 
+         //this.setState({login:true, error:true, message:'XXXXXXXXX'})
          this.setState({login:true})
      }
 
+     renderError(){
+         if(this.state.error)
+         {
+            return <CustomMessage style={{alignSelf: 'center'}} typeMessage='Error' messageText={this.state.message} />;
+         }
+
+         return <View/>;
+         
+     }
      renderButton(){
          if(this.state.login)
          {
@@ -51,7 +85,7 @@ import {BigButton, CustomMessage, Spinner} from "./items/IndexItem";
                      <TextInput style={keyUser} placeholder="Introduzca la clave que llego a su email." multiline />
                   
                  </View>
-                 <CustomMessage style={{alignSelf: 'center'}} />
+                 {this.renderError()}
                  {this.renderButton()}
              </View>
          );
