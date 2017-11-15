@@ -19,10 +19,14 @@ import axios from 'axios';
      
      onEntrarPress(){
         
-         const _host = 'http://community.tecstrag.com/token'
-         const _user = 'oderflaj@gmail.com'
-         const _pwrd = 'A1A1A1A1'
+        const _host = 'http://community.tecstrag.com/token'
+        const _user = 'oderflaj@gmail.com'
+        const _pwrd = 'A1A1A1A1'
         
+        this.setState({login:true})
+        this.setState({error:false})
+        this.setState({message:''})
+
         fetch(_host, { 
             method: 'post', 
             headers: {
@@ -32,21 +36,22 @@ import axios from 'axios';
             body: 'grant_type=password&password=' + _pwrd +'&username=' + _user
           }).then((responsex)=>{
                 var _auth = JSON.parse(responsex._bodyText)
+                this.setState({login:false})
                 if(_auth.access_token==undefined)
                 {
                     console.log(_auth.error_description) 
+                    this.setState({message:_auth.error_description})
+                    this.setState({error:true})
                 }
                 else
                 {
                     console.log(_auth.access_token) 
                 }
-                //console.log(_auth)
-                //console.log(_auth.access_token)
-                //console.log(responsex)
+                
             });
 
         
-         this.setState({login:true})
+         
      }
 
      renderError(){
