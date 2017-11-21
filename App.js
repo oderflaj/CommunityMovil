@@ -7,7 +7,9 @@ import {  AppRegistry,
           StyleSheet,
           AsyncStorage
         } from 'react-native';
-import Login from './src/components/Login';
+//import Login from './src/components/Login';
+//import Pages from './src/components/Pages';
+import BasePage from './src/components/BasePage';
 import * as RestOp from './src/components/functions/RestFunctions';
 
 
@@ -20,36 +22,62 @@ import * as RestOp from './src/components/functions/RestFunctions';
 
 export default class App extends React.Component{
   
+  // constructor(props)
+  // {
+  //   this.state={logedUser:false}
+  // }
   
 
   render(){
     
-    ;
-    //AsyncStorage.setItem('usuario','oderflaj@gmail.com')
-    AsyncStorage.getItem('usuario', (error, result) => {
-      console.log(result);
-      console.log(error);
-    });
+    // let x
+    
+    // await RestOp.isLoged().then(x =>JSON.parse(x)).then(obj=>{
+    //   console.log("----->>>>>",obj)
+    //   x = obj
+    // });
+    
+    ////console.log("Es una X->",x)
+    ////AsyncStorage.setItem('usuario','oderflaj@gmail.com')
+    //// AsyncStorage.getItem('usuario', (error, result) => {
+    ////   console.log(result);
+    ////   console.log(error);
+    //// });
+//
+    //// AsyncStorage.getItem('password', (error, result) => {
+    ////   console.log(result);
+    ////   console.log(error);
+    //// });
 
-    AsyncStorage.getItem('password', (error, result) => {
-      console.log(result);
-      console.log(error);
-    });
+    //// AsyncStorage.getItem('token', (error, result) => {
+    ////   console.log(result);
+    ////   console.log(error);
+    //// });
 
-    AsyncStorage.getItem('token', (error, result) => {
-      console.log(result);
-      console.log(error);
-    });
+    // if(x){
+    //   return(
+        
+    //           <View style={stylex.bgLogin}>
+    //             <Image 
+    //               style={stylex.bgLogin}
+    //               source={require('./src/image/bgLogin.png')}
+    //             />
+    //             <Login/>
+    //           </View>
+    //   );
+    // }
+    // else{
+    //   return(
+    //     <View>
+    //       <Text>
+    //         Pantalla nueva
+    //       </Text>
+    //     </View>
+    //   );
+    // }
 
     return(
-
-      <View style={stylex.bgLogin}>
-			<Image 
-			  style={stylex.bgLogin}
-			  source={require('./src/image/bgLogin.png')}
-			/>
-			<Login/>
-		</View>
+      <BasePage/>
     );
   }
 }

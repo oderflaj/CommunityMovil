@@ -20,32 +20,46 @@ import axios from 'axios';
          this.state = {login:false,error:false, message:''};
      }
      
+     async loginx(_host,_user,_pwrd){
+        console.log("Manda a llamar a funcion anonima")
+        await RestOp.login(_host,_user,_pwrd).then(r=>console.log("res---TTTTT>",r),r=>console.log("Todo fallo",r));
+     }
+
      onEntrarPress(){
         
-        const _host = 'http://community.tecstrag.com/token'
+        const _host = 'http://community.tecstrag.com'
         const _user = 'oderflaj@gmail.com'
-        const _pwrd = 'A1A1A1A11'
+        const _pwrd = 'A1A1A1A1'
         
+        //this.loginx(_host,_user,_pwrd);
         
 
         this.setState({spin:true})
         this.setState({error:false})
         this.setState({message:''})
-
-        var res = RestOp.login(_host,_user,_pwrd);
-        console.log("res->",res)
-        if(res)
-        {
-
-        }
-        else
-        {
-            //console.log(res)
-            this.setState({message:"Error al intentar entrar a sesión."})
-            this.setState({error:true})
-        }
-
-        this.setState({spin:false})
+        //console.log("11111111111111111111111")
+        RestOp.login(_host,_user,_pwrd).then(
+            r=>{
+                if(r === "ok")
+                {
+        
+                }
+                else
+                {
+                    //console.log(res)
+                    this.setState({message:"Error al intentar entrar a sesión."})
+                    this.setState({error:true})
+                }
+        
+                this.setState({spin:false})
+            },
+            r=>{
+                console.log("Todo fallo",r)
+            }
+        );
+        
+        
+        
 
         //fetch(_host, { 
         //    method: 'post', 
