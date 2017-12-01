@@ -86,9 +86,27 @@ async function isLoged(){
         return false
 
     let result = await getCommunity("base")
+    
+    //Check if there is a token available 
     if(result.usuario == null)
     {
+        //Wether the token is unavailable you should try to login one more time with the current credentials and renew the token
+        let _login = await login(_host, _user, _paswd)
+  
+        //If the loging was successful we initialize the base info 
+        if(_login=="ok")
+        {
+            result = await getCommunity("base")
+            AsyncStorage.setItem('infobase',result)
+            console.log(result)
+            return true;
+        }
+
         return false
+    }
+    else
+    {
+        AsyncStorage.setItem('infobase',result)
     }
 
     return true

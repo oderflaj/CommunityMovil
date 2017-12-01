@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Login from './Login';
+import Menu from './Menu';
 import * as RestOp from './functions/RestFunctions';
 
 
@@ -24,11 +25,7 @@ class BasePage extends Component{
 
         if(this.state.loged)
         return(
-            <View>
-                <Text>
-                Pantalla nueva
-                </Text>
-            </View>
+            <Menu/>
         );
     
         return(
