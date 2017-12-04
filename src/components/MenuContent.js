@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View,Text,StyleSheet, Button, Image } from 'react-native';
+import { View,Text,StyleSheet, Button, Image, TouchableHighlight, Touchable } from 'react-native';
 import {DrawerNavigator} from 'react-navigation'
+import {MenuItem} from './items/MenuItem'
+// import Icon from 'react-native-vector-icons/MaterialIcons'
 
 export default class MenuContent extends Component{
     // static navigationOptions = ({navigation})=>({
@@ -11,7 +13,7 @@ export default class MenuContent extends Component{
         const {navigate} = this.props.navigation;
 
         return(
-            <View>
+            <View style={{marginTop:24}}>
                 <View style={styles.menuHeader}>
                     
                     <Image
@@ -20,10 +22,7 @@ export default class MenuContent extends Component{
                     />
                 </View>
                 <View>
-                    <Button 
-                        onPress={()=>navigate('Alarma')}
-                        title='Alarma'
-                    />
+                    <MenuItem onPressItem={()=>navigate('Alarma')} iconMenu="rss-feed" textMenu="Alarma"/>
                 </View>
             </View>
         )
@@ -39,6 +38,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     menuHeader:{
+
         height:200, 
         backgroundColor:'red'
     }

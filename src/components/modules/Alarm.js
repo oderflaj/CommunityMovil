@@ -11,7 +11,7 @@ class alarm extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{marginTop:20}}>
         {/* <Icon.Button name="facebook" backgroundColor="#3b5998" onPress={this.loginWithFacebook}>
           Login with Facebook
         </Icon.Button>
