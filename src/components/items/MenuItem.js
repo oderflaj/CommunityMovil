@@ -1,11 +1,14 @@
 import React from 'react';
-import { View,Text,TouchableHighlight, StyleSheet } from 'react-native';
+import { View,Text,TouchableHighlight, StyleSheet, AsyncStorage } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import {DrawerNavigator} from 'react-navigation'
 
-const MenuItem = ({onPressItem,iconMenu,textMenu})=>{
+const MenuItem = ({onPressItem,iconMenu,textMenu,onSelected})=>{
     return(
-        <TouchableHighlight onPress={onPressItem} underlayColor='#A094DC'>
+        <TouchableHighlight onPress={()=>{
+            AsyncStorage.setItem('menuItem',onSelected)
+            onPressItem()
+            }} underlayColor='#1E282C'>
             <View style={styles.frame}>
                 <View style={{flexDirection:'row'}}>
                     <Icon color="grey" name={iconMenu} size={25} style={{marginRight: 10}}/>

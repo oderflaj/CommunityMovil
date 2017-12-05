@@ -13,7 +13,7 @@ export default class MenuContent extends Component{
         const {navigate} = this.props.navigation;
 
         return(
-            <View style={{marginTop:24}}>
+            <View style={{borderTopColor:"#000", borderTopWidth:24, backgroundColor: "#222D32", height:"100%"} }>
                 <View style={styles.menuHeader}>
                     
                     <Image
@@ -21,8 +21,8 @@ export default class MenuContent extends Component{
                         source={require('./../image/tgslogo.jpg')}
                     />
                 </View>
-                <View>
-                    <MenuItem onPressItem={()=>navigate('Alarma')} iconMenu="rss-feed" textMenu="Alarma"/>
+                <View style={styles.backgroundContent}>
+                    <MenuItem onPressItem={()=>navigate('Alarma')} onSelected="Alarma" iconMenu="rss-feed" textMenu="Alarma"/>
                 </View>
             </View>
         )
@@ -41,6 +41,9 @@ const styles = StyleSheet.create({
 
         height:200, 
         backgroundColor:'red'
+    },
+    backgroundContent:{
+        backgroundColor: "#222D32"
     }
 })
 

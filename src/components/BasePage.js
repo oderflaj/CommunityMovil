@@ -15,7 +15,7 @@ class BasePage extends Component{
         let x
     
         RestOp.isLoged().then(x =>JSON.parse(x)).then(obj=>{
-          console.log("----->>>>>",obj)
+          //console.log("----->>>>>",obj)
           if(obj)
             this.setState({loged:true})
         });    

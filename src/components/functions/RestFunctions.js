@@ -70,25 +70,27 @@ async function getCommunity(_action, _parameters){
 
 async function isLoged(){
 
-    let isIt = false
-
+    
     let _user = await AsyncStorage.getItem('usuario');
-    console.log("isLoged------>",_user) 
+    console.log("isLoged---_user--->",_user) 
     let _paswd = await AsyncStorage.getItem('password');
-    console.log("isLoged------>",_paswd)
+    console.log("isLoged---_paswd--->",_paswd)
     let _token = await AsyncStorage.getItem('token');
-    console.log("isLoged------>",_token)
+    console.log("isLoged---_token--->",_token)
     let _host = await AsyncStorage.getItem('host');
-    console.log("isLoged------>",_host)
-    console.log(isIt)
+    console.log("isLoged---_host--->",_host)
+    let _infobase = await AsyncStorage.getItem('infobase');
+    console.log("isLoged---infobase--->",_infobase)
 
     if( _user==null || _paswd == null || _token ==null || _host == null)
         return false
 
     let result = await getCommunity("base")
     
+    
+
     //Check if there is a token available 
-    if(result.usuario == null)
+    if(result.usuario == null )
     {
         //Wether the token is unavailable you should try to login one more time with the current credentials and renew the token
         let _login = await login(_host, _user, _paswd)
@@ -98,7 +100,7 @@ async function isLoged(){
         {
             result = await getCommunity("base")
             AsyncStorage.setItem('infobase',result)
-            console.log(result)
+            //console.log(result)
             return true;
         }
 
@@ -106,6 +108,7 @@ async function isLoged(){
     }
     else
     {
+        console.log("SET isLoged---infobase--->",result)
         AsyncStorage.setItem('infobase',result)
     }
 
