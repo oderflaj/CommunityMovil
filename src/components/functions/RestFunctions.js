@@ -72,15 +72,15 @@ async function isLoged(){
 
     
     let _user = await AsyncStorage.getItem('usuario');
-    console.log("isLoged---_user--->",_user) 
+    //console.log("isLoged---_user--->",_user) 
     let _paswd = await AsyncStorage.getItem('password');
-    console.log("isLoged---_paswd--->",_paswd)
+    //console.log("isLoged---_paswd--->",_paswd)
     let _token = await AsyncStorage.getItem('token');
-    console.log("isLoged---_token--->",_token)
+    //console.log("isLoged---_token--->",_token)
     let _host = await AsyncStorage.getItem('host');
-    console.log("isLoged---_host--->",_host)
-    let _infobase = await AsyncStorage.getItem('infobase');
-    console.log("isLoged---infobase--->",_infobase)
+    //console.log("isLoged---_host--->",_host)
+    let _infobase = JSON.parse( await AsyncStorage.getItem('infobase'));
+    //console.log("isLoged---infobase--->",_infobase)
 
     if( _user==null || _paswd == null || _token ==null || _host == null)
         return false
@@ -99,7 +99,7 @@ async function isLoged(){
         if(_login=="ok")
         {
             result = await getCommunity("base")
-            AsyncStorage.setItem('infobase',result)
+            AsyncStorage.setItem('infobase',JSON.stringify(result))
             //console.log(result)
             return true;
         }
@@ -108,11 +108,19 @@ async function isLoged(){
     }
     else
     {
-        console.log("SET isLoged---infobase--->",result)
-        AsyncStorage.setItem('infobase',result)
+        //console.log("SET isLoged---infobase--->")
+        AsyncStorage.setItem('infobase',JSON.stringify(result))
     }
 
     return true
 }
 
-export {login, isLoged};
+async function getBase() {
+    let infobase = undefined
+    await AsyncStorage.getItem('infobase').then(res=>JSON.parse(res)).then(result=>{
+        //console.log(result)
+        infobase = result
+    });
+    return infobase;
+}
+export {login, isLoged, getBase};

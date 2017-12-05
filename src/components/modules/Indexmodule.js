@@ -1,1 +1,6 @@
 export * from './Alarm.js'
+export * from './Perfil.js'
+export * from './Visita.js'
+export * from './Aviso.js'
+export * from './AreaComun.js'
+export * from './EdoCuenta.js'

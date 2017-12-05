@@ -128,7 +128,7 @@ import axios from 'axios';
                      <Text style={labelUser}>
                          CLAVE UNICA USUARIO
                      </Text>
-                     <TextInput style={keyUser} placeholder="Introduzca la clave que llego a su email." multiline />
+                     <TextInput style={keyUser} placeholder="Introduzca la clave que llego a su email." multiline onEndEditing={this.clearFocus}/>
                   
                  </View>
                  {this.renderError()}
