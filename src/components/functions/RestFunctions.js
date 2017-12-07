@@ -14,17 +14,14 @@ async function login(_host, _user,_pwrd){
     body: 'grant_type=password&password=' + _pwrd +'&username=' + _user
   }).then((responsex)=>{
         var _auth = JSON.parse(responsex._bodyText)
-        ////////this.setState({login:false})
+        
         if(_auth.access_token==undefined)
         {
-            ////////console.log(_auth.error_description +"++++++++++++++++++++++++++++++++++") 
-            ////////this.setState({message:_auth.error_description})
-            ////////this.setState({error:true})
+
             return _auth.error_description
         }
         else
         {
-            ////////console.log(_auth.access_token+"++++++++++++++++++++++++++++++++++") 
             AsyncStorage.setItem('host',_host)
             AsyncStorage.setItem('usuario',_user)
             AsyncStorage.setItem('password',_pwrd)

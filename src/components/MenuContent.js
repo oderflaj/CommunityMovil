@@ -7,7 +7,7 @@ import * as RestOp from './functions/RestFunctions';
 export default class MenuContent extends Component{
     constructor(props){
         super(props)
-        this.state = {infobase:undefined, email:'', nombre:''}
+        this.state = {infobase:undefined, condominio:'', email:'', nombre:''}
         RestOp.getBase().then(r=>{
             //console.warn("1-RestOp.getBase()--->>>",r)
             this.setState({infobase:r})
@@ -15,6 +15,7 @@ export default class MenuContent extends Component{
         .then(()=>{
             x =  this.state.infobase
             //console.log(x)
+            this.setState({condominio:x.condominio.nombre})
             this.setState({email:x.usuario.email})
             this.setState({nombre: x.usuario.nombre + " " + x.usuario.apepaterno })
         })
@@ -32,6 +33,7 @@ export default class MenuContent extends Component{
                         style={styles.imgLogo}
                         source={require('./../image/tgslogo.jpg')}
                     />
+                    <Text style={styles.infoCondo} >{this.state.condominio}</Text>
                     <Text style={styles.infoUser} >{this.state.email}</Text>
                     <Text style={styles.infoUser} >{this.state.nombre}</Text>
                 </View>
@@ -70,6 +72,12 @@ const styles = StyleSheet.create({
     infoUser:{
         alignSelf: 'center',
         color: "#FFFFFF"
+    },
+    infoCondo:{
+        alignSelf: 'center',
+        color: "#FFFFFF",
+        fontWeight: "bold",
+        fontSize: 20
     }
 })
 

@@ -21,14 +21,14 @@ import axios from 'axios';
      }
      
      async loginx(_host,_user,_pwrd){
-        console.log("Manda a llamar a funcion anonima")
+        
         await RestOp.login(_host,_user,_pwrd).then(r=>console.log("res---TTTTT>",r),r=>console.log("Todo fallo",r));
      }
 
      onEntrarPress(){
         
         const _host = 'http://community.tecstrag.com'
-        const _user = 'oderflaj@gmail.com'
+        const _user = 'acarbajal@tecstrag.com'
         const _pwrd = 'A1A1A1A1'
         
         //this.loginx(_host,_user,_pwrd);
