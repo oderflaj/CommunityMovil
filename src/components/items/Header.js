@@ -13,7 +13,7 @@ class Header extends React.Component{
         return(
             <View style={styles.frame}>
                 <TouchableWithoutFeedback onPress={()=>this.state.navigation.navigate('DrawerToggle')}>
-                    <Icon color="#fff" name="menu" size={25} style={{marginRight: 10}}/>
+                    <Icon color="#fff" name="menu" size={30} style={{ paddingLeft:10}}/>
                 </TouchableWithoutFeedback>
                 <View style={styles.textHeader}>
                     <Text style={styles.title}>

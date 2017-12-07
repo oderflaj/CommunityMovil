@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,Text,StyleSheet, Button, Image, TouchableHighlight, Touchable, AsyncStorage } from 'react-native';
+import { View,Text,StyleSheet, Button, Image, TouchableHighlight, TouchableWithoutFeedback, AsyncStorage } from 'react-native';
 import {DrawerNavigator} from 'react-navigation'
 import {MenuItem} from './items/MenuItem'
 import * as RestOp from './functions/RestFunctions';
@@ -8,28 +8,25 @@ export default class MenuContent extends Component{
     constructor(props){
         super(props)
         this.state = {infobase:undefined, email:'', nombre:''}
-    }
-
-
-    render(){
-        const {navigate} = this.props.navigation;
-        let x =  this.state.infobase
-
         RestOp.getBase().then(r=>{
-            //console.log("1-RestOp.getBase()--->>>",r)
+            //console.warn("1-RestOp.getBase()--->>>",r)
             this.setState({infobase:r})
         })
         .then(()=>{
             x =  this.state.infobase
-            //console.log("MenuContent---infobase---PROMISE>",x.usuario)
-            //console.warn("MenuContent---infobase---PROMISE>",x.usuario)
+            //console.log(x)
             this.setState({email:x.usuario.email})
-            this.setState({nombre: x.usuario.nombre + " " })
+            this.setState({nombre: x.usuario.nombre + " " + x.usuario.apepaterno })
         })
-        
-        
+    }
+
+  
+    render(){
+        const {navigate} = this.props.navigation;
+        let x =  this.state.infobase
+        console.log("Se actualiza 2")
         return(
-            <View style={{borderTopColor:"#000", borderTopWidth:24, backgroundColor: "#222D32", height:"100%"} }>
+            <View style={{borderTopColor:"#000", borderTopWidth:24, backgroundColor: "#222D32", height:"100%"} }>       
                 <View style={styles.menuHeader}>                    
                     <Image
                         style={styles.imgLogo}

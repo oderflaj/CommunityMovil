@@ -108,7 +108,7 @@ async function isLoged(){
     }
     else
     {
-        //console.log("SET isLoged---infobase--->")
+        //console.warn("SET isLoged---infobase--->")
         AsyncStorage.setItem('infobase',JSON.stringify(result))
     }
 
