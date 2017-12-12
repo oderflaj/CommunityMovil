@@ -1,5 +1,5 @@
 import React from 'react';
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage, NetInfo} from 'react-native';
 
 
 async function login(_host, _user,_pwrd){
@@ -48,6 +48,14 @@ async function getCommunity(_action, _parameters){
 
     console.log("Entra getCommunity ->",`${_host}/api/data/${_action}`)
 
+    await NetInfo.isConnected.fetch().then(isConnected => {
+        if( !isConnected )
+        {
+            console.error("No hay internet")
+            return {No:"100",Error:"Error al entrar a Community, compruebe su conexión a internet.", ErrorDetail:error}
+        }
+      });
+
     return await fetch(`${_host}/api/data/${_action}`,{
         method: 'get', 
         headers: {
@@ -60,7 +68,7 @@ async function getCommunity(_action, _parameters){
         })
         .catch((error) => {
             console.error(error);
-            return null
+            return {No:"100",Error:"Error al entrar a Community, compruebe su conexión a internet.", ErrorDetail:error}
           })
     
 }
@@ -84,7 +92,8 @@ async function isLoged(){
 
     let result = await getCommunity("base")
     
-    
+    if(result.Error != undefined)
+        return result
 
     //Check if there is a token available 
     if(result.usuario == null )

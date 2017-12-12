@@ -4,6 +4,8 @@ import call from 'react-native-phone-call'
 import Icon from 'react-native-vector-icons/Ionicons';
 import Header from './../items/Header'
 import * as RestOp from './../functions/RestFunctions';
+//import {BodyContain} from './../items/BodyContain'
+
 
 let args = undefined
 
@@ -31,13 +33,14 @@ class alarm extends Component {
     let navigate = this.props.navigation;
     this.makeCall()
     return (
+      
       <View style={{borderTopColor:"#000", borderTopWidth:24}}>
         <Header navigation={navigate} nameHeader="Alarma"/>
-
-        <Text>
-          Alarma Vecinal
-          <Icon name="ios-person" size={30} color="#4F8EF7" />
-        </Text>
+          <Text>
+            Alarma Vecinal
+            <Icon name="ios-person" size={30} color="#4F8EF7" />
+            {/* <BodyContain/> */}
+          </Text>        
       </View>
     );
   }
