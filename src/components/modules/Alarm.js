@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import call from 'react-native-phone-call'
 import Icon from 'react-native-vector-icons/Ionicons';
-import Header from './../items/Header'
+import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
-//import {BodyContain} from './../items/BodyContain'
+
 
 
 let args = undefined
@@ -34,14 +34,15 @@ class alarm extends Component {
     this.makeCall()
     return (
       
-      <View style={{borderTopColor:"#000", borderTopWidth:24}}>
-        <Header navigation={navigate} nameHeader="Alarma"/>
-          <Text>
-            Alarma Vecinal
-            <Icon name="ios-person" size={30} color="#4F8EF7" />
-            {/* <BodyContain/> */}
-          </Text>        
-      </View>
+      <Itemx.Canvas>
+        <Itemx.Header navigation={navigate} nameHeader="Alarma"/>
+          <Itemx.Context>  
+            <Text style={{fontSize:14 }}>
+              Alarma Vecinalssssssssssssssss
+              {/* <Icon name="ios-person" size={30} color="#4F8EF7" /> */}
+            </Text>        
+          </Itemx.Context>
+      </Itemx.Canvas>
     );
   }
 }

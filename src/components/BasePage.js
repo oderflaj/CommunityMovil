@@ -27,6 +27,9 @@ class BasePage extends Component{
           if(obj && obj.Error == undefined){
             this.setState({loged:true})
           }
+          else if(!obj){
+            this.setState({loged:false})
+          }
           else{
             this.setState({loged:undefined})
             this.setState({mensaje:"Error " + obj.No + ": " + obj.Error})

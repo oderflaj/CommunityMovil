@@ -11,7 +11,7 @@ class Header extends React.Component{
     
     render(){
         return(
-            <View style={styles.frame}>
+            <View style={styles.frameH}>
                 <TouchableWithoutFeedback onPress={()=>this.state.navigation.navigate('DrawerToggle')}>
                     <Icon color="#fff" name="menu" size={30} style={{ paddingLeft:10}}/>
                 </TouchableWithoutFeedback>
@@ -28,8 +28,9 @@ class Header extends React.Component{
 }
 
 styles = {
-    frame:{
+    frameH:{
         backgroundColor:"#3C8DBC", 
+        // backgroundColor:"red", 
         flexDirection:"row",
         alignContent:"stretch",
         justifyContent:"flex-start",
@@ -50,4 +51,4 @@ styles = {
     }
 }
 
-export default Header
+export  {Header}

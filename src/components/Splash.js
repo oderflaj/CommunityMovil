@@ -18,7 +18,8 @@ const styles = {
     contain:{
         justifyContent: 'center',
         flexDirection: 'column',
-        backgroundColor: '#D5E9F4',
+        
+        backgroundColor: '#E96633',
         alignItems: 'center',
         height: '100%'
     },
