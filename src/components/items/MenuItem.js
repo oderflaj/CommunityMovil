@@ -33,28 +33,11 @@ class MenuItem extends Component{
     }
 
     async componentWillMount(){
-        // await AsyncStorage.getItem('menuItemSelected').then(item=>{
-            
-        //     console.log("componentWillMount ----Seleccionado Item->",item," Select>",this.state.onSelected)
-        //     if(item != this.state.onSelected)
-        //     {
-        //         this.frameX = styles.frame
-        //         console.log("componentWillMount if")
-                
-        //     }
-        //     else
-        //     {
-        //         this.frameX = styles.frameOn
-        //         console.log("componentWillMount else")
-        //     }
-            
-            
-        // })
+
     }
 
     async componentWillUpdate(){
-
-        //await AsyncStorage.setItem('menuItemSelected',this.state.onSelected)  
+ 
         await AsyncStorage.getItem('menuItemSelected').then(itemm=>{
             console.log(">>>Seleccionado Itemm->",itemm," Select>",this.state.onSelected)
             if(itemm != this.state.onSelected)
@@ -92,7 +75,7 @@ class MenuItem extends Component{
         return(
             
             <TouchableHighlight onPress={()=>{
-                console.log("Presiono boton xxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->",this.state.onSelected)
+                //console.log("Presiono boton xxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->",this.state.onSelected)
                 this.setSelected()
                 this.frameX = styles.frameOn
                 this.state.onPressItem()

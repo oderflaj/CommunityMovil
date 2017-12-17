@@ -2,21 +2,24 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 //import FontAwesome, { Icons } from 'react-native-fontawesome';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Header from './../items/Header'
+import * as Itemx from './../items/IndexItem'
 
 class edoCuenta extends Component {
 
   render() {
     let navigate = this.props.navigation;
     return (
-      <View style={{borderTopColor:"#000", borderTopWidth:24}}>
-        <Header navigation={navigate} nameHeader="Estado Cuenta"/>
-
+      
+      <Itemx.Canvas>
+        <Itemx.Header navigation={navigate} nameHeader="Estado Cuenta" iconHeader="confirmation-number"/>
+        <Itemx.Context>
         <Text>
-          Estado de Cuenta
-          <Icon name="ios-person" size={30} color="#4F8EF7" />
-        </Text>
-      </View>
+            Estado de Cuenta
+            <Icon name="ios-person" size={30} color="#4F8EF7" />
+          </Text>
+        </Itemx.Context>
+      </Itemx.Canvas>
+      
     );
   }
 }

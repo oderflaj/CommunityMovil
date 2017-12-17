@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 class Header extends React.Component{
     constructor(props){
         super(props);
-        this.state = {navigation:this.props.navigation, nameHeader:this.props.nameHeader};//Error al intentar ingresar a su cuenta.
+        this.state = {navigation:this.props.navigation, nameHeader:this.props.nameHeader, iconHeader:this.props.iconHeader || ''};//Error al intentar ingresar a su cuenta.
     }
 
     
@@ -17,6 +17,7 @@ class Header extends React.Component{
                 </TouchableWithoutFeedback>
                 <View style={styles.textHeader}>
                     <Text style={styles.title}>
+                        {/* <Icon color="#fff" name={this.state.iconHeader} size={25} style={{ marginRight:20}}/> */}
                         {this.state.nameHeader}
                     </Text>    
                 </View>
@@ -47,7 +48,7 @@ styles = {
         
     },
     textHeader:{
-        width: "80%"
+        width: "80%",
     }
 }
 

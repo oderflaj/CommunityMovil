@@ -11,25 +11,31 @@ const Context = ({children})=>{
                     </View>
                 </View>
             </ScrollView>
-            
-        
+
+
     );
 }
 
 
 const stylex={
     context:{
+        flex: 1,
         backgroundColor: "#fff",
-        height: "100%",
+        height: '100%',
         margin: 10,
         borderRadius: 5,
-        borderColor: "#E6EAEF",
-        borderWidth:1,
+        borderColor: "#D7D7D7",
+        borderWidth:2,
         padding: 10
     },
     trueCanvas:{
-        backgroundColor: "#ECF0F5", 
-        minHeight: 500
+        
+        //flexDirection: 'column',
+        backgroundColor: "#ECF0F5",
+        //height: '100%',
+        minHeight: 550
+        
+
     }
 }
 

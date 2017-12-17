@@ -23,7 +23,7 @@ class BasePage extends Component{
             return JSON.parse(x)
 
         }).then(obj=>{
-          console.warn("OBJ----->>>>>",obj)
+          //console.warn("OBJ----->>>>>",obj)
           if(obj && obj.Error == undefined){
             this.setState({loged:true})
           }
