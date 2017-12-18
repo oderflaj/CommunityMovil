@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Alert, AsyncStorage, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
@@ -16,6 +16,24 @@ class perfil extends Component {
             this.setState({usuario:r.usuario})
             this.setState({propiedades:r.propiedades})
         })
+  }
+
+  resetUser(){
+    Alert.alert(
+      'CONFIRMACION',
+      '¿Sesea desvincular su usuario de Community?',
+      [
+        
+        {text: 'SI', onPress: () =>{
+          AsyncStorage.removeItem('host')
+          AsyncStorage.removeItem('usuario')
+          AsyncStorage.removeItem('password')
+          AsyncStorage.removeItem('token')
+        }},
+        {text: 'CANCELAR', onPress: () => console.log('Cancelo desvincular usuario'),  style: 'cancel'},
+      ],
+      { cancelable: false }
+    )
   }
 
   propiedadesButton(propiedades){
@@ -70,6 +88,33 @@ class perfil extends Component {
             <Itemx.LabelValue labelx='TELEFONO' valuex={this.state.usuario.celular} />
             <Itemx.LabelValue labelx='PROPIEDADES' valuex='' />
               {this.propiedadesButton(this.state.propiedades)}
+            
+            <View style={{flexDirection:'column', justifyContent:'flex-end', flex:1 }}>
+              <View style={{ 
+                borderColor:'#2979FF', 
+                borderWidth:1, 
+                borderRadius:50, 
+                alignContent:'center',
+                justifyContent:'center',
+                padding:5,
+                maxWidth:130,
+                alignSelf:'center',
+                marginBottom:10
+                }}>
+                <TouchableWithoutFeedback onPress={this.resetUser.bind(this)}>
+                  <View style={{flexDirection:'row', }}>
+                    <View>
+                    <Icon color='#2979FF' name='sync-disabled' size={16} />
+                    </View>
+                    <View >
+                      <Text style={{color:'#2979FF', fontSize:14}}>RESET CUENTA</Text>
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
+              </View>
+            </View>
+            
+            
           </Itemx.Context>
         </Itemx.Canvas>
         
