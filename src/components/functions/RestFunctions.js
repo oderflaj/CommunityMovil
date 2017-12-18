@@ -55,8 +55,17 @@ async function getCommunity(_action, _parameters){
             return {No:"100",Error:"Error al entrar a Community, compruebe su conexión a internet.", ErrorDetail:error}
         }
       });
+    
+    let requestx = ''
 
-    return await fetch(`${_host}/api/data/${_action}`,{
+   if(_parameters !=undefined && _parameters != ''){
+    requestx = `${_host}/api/data/${_action}/${_parameters}`
+   }
+   else{
+    requestx = `${_host}/api/data/${_action}`
+   } 
+
+    return await fetch(requestx,{
         method: 'get', 
         headers: {
             Authorization: `bearer ${_token}`
@@ -129,4 +138,12 @@ async function getBase() {
     });
     return infobase;
 }
-export {login, isLoged, getBase};
+
+function formatCurrency(money){
+    return money.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      });
+}
+
+export {login, isLoged, getBase, getCommunity, formatCurrency};

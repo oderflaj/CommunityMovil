@@ -20,21 +20,11 @@ class perfil extends Component {
 
   propiedadesButton(propiedades){
 
-    // return(<Itemx.DrillButton 
-    //   onPress={()=>console.log('Imprime botonazo')}
-    //   iconIlust='home'
-    //   iconDrill='more-vert'
-    //   colorFont='#74AC3A'
-    //   >
-    //     <Text>Ok 1</Text>
-    //     <Itemx.StatusColor statusname='warning' textshow='VIGENTE' iconshow='done' colorshow=''/>
-    //   </Itemx.DrillButton>
-    //   );
     return propiedades.map(casa=>{
           if(casa.estado == 'VENCIDO')
           {
             return(<Itemx.DrillButton 
-              onPress={()=>console.log('Imprime botonazo')}
+              onPress={() =>this.props.navigation.navigate('Propiedad',{id:casa.id})}
               iconIlust='home'
               iconDrill='more-vert'
               colorFont='#A94442'
@@ -47,7 +37,7 @@ class perfil extends Component {
           else
           {
             return(<Itemx.DrillButton 
-              onPress={()=>console.log('Imprime botonazo')}
+              onPress={() =>this.props.navigation.navigate('Propiedad',{id:casa.id})}
               iconIlust='home'
               iconDrill='more-vert'
               colorFont='#3C763D'
@@ -73,7 +63,7 @@ class perfil extends Component {
       let fullname = this.state.usuario.nombre + ' ' + this.state.usuario.apepaterno + ' ' + this.state.usuario.apematerno
       return (
         <Itemx.Canvas>
-          <Itemx.Header navigation={navigate} nameHeader="Perfil" iconHeader="contacts"/>
+          <Itemx.Header navigation={navigate} nameHeader="Perfil" iconHeader="contacts" />
           <Itemx.Context>
             <Itemx.LabelValue labelx='NOMBRE' valuex={fullname}  />
             <Itemx.LabelValue labelx='EMAIL' valuex={this.state.usuario.email} />

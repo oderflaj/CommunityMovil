@@ -5,25 +5,48 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 class Header extends React.Component{
     constructor(props){
         super(props);
-        this.state = {navigation:this.props.navigation, nameHeader:this.props.nameHeader, iconHeader:this.props.iconHeader || ''};//Error al intentar ingresar a su cuenta.
+        this.state = {navigation:this.props.navigation, nameHeader:this.props.nameHeader, iconHeader:this.props.iconHeader || '', menuDirection:this.props.menuDirection || ''};//Error al intentar ingresar a su cuenta.
     }
 
     
     render(){
-        return(
-            <View style={styles.frameH}>
-                <TouchableWithoutFeedback onPress={()=>this.state.navigation.navigate('DrawerToggle')}>
-                    <Icon color="#fff" name="menu" size={30} style={{ paddingLeft:10}}/>
-                </TouchableWithoutFeedback>
-                <View style={styles.textHeader}>
-                    <Text style={styles.title}>
-                        {/* <Icon color="#fff" name={this.state.iconHeader} size={25} style={{ marginRight:20}}/> */}
-                        {this.state.nameHeader}
-                    </Text>    
-                </View>
-                
-            </View>
-        );
+
+        switch(this.state.menuDirection){
+            case 'back':
+            return(
+                    <View style={styles.frameH}>
+                        <TouchableWithoutFeedback onPress={()=>this.state.navigation.goBack()}>
+                            <Icon color="#fff" name="arrow-back" size={30} style={{ paddingLeft:10}}/>
+                        </TouchableWithoutFeedback>
+                        <View style={styles.textHeader}>
+                            <Text style={styles.title}>
+                                {/* <Icon color="#fff" name={this.state.iconHeader} size={25} style={{ marginRight:20}}/> */}
+                                {this.state.nameHeader}
+                            </Text>    
+                        </View>
+                        
+                    </View>
+                );
+            break;
+
+            default:
+                return(
+                    <View style={styles.frameH}>
+                        <TouchableWithoutFeedback onPress={()=>this.state.navigation.navigate('DrawerToggle')}>
+                            <Icon color="#fff" name="menu" size={30} style={{ paddingLeft:10}}/>
+                        </TouchableWithoutFeedback>
+                        <View style={styles.textHeader}>
+                            <Text style={styles.title}>
+                                {/* <Icon color="#fff" name={this.state.iconHeader} size={25} style={{ marginRight:20}}/> */}
+                                {this.state.nameHeader}
+                            </Text>    
+                        </View>
+                        
+                    </View>
+                );
+        }
+
+        
     }
     
 }

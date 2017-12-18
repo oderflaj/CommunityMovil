@@ -18,13 +18,13 @@ class MenuItem extends Component{
             if(item != this.state.onSelected)
             {
                 this.frameX = styles.frame
-                console.log("componentWillMount if")
+                //console.log("componentWillMount if")
                 
             }
             else
             {
                 this.frameX = styles.frameOn
-                console.log("componentWillMount else")
+                //console.log("componentWillMount else")
             }
             
             
@@ -39,11 +39,11 @@ class MenuItem extends Component{
     async componentWillUpdate(){
  
         await AsyncStorage.getItem('menuItemSelected').then(itemm=>{
-            console.log(">>>Seleccionado Itemm->",itemm," Select>",this.state.onSelected)
+            //console.log(">>>Seleccionado Itemm->",itemm," Select>",this.state.onSelected)
             if(itemm != this.state.onSelected)
             {
                 this.frameX = styles.frame
-                console.log("ENTRA")
+                //console.log("ENTRA")
                 
             }
             
@@ -52,7 +52,7 @@ class MenuItem extends Component{
     }
 
     async setSelected(){
-        console.log("Guardara>",this.state.onSelected)
+        //console.log("Guardara>",this.state.onSelected)
         await AsyncStorage.setItem('menuItemSelected',this.state.onSelected) 
         
         selectx = this.state.onSelected
@@ -62,7 +62,7 @@ class MenuItem extends Component{
 
     
     render(){
-        console.log(this.frameX, "->", selectx, "->", this.state.onSelected)
+        //console.log(this.frameX, "->", selectx, "->", this.state.onSelected)
         if( selectx == this.state.onSelected )
         {
             this.frameX = styles.frame

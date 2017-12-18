@@ -51,7 +51,7 @@ class alarm extends Component {
     return (
 
       <Itemx.Canvas>
-        <Itemx.Header navigation={navigate} nameHeader="Alarma" iconHeader="rss-feed"/>
+        <Itemx.Header navigation={navigate} nameHeader="Alarma" iconHeader="rss-feed" />
           <Itemx.Context>
             
             <Text style={{fontSize:22, fontWeight:'bold' }}>
