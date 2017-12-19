@@ -21,10 +21,10 @@ class perfil extends Component {
   resetUser(){
     Alert.alert(
       'CONFIRMACION',
-      '¿Sesea desvincular su usuario de Community?',
+      '¿Desea desvincular su usuario de Community?',
       [
         
-        {text: 'SI', onPress: () =>{
+        {text: 'ACEPTAR', onPress: () =>{
           AsyncStorage.removeItem('host')
           AsyncStorage.removeItem('usuario')
           AsyncStorage.removeItem('password')

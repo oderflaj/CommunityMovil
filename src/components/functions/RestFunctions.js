@@ -139,11 +139,7 @@ async function getBase() {
     return infobase;
 }
 
-function formatCurrency(money){
-    return money.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      });
-}
 
-export {login, isLoged, getBase, getCommunity, formatCurrency};
+
+
+export {login, isLoged, getBase, getCommunity};

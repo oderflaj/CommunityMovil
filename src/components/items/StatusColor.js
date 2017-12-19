@@ -2,9 +2,19 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const StatusColor = ({statusname,textshow,iconshow,colorshow}) => {
-    let sizeText = (textshow.length + 3) * 7
-    
+const StatusColor = ({statusname,textshow,iconshow,colorshow,iconsize,textsize, heightstatus}) => {
+    let factor =  7
+
+    if(textsize != undefined)
+    {
+        factor = (textsize * 7) / 11
+    }
+
+    let longStatus = (textshow.length + 3) * factor
+    iconsize = iconsize || 12
+    textsize = textsize || 10
+    heightstatus = heightstatus || 18
+
     switch(statusname){
         case "success":
             return(
@@ -18,16 +28,16 @@ const StatusColor = ({statusname,textshow,iconshow,colorshow}) => {
                     paddingTop: 1,
                     paddingLeft:3,
                     paddingRight:3,
-                    width:sizeText,
+                    width:longStatus,
                     //maxWidth:100,
-                    maxHeight:18
+                    maxHeight:heightstatus
                 }}>
-                    <Icon color='#3C763D' name={iconshow} size={12} /> 
+                    <Icon color='#3C763D' name={iconshow} size={iconsize} /> 
                 
                     <Text style={{
                         color:'#3C763D',
                         paddingLeft:5,
-                        fontSize:10,
+                        fontSize:textsize,
                     }}>
                         {textshow}
                     </Text>
@@ -46,16 +56,16 @@ const StatusColor = ({statusname,textshow,iconshow,colorshow}) => {
                     paddingTop: 1,
                     paddingLeft:3,
                     paddingRight:3,
-                    width:sizeText,
+                    width:longStatus,
                     //maxWidth:100,
-                    maxHeight:18
+                    maxHeight:heightstatus
                 }}>
-                    <Icon color='#31708F' name={iconshow} size={12} /> 
+                    <Icon color='#31708F' name={iconshow} size={iconsize} /> 
                 
                     <Text style={{
                         color:'#31708F',
                         paddingLeft:5,
-                        fontSize:10,
+                        fontSize:textsize,
                     }}>
                         {textshow}
                     </Text>
@@ -74,16 +84,16 @@ const StatusColor = ({statusname,textshow,iconshow,colorshow}) => {
                     paddingTop: 1,
                     paddingLeft:3,
                     paddingRight:3,
-                    width:sizeText,
+                    width:longStatus,
                     //maxWidth:100,
-                    maxHeight:18
+                    maxHeight:heightstatus
                 }}>
-                    <Icon color='#8A6D3B' name={iconshow} size={12} /> 
+                    <Icon color='#8A6D3B' name={iconshow} size={iconsize} /> 
                 
                     <Text style={{
                         color:'#8A6D3B',
                         paddingLeft:5,
-                        fontSize:10,
+                        fontSize:textsize,
                     }}>
                         {textshow}
                     </Text>
@@ -102,16 +112,16 @@ const StatusColor = ({statusname,textshow,iconshow,colorshow}) => {
                     paddingTop: 1,
                     paddingLeft:3,
                     paddingRight:3,
-                    width:sizeText,
+                    width:longStatus,
                     //maxWidth:100,
-                    maxHeight:18
+                    maxHeight:heightstatus
                 }}>
-                    <Icon color='#A94442' name={iconshow} size={12} /> 
+                    <Icon color='#A94442' name={iconshow} size={iconsize} /> 
                 
                     <Text style={{
                         color:'#A94442',
                         paddingLeft:5,
-                        fontSize:10,
+                        fontSize:textsize,
                     }}>
                         {textshow}
                     </Text>
@@ -129,16 +139,16 @@ const StatusColor = ({statusname,textshow,iconshow,colorshow}) => {
                     paddingTop: 1,
                     paddingLeft:3,
                     paddingRight:3,
-                    width:sizeText,
+                    width:longStatus,
                     //maxWidth:100,
-                    maxHeight:18
+                    maxHeight:heightstatus
                 }}>
-                    <Icon color='#fff' name={iconshow} size={12} /> 
+                    <Icon color='#fff' name={iconshow} size={iconsize} /> 
                 
                     <Text style={{
                         color:'#fff',
                         paddingLeft:5,
-                        fontSize:10,
+                        fontSize:textsize,
                     }}>
                         {textshow}
                     </Text>

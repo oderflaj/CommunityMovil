@@ -10,12 +10,22 @@ class LabelValue extends Component {
     
 
     render() {
-        return (
-            <View style={styles.contentlv}>
-                <Text style={styles.labelstyle}>{this.state.labelx}</Text>
-                <Text style={styles.valuestyle}>{this.state.valuex}</Text>
-            </View>
-        );
+        if(this.props.children == undefined)
+        {
+            return (
+                <View style={styles.contentlv}>
+                    <Text style={styles.labelstyle}>{this.state.labelx}</Text>
+                    <Text style={styles.valuestyle}>{this.state.valuex}</Text>
+                </View>
+            );
+        }else{
+            return (
+                <View style={styles.contentlv}>
+                    <Text style={styles.labelstyle}>{this.state.labelx}</Text>
+                    <View style={styles.childstyle}>{this.props.children}</View>
+                </View>
+            );
+        }
     }
 }
 
@@ -44,6 +54,9 @@ const styles = StyleSheet.create({
     },
     valuestyle:{
         fontSize:15,
+        paddingLeft: 5
+    },
+    childstyle:{
         paddingLeft: 5
     }
 })
