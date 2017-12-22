@@ -97,7 +97,7 @@ class perfil extends Component {
                 alignContent:'center',
                 justifyContent:'center',
                 padding:5,
-                maxWidth:130,
+                maxWidth:180,
                 alignSelf:'center',
                 marginBottom:10
                 }}>
@@ -107,7 +107,7 @@ class perfil extends Component {
                     <Icon color='#2979FF' name='sync-disabled' size={16} />
                     </View>
                     <View >
-                      <Text style={{color:'#2979FF', fontSize:14}}>RESET CUENTA</Text>
+                      <Text style={{color:'#2979FF', fontSize:14}}>DESVINCULAR CUENTA</Text>
                     </View>
                   </View>
                 </TouchableWithoutFeedback>

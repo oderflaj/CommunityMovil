@@ -26,7 +26,8 @@ const stylex={
         borderRadius: 5,
         borderColor: "#D7D7D7",
         borderWidth:2,
-        padding: 10
+        padding: 10,
+        marginBottom: 60
     },
     trueCanvas:{
         

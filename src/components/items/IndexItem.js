@@ -8,5 +8,6 @@ export * from './Context';
 export * from './LabelValue';
 export * from './DrillButton';
 export * from './StatusColor';
+export * from './LabelValueColor';
 export * from './../functions/RestFunctions'
 
