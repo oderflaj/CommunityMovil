@@ -113,8 +113,6 @@ class perfil extends Component {
                 </TouchableWithoutFeedback>
               </View>
             </View>
-            
-            
           </Itemx.Context>
         </Itemx.Canvas>
         

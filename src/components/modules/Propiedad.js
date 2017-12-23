@@ -98,7 +98,7 @@ class propiedad extends Component{
             let pagado = casax.pago.filter(f=>{if(f.estatus == 'cerrado') return f})
             let adeudo = casax.pago.filter(f=>{if(f.estatus == 'activo') return f})
 
-            let home ={residencia:casax.residencia, pagado:this.state.pagado, adeudo:this.state.adeudo, pagodet:casax.pagodet }
+            let home ={residencia:casax.residencia, pagado:this.state.pagado, adeudo:this.state.adeudo, pago:pagado }
             // console.log(pagado)
             // console.log(adeudo)
 

@@ -15,7 +15,13 @@ function formatCurrency(m, c, d, t){
 function formatDate(datex){
     try {
         var d = new Date(datex);
-        return `${d.getUTCDate()}/${d.getMonth()+1}/${d.getFullYear()}`
+        let mon = `${d.getMonth()+1}`
+        let day = `${d.getUTCDate()}`
+
+        mon = (mon.length>1 ? mon : `0${mon}` )
+        day = (day.length>1 ? day : `0${day}`)
+
+        return `${day}/${mon}/${d.getFullYear()}`
     } catch (error) {
         return  new Date("1990-01-01T12:00:00-00:00");
     }
