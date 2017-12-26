@@ -12,7 +12,7 @@ class LabelValueColor extends Component {
     }
 
     setValue(itemValue){
-        console.log("Devuelve algo",itemValue)
+        
         if(itemValue==undefined || itemValue != true){
             return(<View></View>)
         }
@@ -28,7 +28,7 @@ class LabelValueColor extends Component {
         
         let {statusname,textlabel,textvalue, itemValue, iconshow,colorshow,iconsize,textsize,  heightstatus} = {...this.props}
         let factor =  7
-        console.log("-------->>>>>>>>",itemValue)
+        //console.log("-------->>>>>>>>",itemValue)
         if(textsize != undefined)
         {
             factor = (textsize * 7) / 11

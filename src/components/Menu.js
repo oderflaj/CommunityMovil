@@ -8,13 +8,19 @@ import {
     areaComun,
     edoCuenta,
     propiedad,
-    pagodetalle
+    pagodetalle,
+    VisitaDetalle
 } from './modules/Indexmodule';
 import {DrawerNavigator} from 'react-navigation'
 import MenuContent from './MenuContent' 
+import Login from './Login'
 
 const Menu = DrawerNavigator(
     {
+        Login:{
+            path:'/',
+            screen: Login
+        },
         Alarma:{
             path:'/',
             screen: alarm
@@ -46,10 +52,14 @@ const Menu = DrawerNavigator(
         PagoDetalle:{
             path:'/',
             screen: pagodetalle
+        },      
+        VisitaDetalle:{
+            path:'/',
+            screen: VisitaDetalle
         }
     },
     {
-        initialRouteName:'Perfil',
+        initialRouteName:'Visita',
         drawerPosition:'left',
         contentComponent: MenuContent
     }

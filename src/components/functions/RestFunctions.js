@@ -1,10 +1,11 @@
 import React from 'react';
 import {AsyncStorage, NetInfo} from 'react-native';
+//import {NavigationActions } from 'react-navigation'
 
 
 async function login(_host, _user,_pwrd){
     
-   //console.log("Entro en Login")
+   console.log("Entro en Login 1 _host",_host,"_user",_user,"_pwrd",_pwrd)
    let result = await fetch(`${_host}/token`, { 
     method: 'post', 
     headers: {
@@ -12,7 +13,7 @@ async function login(_host, _user,_pwrd){
       'Content-Type': 'application/x-www-form-urlencoded'
     }, 
     body: 'grant_type=password&password=' + _pwrd +'&username=' + _user
-  }).then((responsex)=>{
+  }).then((responsex)=>{ console.log("Entro en Login 2")
         var _auth = JSON.parse(responsex._bodyText)
         
         if(_auth.access_token==undefined)
@@ -32,17 +33,59 @@ async function login(_host, _user,_pwrd){
         
     })
     .then(responsey=>{
-        //console.log(responsey)
+        //console.debug("Resultado->",responsey)
         return responsey
     })
-    .catch((error) => {
+    .catch((error) => {console.debug("Entro a un error")
         console.error(error);
       });
     return result//.then(r=>{return r});
 }
 
-async function getCommunity(_action, _parameters){
+// async function getCommunity(_action, _parameters){
+//     //AsyncStorage.setItem('host','http://localhost:40502')
+//     let _host = await AsyncStorage.getItem('host');
+//     let _token = await AsyncStorage.getItem('token');
+
+//     console.log("Entra getCommunity ->",`${_host}/api/data/${_action}`)
+
+//     await NetInfo.isConnected.fetch().then(isConnected => {
+//         if( !isConnected )
+//         {
+//             console.error("No hay internet")
+//             return {No:"100",Error:"Error al entrar a Community, compruebe su conexión a internet.", ErrorDetail:error}
+//         }
+//       });
     
+//     let requestx = ''
+   
+//    if(_parameters !=undefined && _parameters != ''){
+//     requestx = `${_host}/api/data/${_action}/${_parameters}`
+//    }
+//    else{
+//     requestx = `${_host}/api/data/${_action}`
+//    } 
+//     let respost = undefined
+//     return await fetch(requestx,{
+//         method: 'get', 
+//         headers: {
+//             Authorization: `bearer ${_token}`
+//             }
+//         })
+//         .then(resp=>resp.json())
+//         .then(r=>{
+//             return r
+//         })
+//         .catch((error) => {
+//             console.error(error)
+//             console.log('ERROR 1::::',error)
+//         })
+    
+// }
+
+
+async function getCommunity(_action, _parameters){
+    AsyncStorage.setItem('host','http://community.tecstrag.com')
     let _host = await AsyncStorage.getItem('host');
     let _token = await AsyncStorage.getItem('token');
 
@@ -57,14 +100,14 @@ async function getCommunity(_action, _parameters){
       });
     
     let requestx = ''
-
+   
    if(_parameters !=undefined && _parameters != ''){
     requestx = `${_host}/api/data/${_action}/${_parameters}`
    }
    else{
     requestx = `${_host}/api/data/${_action}`
    } 
-
+   //return {No:"101",Error:"Error al entrar a Community, no se tiene sesion.", ErrorDetail:'error'}
     return await fetch(requestx,{
         method: 'get', 
         headers: {
@@ -76,11 +119,14 @@ async function getCommunity(_action, _parameters){
             return r
         })
         .catch((error) => {
-            console.error(error);
-            return {No:"100",Error:"Error al entrar a Community, compruebe su conexión a internet.", ErrorDetail:error}
-          })
+            console.error(error)
+            console.log('ERROR 1::::',error)
+            return {No:"101",Error:"Error al entrar a Community, no se tiene sesion.", ErrorDetail:error}
+        })
     
 }
+
+
 
 async function isLoged(){
 
@@ -99,17 +145,27 @@ async function isLoged(){
     if( _user==null || _paswd == null || _token ==null || _host == null)
         return false
 
-    let result = await getCommunity("base")
+    let result = undefined 
     
-    if(result.Error != undefined)
-        return result
-
+    try{
+        result = await getCommunity("base")
+    }
+    catch(err){
+        console.debug("Cayo error!!!!!",err)
+    }
+    
+    if(result.Error != undefined){
+        console.debug('Cacha error')
+        if(result.No != '101')
+            return result
+    }
+    console.debug('SIGUIO',)
     //Check if there is a token available 
-    if(result.usuario == null )
+    if(result.usuario == null || result.No == '101' )
     {
         //Wether the token is unavailable you should try to login one more time with the current credentials and renew the token
         let _login = await login(_host, _user, _paswd)
-  
+        console.debug("_login", _login)
         //If the loging was successful we initialize the base info 
         if(_login=="ok")
         {

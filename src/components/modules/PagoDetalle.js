@@ -19,7 +19,7 @@ class pagodetalle extends Component{
         pagodet.sort((a,b)=>{
             return a.periodo > b.periodo ? 1 : (b.periodo > a.periodo ? -1 : 0)
         }).reverse()
-        console.log("Se siguio----------------------------")
+        
         return pagodet.map(pd=>{
             if(pd.folio==null){
                 pd.folio = 'N/A'
