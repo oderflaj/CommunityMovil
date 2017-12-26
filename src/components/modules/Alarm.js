@@ -35,7 +35,7 @@ class alarm extends Component {
       '¿Realizar llamada de emergencia?',
       [
         
-        {text: 'SI', onPress: () => call(this.args).catch(console.error)},
+        {text: 'ACEPTAR', onPress: () => call(this.args).catch(console.error)},
         {text: 'CANCELAR', onPress: () => console.log('No realizo la llamada'),  style: 'cancel'},
       ],
       { cancelable: false }

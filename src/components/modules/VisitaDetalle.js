@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
-import { View, Text,AsyncStorage } from 'react-native';
+import { View, Text, AsyncStorage, Switch, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
 import * as MisFun from './../functions/MiscFunctions';
 import DatePicker from 'react-native-datepicker'
-
 
 class VisitaDetalle extends Component{
 
@@ -21,7 +20,7 @@ class VisitaDetalle extends Component{
 
         cuFec = `${fec.getFullYear()}-${mon}-${day}`
 
-        this.state = {load:true, propiedad:this.props.propiedad, visitas:undefined, date:cuFec, baseDate:cuFec};
+        this.state = {load:true, propiedad:this.props.propiedad, visitas:undefined, date:cuFec, baseDate:cuFec, sw:false};
     }
 
     async componentDidMount(){
@@ -46,6 +45,18 @@ class VisitaDetalle extends Component{
         
     }
 
+    async redDrawList(){
+        this.setState({load:true}) 
+
+        await RestOp.getCommunity("visitas",`${this.props.propiedad.id}/${this.state.date}`,this.props.navigation).then(rr=>{
+            console.log(rr.visitas)
+            this.setState({visitas:rr.visitas})
+            this.setState({load:false})
+          })
+
+        
+    }
+
     drawList(id){
         
         if(this.state.load){
@@ -57,7 +68,7 @@ class VisitaDetalle extends Component{
         }
 
         if(this.state.visitas==undefined || this.state.visitas.length==0){
-            console.log(this.state.visitas)
+            console.debug(this.state.visitas)
             return(
                 <View style={{paddingLeft:5}}>
                     <Text style={{fontSize:12, paddingTop:5}}>NO EXISTEN VISITAS PARA LA FECHA SELECCIONADA</Text>
@@ -74,7 +85,7 @@ class VisitaDetalle extends Component{
 
             
             return vs.map(v=>{
-                console.debug("Entra a armar listado de visitas sin mucho exito...1")
+
                 const deta =()=>{
                     if(v.observacion.length>0){
                         return (<Text style={{color:'#000'}}>{v.detalle1} <Text style={{fontWeight:'bold'}}>OBSERVACION:</Text>{v.observacion}</Text>)
@@ -106,10 +117,96 @@ class VisitaDetalle extends Component{
     drawview(propiedad){
         let sta =  (propiedad.estado == 'VIGENTE' ? 'success' : 'danger')
         let icosta =  (propiedad.estado == 'VIGENTE' ? 'done' : 'close')
+        let swVal = this.state.sw
+
+        const iconStatus = ()=>{
+            
+
+            if(swVal)
+            {
+                Alert.alert(
+                    'CONFIRMACION',
+                    '¿Desea BLOQUEAR las visitas a su domicilio?',
+                    [
+                      
+                      {text: 'ACEPTAR', onPress: () => {
+                        console.log('SI-> BLOQUEO las visitas')
+                      }},
+                      {text: 'CANCELAR', onPress: () => {
+                          console.log('No BLOQUEO las visitas')
+                          this.setState({sw:false})
+                        },  style: 'cancel'},
+                    ],
+                    { cancelable: false }
+                )
+                return(
+                    <Itemx.StatusColor statusname='success' textshow='ACTIVADO' iconshow='done'  />
+                )
+            }
+            else{
+                return(
+                    <Itemx.StatusColor statusname='warning' textshow='DESACTIVADO' iconshow='info'  />
+                )
+            }
+            
+        }
 
         return(
             <View>
                 <Itemx.LabelValueColor iconshow='home' statusname={sta} textlabel={`${propiedad.calle} #${propiedad.numero}`} />
+                <View style={{flex:1, flexDirection:'row', paddingTop:20, justifyContent: 'space-between'}}>
+                    <View style={{justifyContent:'center', paddingLeft:5, width:'50%'}}>
+                        <Text style={{fontWeight:'bold'}}>BLOQUEO DE VISITAS</Text>
+                    </View>
+                    <View style={{flexDirection:'row', justifyContent: 'flex-start'}}>
+                        <Switch
+                            value={this.state.sw}
+                            onValueChange={(val) => {console.log(val), this.setState({sw:val})}}
+                            disabled={false}
+                        />
+                        <View style={{justifyContent:'center'}}>
+                            {iconStatus()}
+                        </View>
+                    </View>
+                    
+                </View>
+                    
+                <View style={{flex:1, flexDirection:'row', paddingTop:20, justifyContent: 'space-between'}}>
+                    <View style={{justifyContent:'center',paddingLeft:5, width:'50%'}}>
+                        <Text style={{fontWeight:'bold'}}>FECHA VISITA</Text>
+                    </View>
+                        
+                    <DatePicker
+                            showIcon={false}
+                            style={{width: 150, height: 40}}
+                            date={this.state.date}
+                            mode="date"
+                            placeholder={`Fecha actual ${this.state.baseDate}`}
+                            format="YYYY-MM-DD"
+                            minDate="2016-05-01"
+                            maxDate={this.state.baseDate}
+                            confirmBtnText="Confirmar"
+                            cancelBtnText="Cancelar"
+                            customStyles={{
+                            
+                            // dateIcon: {
+                            //     position: 'absolute',
+                            //     left: 0,
+                            //     top: 4,
+                            //     marginLeft: 0
+                            // },
+                            // dateInput: {
+                            //     marginLeft: 36
+                            // }
+                            // ... You can check the source to find the other keys. 
+                            }}
+                            onDateChange={(date) => {
+                                this.setState({date: date})
+                                console.log(this.state.date)
+                                this.redDrawList();
+                            }}
+                        />
+                </View>
                 <View style={{
                             flexDirection:'row',
                             backgroundColor:'#858585',
@@ -144,30 +241,6 @@ class VisitaDetalle extends Component{
                 <Itemx.Canvas>
                     <Itemx.Header navigation={navigate} nameHeader="Detalle Visitas" iconHeader="wc" menuDirection='back' />
                     <Itemx.Context>
-                    <DatePicker
-                        style={{width: 200}}
-                        date={this.state.date}
-                        mode="date"
-                        placeholder={`Fecha actual ${this.state.baseDate}`}
-                        format="YYYY-MM-DD"
-                        minDate="2016-05-01"
-                        maxDate={this.state.baseDate}
-                        confirmBtnText="Confirmar"
-                        cancelBtnText="Cancelar"
-                        customStyles={{
-                        dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0
-                        },
-                        dateInput: {
-                            marginLeft: 36
-                        }
-                        // ... You can check the source to find the other keys. 
-                        }}
-                        onDateChange={(date) => {this.setState({date: date})}}
-                    />
                         {this.drawview(this.state.propiedad)}
                     </Itemx.Context>
                 </Itemx.Canvas>
