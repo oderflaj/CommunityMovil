@@ -5,42 +5,57 @@ import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
 import * as MisFun from './../functions/MiscFunctions';
 import DatePicker from 'react-native-datepicker'
+import Splash from './../Splash'
 
 class VisitaDetalle extends Component{
 
     constructor(props){
         super(props);
-
         let fec = new Date();
         let mon = `${fec.getMonth()+1}`
-        let day = `${fec.getUTCDate()}`
+        let day = `${fec.getDate()}`
         
         mon = (mon.length>1 ? mon : `0${mon}` )
         day = (day.length>1 ? day : `0${day}`)
 
         cuFec = `${fec.getFullYear()}-${mon}-${day}`
 
-        this.state = {load:true, propiedad:this.props.propiedad, visitas:undefined, date:cuFec, baseDate:cuFec, sw:false};
+        let proper= undefined 
+        let header = undefined
+        
+        if(this.props.navigation==undefined)
+        {
+            proper = this.props.propiedad
+            header = this.props.header || false
+        }
+        else
+        {
+            proper = this.props.navigation.state.params.propiedad
+            header = this.props.navigation.state.params.header || false
+        }
+
+        this.state = {load:true, propiedad:proper, visitas:undefined, date:cuFec, baseDate:cuFec, sw:false, ft:true, header:header};
     }
 
     async componentDidMount(){
         
         let fec = new Date();
         let mon = `${fec.getMonth()+1}`
-        let day = `${fec.getUTCDate()}`
+        let day = `${fec.getDate()}`
         
         mon = (mon.length>1 ? mon : `0${mon}` )
         day = (day.length>1 ? day : `0${day}`)
 
         cuFec = `${fec.getFullYear()}-${mon}-${day}`
 
-        //console.log(`${this.props.propiedad.id}/${cuFec}`)
-
-        await RestOp.getCommunity("visitas",`${this.props.propiedad.id}/${cuFec}`,this.props.navigation).then(rr=>{
-            console.log(rr.visitas)
+        await RestOp.getCommunity("visitas",`${this.state.propiedad.id}/${cuFec}`,this.props.navigation).then(rr=>{
+            //console.log('componentDidMount',`${this.state.propiedad.id}/${cuFec}`,'-->>',rr.visitas)
             this.setState({visitas:rr.visitas})
             this.setState({load:false})
+            this.setState({sw:(rr.visitas.novisitas == 0 ? false :(rr.visitas.novisitas == undefined ? false : true))})
           })
+        
+        // console.debug("Se esta cargando la información->",this.state.sw)
 
         
     }
@@ -48,10 +63,11 @@ class VisitaDetalle extends Component{
     async redDrawList(){
         this.setState({load:true}) 
 
-        await RestOp.getCommunity("visitas",`${this.props.propiedad.id}/${this.state.date}`,this.props.navigation).then(rr=>{
-            console.log(rr.visitas)
+        await RestOp.getCommunity("visitas",`${this.state.propiedad.id}/${this.state.date}`,this.props.navigation).then(rr=>{
+            // console.log(rr.visitas)
             this.setState({visitas:rr.visitas})
             this.setState({load:false})
+            this.setState({sw:(rr.visitas.novisitas == 0 ? false : true)})
           })
 
         
@@ -114,7 +130,9 @@ class VisitaDetalle extends Component{
         }
     }
 
-    drawview(propiedad){
+    drawview(){
+        
+        let propiedad = this.state.propiedad
         let sta =  (propiedad.estado == 'VIGENTE' ? 'success' : 'danger')
         let icosta =  (propiedad.estado == 'VIGENTE' ? 'done' : 'close')
         let swVal = this.state.sw
@@ -123,22 +141,25 @@ class VisitaDetalle extends Component{
             
 
             if(swVal)
-            {
-                Alert.alert(
-                    'CONFIRMACION',
-                    '¿Desea BLOQUEAR las visitas a su domicilio?',
-                    [
-                      
-                      {text: 'ACEPTAR', onPress: () => {
-                        console.log('SI-> BLOQUEO las visitas')
-                      }},
-                      {text: 'CANCELAR', onPress: () => {
-                          console.log('No BLOQUEO las visitas')
-                          this.setState({sw:false})
-                        },  style: 'cancel'},
-                    ],
-                    { cancelable: false }
-                )
+            { 
+                if(!this.state.ft)
+                {   
+                    Alert.alert(
+                        'CONFIRMACION',
+                        '¿Desea BLOQUEAR las visitas a su domicilio?',
+                        [
+                        
+                        {text: 'ACEPTAR', onPress: () => {
+                            console.log('SI-> BLOQUEO las visitas')
+                        }},
+                        {text: 'CANCELAR', onPress: () => {
+                            console.log('No BLOQUEO las visitas')
+                            this.setState({sw:false})
+                            },  style: 'cancel'},
+                        ],
+                        { cancelable: false }
+                    )
+                }
                 return(
                     <Itemx.StatusColor statusname='success' textshow='ACTIVADO' iconshow='done'  />
                 )
@@ -161,7 +182,7 @@ class VisitaDetalle extends Component{
                     <View style={{flexDirection:'row', justifyContent: 'flex-start'}}>
                         <Switch
                             value={this.state.sw}
-                            onValueChange={(val) => {console.log(val), this.setState({sw:val})}}
+                            onValueChange={(val) => {console.log(val), this.setState({sw:val,ft:false})}}
                             disabled={false}
                         />
                         <View style={{justifyContent:'center'}}>
@@ -228,20 +249,26 @@ class VisitaDetalle extends Component{
 
     render(){
         
-        const {header,navigate} = {...this.props}
-
-        if(!header){
+        const {navigation} = {...this.props}
+        //const {header, propiedad} ={...navigation.state.params}
+        
+        if(!this.state.header){
             return(
                 <View>
-                    {this.drawview(this.state.propiedad)}
+                    {this.drawview()}
                 </View>
             )
         }else{
+            if(this.state.propiedad==undefined)
+            {
+                return(<Splash/>)
+            }
+            
             return(
                 <Itemx.Canvas>
-                    <Itemx.Header navigation={navigate} nameHeader="Detalle Visitas" iconHeader="wc" menuDirection='back' />
+                    <Itemx.Header navigation={navigation} nameHeader="Detalle Visitas" iconHeader="wc" menuDirection='back' />
                     <Itemx.Context>
-                        {this.drawview(this.state.propiedad)}
+                        {this.drawview()}
                     </Itemx.Context>
                 </Itemx.Canvas>
             )

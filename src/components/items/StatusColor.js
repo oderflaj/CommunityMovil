@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const StatusColor = ({statusname,textshow,iconshow,colorshow,iconsize,textsize, heightstatus}) => {
+const StatusColor = ({statusname,textshow,iconshow,colorshow,iconsize,textsize, heightstatus,colortext}) => {
     let factor =  7
 
     if(textsize != undefined)
@@ -14,6 +14,8 @@ const StatusColor = ({statusname,textshow,iconshow,colorshow,iconsize,textsize, 
     iconsize = iconsize || 12
     textsize = textsize || 10
     heightstatus = heightstatus || 18
+    colortext = colortext || '#000'
+    colorshow = colorshow || '#fff'
 
     switch(statusname){
         case "success":
@@ -143,10 +145,10 @@ const StatusColor = ({statusname,textshow,iconshow,colorshow,iconsize,textsize, 
                     //maxWidth:100,
                     maxHeight:heightstatus
                 }}>
-                    <Icon color='#fff' name={iconshow} size={iconsize} /> 
+                    <Icon color={colortext} name={iconshow} size={iconsize} /> 
                 
                     <Text style={{
-                        color:'#fff',
+                        color:colortext,
                         paddingLeft:5,
                         fontSize:textsize,
                     }}>

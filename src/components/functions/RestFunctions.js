@@ -107,7 +107,7 @@ async function getCommunity(_action, _parameters){
    else{
     requestx = `${_host}/api/data/${_action}`
    } 
-   //return {No:"101",Error:"Error al entrar a Community, no se tiene sesion.", ErrorDetail:'error'}
+   //console.debug("getCommunity",requestx)
     return await fetch(requestx,{
         method: 'get', 
         headers: {
