@@ -37,12 +37,13 @@ import axios from 'axios';
         this.setState({spin:true})
         this.setState({error:false})
         this.setState({message:''})
-        //console.log("11111111111111111111111")
+        
         RestOp.login(_host,_user,_pwrd).then(
             r=>{
                 if(r === "ok")
                 {
-        
+                    RestOp.registerForPushNotificationsAsync()
+                    this.props.login()
                 }
                 else
                 {
@@ -116,50 +117,38 @@ import axios from 'axios';
          );
      }
 
+     //Render Components
      render(){
         const {imgLogo, mainContainer, keyUser,labelUser} = styles;
          return(
-             <View style={mainContainer}> 
-                 <Image
-                     style={imgLogo}
-                     source={require('./../image/tgslogo.jpg')}
-                 />
-                 <View style={{justifyContent: 'space-around'}}>
-                     <Text style={labelUser}>
-                         CLAVE UNICA USUARIO
-                     </Text>
-                     <TextInput style={keyUser} placeholder="Introduzca la clave que llego a su email." multiline onEndEditing={this.clearFocus}/>
-                  
-                 </View>
-                 {this.renderError()}
-                 {this.renderButton()}
-             </View>
+            <View style={stylex.bgLogin}>
+                <Image 
+                style={stylex.bgLogin}
+                source={require('./../image/bgLogin.png')}
+                />
+
+
+                <View style={mainContainer}> 
+                    <Image
+                        style={imgLogo}
+                        source={require('./../image/tgslogo.jpg')}
+                    />
+                    <View style={{justifyContent: 'space-around'}}>
+                        <Text style={labelUser}>
+                            CLAVE UNICA USUARIO
+                        </Text>
+                        <TextInput style={keyUser} placeholder="Introduzca la clave que llego a su email." multiline onEndEditing={this.clearFocus}/>
+                    
+                    </View>
+                    {this.renderError()}
+                    {this.renderButton()}
+                </View>
+
+            </View>
          );
      }
  }
 
-// const Login = () =>{
-//     const {imgLogo, mainContainer, keyUser,labelUser} = styles;
-//     return(
-//         <View style={mainContainer}> 
-//             <Image
-//                 style={imgLogo}
-//                 source={require('./../image/tgslogo.jpg')}
-//             />
-//             <View style={{justifyContent: 'space-around'}}>
-//                 <Text style={labelUser}>
-//                     CLAVE UNICA USUARIO
-//                 </Text>
-//                 <TextInput style={keyUser} placeholder="Introduzca la clave que llego a su email." multiline />
-//           
-//             </View>
-//             <CustomMessage style={{alignSelf: 'center'}} />
-//             <BigButton onPress={()=>console.warn("Presiono el boton")}>
-//                 ENTRAR
-//             </BigButton> 
-//         </View>
-//     );
-//};
 
 const styles = StyleSheet.create({
     imgLogo:{
@@ -194,5 +183,16 @@ const styles = StyleSheet.create({
     }
 })
 
-//Render
+const stylex =StyleSheet.create({
+    bgLogin:{
+      flex: 1,
+      justifyContent: 'center',
+      backgroundColor: '#F5FCFF',
+      position: 'absolute',
+      alignSelf: 'center',
+      height: '100%',
+      width: '100%'
+    }
+  });
+
 export default Login;

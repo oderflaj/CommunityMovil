@@ -67,7 +67,7 @@ class VisitaDetalle extends Component{
             // console.log(rr.visitas)
             this.setState({visitas:rr.visitas})
             this.setState({load:false})
-            this.setState({sw:(rr.visitas.novisitas == 0 ? false : true)})
+            this.setState({sw:(rr.visitas.novisitas == 0 ? false :(rr.visitas.novisitas == undefined ? false : true))})
           })
 
         
@@ -229,18 +229,19 @@ class VisitaDetalle extends Component{
                         />
                 </View>
                 <View style={{
-                            flexDirection:'row',
-                            backgroundColor:'#858585',
-                            paddingLeft:5,
-                            marginTop:20
-                            }}>
-                                <View style={{width:'20%', justifyContent:'center',flexDirection:'row'}}>
-                                    <Text style={{color:'#fff'}}>HORA</Text>
-                                </View>
-                                <View style={{width:'80%', justifyContent:'center', flexDirection:'row'}}>
-                                    <Text style={{color:'#fff'}}>DETALLE</Text>
-                                </View>
+                    flexDirection:'row',
+                    backgroundColor:'#858585',
+                    paddingLeft:5,
+                    marginTop:20
+                    }}>
+                        <View style={{width:'20%', justifyContent:'center',flexDirection:'row'}}>
+                            <Text style={{color:'#fff'}}>HORA</Text>
                         </View>
+                        <View style={{width:'80%', justifyContent:'center', flexDirection:'row'}}>
+                            <Text style={{color:'#fff'}}>DETALLE</Text>
+                        </View>
+                </View>
+                
                 {this.drawList(propiedad.id)}
             </View>
             

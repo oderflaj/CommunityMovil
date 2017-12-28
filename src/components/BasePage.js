@@ -38,6 +38,11 @@ class BasePage extends Component{
         });    
     }
 
+    generalLogin(){
+        console.debug("Se ha logeado")
+        this.setState({loged:true})
+    }
+
     render(){
         if(this.state.loged==undefined)
             return(
@@ -45,19 +50,21 @@ class BasePage extends Component{
             );
 
         if(this.state.loged)
+        {
+            console.debug("Ya esta true..........")
             return(
                <Menu/>
                
             );
-    
+        }
         return(
-            <View style={stylex.bgLogin}>
-                <Image 
-                style={stylex.bgLogin}
-                source={require('./../image/bgLogin.png')}
-                />
-                <Login/>
-            </View>
+            // <View style={stylex.bgLogin}>
+            //     <Image 
+            //     style={stylex.bgLogin}
+            //     source={require('./../image/bgLogin.png')}
+            //     />
+                <Login login={this.generalLogin.bind(this)} />
+            // </View>
         );
     }
 }

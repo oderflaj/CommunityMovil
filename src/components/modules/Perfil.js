@@ -29,6 +29,7 @@ class perfil extends Component {
           AsyncStorage.removeItem('usuario')
           AsyncStorage.removeItem('password')
           AsyncStorage.removeItem('token')
+          this.props.navigation.navigate('Login')
         }},
         {text: 'CANCELAR', onPress: () => console.log('Cancelo desvincular usuario'),  style: 'cancel'},
       ],
@@ -99,7 +100,8 @@ class perfil extends Component {
                 padding:5,
                 maxWidth:180,
                 alignSelf:'center',
-                marginBottom:10
+                marginBottom:10,
+                marginTop:10
                 }}>
                 <TouchableWithoutFeedback onPress={this.resetUser.bind(this)}>
                   <View style={{flexDirection:'row', }}>

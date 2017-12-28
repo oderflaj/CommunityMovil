@@ -59,7 +59,7 @@ const Menu = DrawerNavigator(
         }
     },
     {
-        initialRouteName:'Visita',
+        initialRouteName:'Alarma',
         drawerPosition:'left',
         contentComponent: MenuContent
     }

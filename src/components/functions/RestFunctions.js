@@ -1,11 +1,11 @@
 import React from 'react';
 import {AsyncStorage, NetInfo} from 'react-native';
-//import {NavigationActions } from 'react-navigation'
+import { Permissions, Notifications } from 'expo';
 
 
 async function login(_host, _user,_pwrd){
     
-   console.log("Entro en Login 1 _host",_host,"_user",_user,"_pwrd",_pwrd)
+   //console.debug("Entro en Login 1 _host",_host,"_user",_user,"_pwrd",_pwrd)
    let result = await fetch(`${_host}/token`, { 
     method: 'post', 
     headers: {
@@ -41,47 +41,6 @@ async function login(_host, _user,_pwrd){
       });
     return result//.then(r=>{return r});
 }
-
-// async function getCommunity(_action, _parameters){
-//     //AsyncStorage.setItem('host','http://localhost:40502')
-//     let _host = await AsyncStorage.getItem('host');
-//     let _token = await AsyncStorage.getItem('token');
-
-//     console.log("Entra getCommunity ->",`${_host}/api/data/${_action}`)
-
-//     await NetInfo.isConnected.fetch().then(isConnected => {
-//         if( !isConnected )
-//         {
-//             console.error("No hay internet")
-//             return {No:"100",Error:"Error al entrar a Community, compruebe su conexión a internet.", ErrorDetail:error}
-//         }
-//       });
-    
-//     let requestx = ''
-   
-//    if(_parameters !=undefined && _parameters != ''){
-//     requestx = `${_host}/api/data/${_action}/${_parameters}`
-//    }
-//    else{
-//     requestx = `${_host}/api/data/${_action}`
-//    } 
-//     let respost = undefined
-//     return await fetch(requestx,{
-//         method: 'get', 
-//         headers: {
-//             Authorization: `bearer ${_token}`
-//             }
-//         })
-//         .then(resp=>resp.json())
-//         .then(r=>{
-//             return r
-//         })
-//         .catch((error) => {
-//             console.error(error)
-//             console.log('ERROR 1::::',error)
-//         })
-    
-// }
 
 
 async function getCommunity(_action, _parameters){
@@ -126,6 +85,52 @@ async function getCommunity(_action, _parameters){
     
 }
 
+async function postCommunity(_action, _parameters){
+    AsyncStorage.setItem('host','http://community.tecstrag.com')
+    let _host = await AsyncStorage.getItem('host');
+    let _token = await AsyncStorage.getItem('token');
+
+    console.log("Entra getCommunity ->",`${_host}/api/data/${_action}`)
+
+    await NetInfo.isConnected.fetch().then(isConnected => {
+        if( !isConnected )
+        {
+            console.error("No hay internet")
+            return {No:"100",Error:"Error al entrar a Community, compruebe su conexión a internet.", ErrorDetail:error}
+        }
+      });
+    
+    let requestx = ''
+   
+
+    if(_parameters !=undefined && _parameters != ''){
+        requestx = `${_host}/api/data/${_action}/${_parameters}`
+    }
+    else{
+        requestx = `${_host}/api/data/${_action}`
+    } 
+
+
+    console.debug("postCommunity",requestx)
+    return await fetch(requestx,{
+            method: 'post', 
+            headers: {
+                'Authorization': `bearer ${_token}`
+                },
+            // body:_parameters
+        })
+        .then(resp=>resp.json())
+        .then(r=>{
+            console.debug("Resultado del post",r)
+            return r
+        })
+        .catch((error) => {
+            console.error(error)
+            console.log('ERROR 1::::',error)
+            return {No:"101",Error:"Error al entrar a Community, no se tiene sesion.", ErrorDetail:error}
+        })
+    
+}
 
 
 async function isLoged(){
@@ -195,7 +200,50 @@ async function getBase() {
     return infobase;
 }
 
+async function registerForPushNotificationsAsync() {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
+    let finalStatus = existingStatus;
+  
+    // only ask if permissions have not already been determined, because
+    // iOS won't necessarily prompt the user a second time.
+    if (existingStatus !== 'granted') {
+      // Android remote notification permissions are granted during the app
+      // install, so this will only ask on iOS
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+  
+    // Stop here if the user did not grant permissions
+    if (finalStatus !== 'granted') {
+      return;
+    }
+    let _infobase = JSON.parse( await AsyncStorage.getItem('infobase'));
+    // Get the token that uniquely identifies this device
+    let token = await Notifications.getExpoPushTokenAsync();
+  
+    // POST the token to your backend server from where you can retrieve it to send push notifications.
+    // return fetch(PUSH_ENDPOINT, {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     token: {
+    //       value: token,
+    //     },
+    //     user: {
+    //       username: 'Brent',
+    //     },
+    //   }),
+    // });
 
+    let para = `${_infobase.usuario.id}/${token}`
 
+    postCommunity('pushNotToken',para)
+    console.warn('TOKEN',token)
+  }
 
-export {login, isLoged, getBase, getCommunity};
+export {login, isLoged, getBase, getCommunity, registerForPushNotificationsAsync};
