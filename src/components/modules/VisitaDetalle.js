@@ -49,10 +49,10 @@ class VisitaDetalle extends Component{
         cuFec = `${fec.getFullYear()}-${mon}-${day}`
 
         await RestOp.getCommunity("visitas",`${this.state.propiedad.id}/${cuFec}`,this.props.navigation).then(rr=>{
-            //console.log('componentDidMount',`${this.state.propiedad.id}/${cuFec}`,'-->>',rr.visitas)
+            console.log('componentDidMount',`${this.state.propiedad.id}/${cuFec}`,'-->>',rr.visitas)
             this.setState({visitas:rr.visitas})
             this.setState({load:false})
-            this.setState({sw:(rr.visitas.novisitas == 0 ? false :(rr.visitas.novisitas == undefined ? false : true))})
+            this.setState({sw:(this.props.navigation.state.params.propiedad.novisitas == 0 ? false :(this.props.navigation.state.params.propiedad.novisitas == undefined ? false : true))})
           })
         
         // console.debug("Se esta cargando la información->",this.state.sw)
@@ -67,7 +67,7 @@ class VisitaDetalle extends Component{
             // console.log(rr.visitas)
             this.setState({visitas:rr.visitas})
             this.setState({load:false})
-            this.setState({sw:(rr.visitas.novisitas == 0 ? false :(rr.visitas.novisitas == undefined ? false : true))})
+            this.setState({sw:(this.props.navigation.state.params.propiedad.novisitas == 0 ? false :(this.props.navigation.state.params.propiedad.novisitas == undefined ? false : true))})
           })
 
         
@@ -182,7 +182,7 @@ class VisitaDetalle extends Component{
                     <View style={{flexDirection:'row', justifyContent: 'flex-start'}}>
                         <Switch
                             value={this.state.sw}
-                            onValueChange={(val) => {console.log(val), this.setState({sw:val,ft:false})}}
+                            onValueChange={(val) => {console.log("Switch->",val), this.setState({sw:val,ft:false})}}
                             disabled={false}
                         />
                         <View style={{justifyContent:'center'}}>
@@ -222,6 +222,7 @@ class VisitaDetalle extends Component{
                             // ... You can check the source to find the other keys. 
                             }}
                             onDateChange={(date) => {
+                                this.setState({ft:true})
                                 this.setState({date: date})
                                 console.log(this.state.date)
                                 this.redDrawList();
@@ -267,7 +268,7 @@ class VisitaDetalle extends Component{
             
             return(
                 <Itemx.Canvas>
-                    <Itemx.Header navigation={navigation} nameHeader="Detalle Visitas" iconHeader="wc" menuDirection='back' />
+                    <Itemx.Header navigation={navigation} nameHeader="Detalle Visitas" iconHeader="wc" menuDirection='back' menuItem='Visita' />
                     <Itemx.Context>
                         {this.drawview()}
                     </Itemx.Context>

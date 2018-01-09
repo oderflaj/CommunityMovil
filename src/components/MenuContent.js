@@ -25,7 +25,7 @@ export default class MenuContent extends Component{
     render(){
         const {navigate} = this.props.navigation;
         let x =  this.state.infobase
-        console.log("Se actualiza 2")
+        //console.log("Se actualiza 2")
         return(
             <View style={{borderTopColor:"#000", borderTopWidth:24, backgroundColor: "#222D32", height:"100%"} }>       
                 <View style={styles.menuHeader}>                    

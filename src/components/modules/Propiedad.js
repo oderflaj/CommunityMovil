@@ -98,13 +98,13 @@ class propiedad extends Component{
             let pagado = casax.pago.filter(f=>{if(f.estatus == 'cerrado') return f})
             let adeudo = casax.pago.filter(f=>{if(f.estatus == 'activo') return f})
 
-            let home ={residencia:casax.residencia, pagado:this.state.pagado, adeudo:this.state.adeudo, pago:pagado }
+            let home ={residencia:casax.residencia, pagado:this.state.pagado, adeudo:this.state.adeudo, pago:pagado, id:casax.residencia.id }
             // console.log(pagado)
             // console.log(adeudo)
 
             return(
                 <Itemx.Canvas>
-                    <Itemx.Header navigation={this.props.navigation} nameHeader={`${casax.residencia.calle} #${casax.residencia.numero}`} iconHeader="contacts" menuDirection='back' />
+                    <Itemx.Header navigation={this.props.navigation} nameHeader={`${casax.residencia.calle} #${casax.residencia.numero}`} iconHeader="contacts" menuDirection='back' menuItem='Perfil' />
                     <Itemx.Context>
                         <Itemx.LabelValueColor statusname='info' textlabel='ESTATUS' itemValue={true} iconshow='home' >
                             {this.returnStatus(casax.residencia.estado)}

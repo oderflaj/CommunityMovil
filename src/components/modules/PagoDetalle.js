@@ -70,7 +70,13 @@ class pagodetalle extends Component{
 
         return(
             <Itemx.Canvas>
-                <Itemx.Header navigation={this.props.navigation} nameHeader={`${params.home.residencia.calle} #${params.home.residencia.numero}`} iconHeader="contacts" menuDirection='back' />
+                <Itemx.Header navigation={this.props.navigation} 
+                                nameHeader={`${params.home.residencia.calle} #${params.home.residencia.numero}`} 
+                                iconHeader="contacts" 
+                                menuDirection='back' 
+                                menuItem='Propiedad'
+                                menuItemParams= {{id:params.home.residencia.id}}
+                                 />
                 <Itemx.Context>
                     <Itemx.LabelValueColor statusname='warning' textlabel='MONTO PAGADO' textvalue={`$${params.home.pagado}`} iconshow='monetization-on' textsize={18} />
                     <View style={{backgroundColor:'#858585', paddingLeft:5, marginTop:20}}>

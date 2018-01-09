@@ -5,17 +5,26 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 class Header extends React.Component{
     constructor(props){
         super(props);
-        this.state = {navigation:this.props.navigation, nameHeader:this.props.nameHeader, iconHeader:this.props.iconHeader || '', menuDirection:this.props.menuDirection || ''};//Error al intentar ingresar a su cuenta.
+        this.state = {navigation:this.props.navigation, 
+            nameHeader:this.props.nameHeader, 
+            iconHeader:this.props.iconHeader || '', 
+            menuDirection:this.props.menuDirection || '', 
+            menuItem: this.props.menuItem || '',
+            menuItemParams: this.props.menuItemParams || {}
+        };//Error al intentar ingresar a su cuenta.
     }
 
     
     render(){
-
+        
         switch(this.state.menuDirection){
             case 'back':
             return(
                     <View style={styles.frameH}>
-                        <TouchableWithoutFeedback onPress={()=>this.state.navigation.goBack()}>
+                        <TouchableWithoutFeedback 
+                        //onPress={()=>this.state.navigation.goBack()}
+                        onPress={() =>this.props.navigation.navigate(this.state.menuItem,this.state.menuItemParams)}
+                        >
                             <Icon color="#fff" name="arrow-back" size={30} style={{ paddingLeft:10}}/>
                         </TouchableWithoutFeedback>
                         <View style={styles.textHeader}>

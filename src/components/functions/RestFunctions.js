@@ -44,7 +44,7 @@ async function login(_host, _user,_pwrd){
 
 
 async function getCommunity(_action, _parameters){
-    AsyncStorage.setItem('host','http://community.tecstrag.com')
+    //AsyncStorage.setItem('host','http://community.tecstrag.com')
     let _host = await AsyncStorage.getItem('host');
     let _token = await AsyncStorage.getItem('token');
 
