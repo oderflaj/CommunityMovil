@@ -38,13 +38,15 @@ async function login(_host, _user,_pwrd){
     })
     .catch((error) => {console.debug("Entro a un error")
         console.error(error);
+        throw error
       });
     return result//.then(r=>{return r});
 }
 
 
-async function getCommunity(_action, _parameters){
+async function getCommunity(_action, _parameters, _verb){
     //AsyncStorage.setItem('host','http://community.tecstrag.com')
+    _verb = _verb || 'get'
     let _host = await AsyncStorage.getItem('host');
     let _token = await AsyncStorage.getItem('token');
 
@@ -66,9 +68,9 @@ async function getCommunity(_action, _parameters){
    else{
     requestx = `${_host}/api/data/${_action}`
    } 
-   //console.debug("getCommunity",requestx)
+   console.debug("getCommunity",requestx)
     return await fetch(requestx,{
-        method: 'get', 
+        method: _verb, 
         headers: {
             Authorization: `bearer ${_token}`
             }
@@ -80,13 +82,14 @@ async function getCommunity(_action, _parameters){
         .catch((error) => {
             console.error(error)
             console.log('ERROR 1::::',error)
-            return {No:"101",Error:"Error al entrar a Community, no se tiene sesion.", ErrorDetail:error}
+            //return {No:"101",Error:"Error al entrar a Community, no se tiene sesion.", ErrorDetail:error}
+            throw {No:"101",Error:"Error al entrar a Community, no se tiene sesion.", ErrorDetail:error}
         })
-    
+
 }
 
 async function postCommunity(_action, _parameters){
-    AsyncStorage.setItem('host','http://community.tecstrag.com')
+    //AsyncStorage.setItem('host','http://community.tecstrag.com')
     let _host = await AsyncStorage.getItem('host');
     let _token = await AsyncStorage.getItem('token');
 
@@ -168,19 +171,25 @@ async function isLoged(){
     //Check if there is a token available 
     if(result.usuario == null || result.No == '101' )
     {
-        //Wether the token is unavailable you should try to login one more time with the current credentials and renew the token
-        let _login = await login(_host, _user, _paswd)
-        console.debug("_login", _login)
-        //If the loging was successful we initialize the base info 
-        if(_login=="ok")
-        {
-            result = await getCommunity("base")
-            AsyncStorage.setItem('infobase',JSON.stringify(result))
-            //console.log(result)
-            return true;
-        }
+        try{            
+            //Wether the token is unavailable you should try to login one more time with the current credentials and renew the token
+            let _login = await login(_host, _user, _paswd)
+            console.debug("_login", _login)
+            //If the loging was successful we initialize the base info 
+            if(_login=="ok")
+            {
+                result = await getCommunity("base")
+                AsyncStorage.setItem('infobase',JSON.stringify(result))
+                //console.log(result)
+                return true;
+            }
 
-        return false
+            return false
+        }
+        catch(err)
+        {
+            return {No:"102",Error:"Error intentar iniciar sesion.", ErrorDetail:err}
+        }
     }
     else
     {

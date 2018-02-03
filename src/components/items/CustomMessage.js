@@ -50,7 +50,10 @@ const styles = {
         alignSelf: 'center',
         backgroundColor: '#330000',
         padding: 10,
-        borderRadius: 5
+        borderRadius: 5,
+        marginLeft: 10,
+        marginRight: 10
+
     }
 };
 

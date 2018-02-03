@@ -61,7 +61,9 @@ import axios from 'axios';
                 this.setState({spin:false})
             },
             r=>{
-                console.log("Todo fallo",r)
+                this.setState({message:"Error al intentar entrar a sesión. Intente de nuevo, si el problema persiste contacte a su administrador para que le proporcione una actualización de clave."})
+                this.setState({error:true})
+                this.setState({spin:false})
             }
         );
         

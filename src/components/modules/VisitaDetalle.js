@@ -47,9 +47,9 @@ class VisitaDetalle extends Component{
         day = (day.length>1 ? day : `0${day}`)
 
         cuFec = `${fec.getFullYear()}-${mon}-${day}`
-
-        await RestOp.getCommunity("visitas",`${this.state.propiedad.id}/${cuFec}`,this.props.navigation).then(rr=>{
-            console.log('componentDidMount',`${this.state.propiedad.id}/${cuFec}`,'-->>',rr.visitas)
+        console.debug(`${this.state.propiedad.id}/${cuFec}`)
+        await RestOp.getCommunity("visitas",`${this.state.propiedad.id}/${cuFec}`).then(rr=>{
+            //console.log('componentDidMount',`${this.state.propiedad.id}/${cuFec}`,'-->>',rr.visitas)
             this.setState({visitas:rr.visitas})
             this.setState({load:false})
             this.setState({sw:(this.props.navigation.state.params.propiedad.novisitas == 0 ? false :(this.props.navigation.state.params.propiedad.novisitas == undefined ? false : true))})
@@ -62,8 +62,8 @@ class VisitaDetalle extends Component{
 
     async redDrawList(){
         this.setState({load:true}) 
-
-        await RestOp.getCommunity("visitas",`${this.state.propiedad.id}/${this.state.date}`,this.props.navigation).then(rr=>{
+        
+        await RestOp.getCommunity("visitas",`${this.state.propiedad.id}/${this.state.date}`).then(rr=>{
             // console.log(rr.visitas)
             this.setState({visitas:rr.visitas})
             this.setState({load:false})
@@ -84,7 +84,7 @@ class VisitaDetalle extends Component{
         }
 
         if(this.state.visitas==undefined || this.state.visitas.length==0){
-            console.debug(this.state.visitas)
+            //console.debug(this.state.visitas)
             return(
                 <View style={{paddingLeft:5}}>
                     <Text style={{fontSize:12, paddingTop:5}}>NO EXISTEN VISITAS PARA LA FECHA SELECCIONADA</Text>
@@ -150,10 +150,26 @@ class VisitaDetalle extends Component{
                         [
                         
                         {text: 'ACEPTAR', onPress: () => {
-                            console.log('SI-> BLOQUEO las visitas')
+                            try{
+                                RestOp.getCommunity("updateVisitas",`${this.state.propiedad.id}/on`,'put').then(rr=>{
+                                    console.debug("Activo bloqueo de visitas")
+                                  })
+                            }
+                            catch(error){
+                                Alert.alert(
+                                    'Error',
+                                    `Se presento un problema en el proceso de Bloqueo de visitas, asegurese de tener conexion de internet.\n ${error}\nSi el problema persiste reportelo a Tecstrag.`
+                                    [
+                                      {text: 'OK', onPress: () => console.debug('OK Pressed')}
+                                    ],
+                                    { cancelable: false }
+                                  )
+                            }
+                            console.debug('SI-> BLOQUEO las visitas')
+
                         }},
                         {text: 'CANCELAR', onPress: () => {
-                            console.log('No BLOQUEO las visitas')
+                            console.debug('No BLOQUEO las visitas')
                             this.setState({sw:false})
                             },  style: 'cancel'},
                         ],
@@ -165,6 +181,23 @@ class VisitaDetalle extends Component{
                 )
             }
             else{
+
+                try{
+                    RestOp.getCommunity("updateVisitas",`${this.state.propiedad.id}/off`,'put').then(rr=>{
+                        console.debug("Cancelo bloqueo de visitas")
+                      })
+                }
+                catch(error){
+                    Alert.alert(
+                        'Error',
+                        `Se presento un problema en el proceso de Bloqueo de visitas, asegurese de tener conexion de internet.\n ${error}\nSi el problema persiste reportelo a Tecstrag.`
+                        [
+                          {text: 'OK', onPress: () => console.debug('OK Pressed')}
+                        ],
+                        { cancelable: false }
+                      )
+                }
+
                 return(
                     <Itemx.StatusColor statusname='warning' textshow='DESACTIVADO' iconshow='info'  />
                 )
@@ -182,7 +215,7 @@ class VisitaDetalle extends Component{
                     <View style={{flexDirection:'row', justifyContent: 'flex-start'}}>
                         <Switch
                             value={this.state.sw}
-                            onValueChange={(val) => {console.log("Switch->",val), this.setState({sw:val,ft:false})}}
+                            onValueChange={(val) => {console.debug("Switch->",val), this.setState({sw:val,ft:false})}}
                             disabled={false}
                         />
                         <View style={{justifyContent:'center'}}>
