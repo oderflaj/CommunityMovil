@@ -183,9 +183,13 @@ class VisitaDetalle extends Component{
             else{
 
                 try{
-                    RestOp.getCommunity("updateVisitas",`${this.state.propiedad.id}/off`,'put').then(rr=>{
-                        console.debug("Cancelo bloqueo de visitas")
-                      })
+                    if(!this.state.ft)
+                    {
+                        RestOp.getCommunity("updateVisitas",`${this.state.propiedad.id}/off`,'put').then(rr=>{
+                            console.debug("Cancelo bloqueo de visitas")
+                          })    
+                    }
+                    
                 }
                 catch(error){
                     Alert.alert(
