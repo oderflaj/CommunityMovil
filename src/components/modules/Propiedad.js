@@ -48,7 +48,8 @@ class propiedad extends Component{
     }
 
     pagosPendientes(adeudo){
-        if(adeudo==undefined || adeudo.lenght == 0){
+        
+        if(adeudo==undefined || adeudo.length  == 0){
             return(
             <View style={{paddingLeft:5}}>
                 <Text style={{fontSize:13}}>NO TIENE PAGOS PENDIENTES</Text>
@@ -109,7 +110,7 @@ class propiedad extends Component{
                         <Itemx.LabelValueColor statusname='info' textlabel='ESTATUS' itemValue={true} iconshow='home' >
                             {this.returnStatus(casax.residencia.estado)}
                         </Itemx.LabelValueColor>
-                        <Itemx.LabelValueColor statusname='success' textlabel='PAGADO' textvalue={ `$${this.state.pagado}`} iconshow='check-circle' />
+                        {/* <Itemx.LabelValueColor statusname='success' textlabel='PAGADO' textvalue={ `$${this.state.pagado}`} iconshow='check-circle' /> */}
                         <Itemx.LabelValueColor statusname='danger' textlabel='ADEUDO' textvalue={ `$${this.state.adeudo}`} iconshow='cancel' />
                         
                         
@@ -130,6 +131,30 @@ class propiedad extends Component{
                             </View>
                         </View>
                         
+                        
+                        <View style={{
+                            flexDirection:'row',
+                            marginTop:20,
+                            //borderColor:'#858585',
+                            //borderBottomWidth:10
+                            }}>
+                                <Text style={{fontWeight:'bold'}}>PAGOS PENDIENTES</Text>
+                        </View>
+                        <View style={{
+                            flexDirection:'row',
+                            backgroundColor:'#858585',
+                            paddingLeft:5
+                            }}>
+                                <View style={{width:'50%'}}>
+                                    <Text style={{color:'#fff'}}>PERIODO</Text>
+                                </View>
+                                <View style={{width:'50%'}}>
+                                    <Text style={{color:'#fff'}}>MONTO</Text>
+                                </View>
+                        </View>
+                        <View style={{marginBottom:10}}>
+                            {this.pagosPendientes(adeudo)}
+                        </View>
                         <View style={{marginTop:20}}>
                             <Itemx.DrillButton 
                                 onPress={() =>this.feeDetail(home)}
@@ -154,29 +179,6 @@ class propiedad extends Component{
                                     </Text>
                                 </View>
                             </Itemx.DrillButton>
-                        </View>
-                        <View style={{
-                            flexDirection:'row',
-                            marginTop:20,
-                            //borderColor:'#858585',
-                            //borderBottomWidth:10
-                            }}>
-                                <Text style={{fontWeight:'bold'}}>PAGOS PENDIENTES</Text>
-                        </View>
-                        <View style={{
-                            flexDirection:'row',
-                            backgroundColor:'#858585',
-                            paddingLeft:5
-                            }}>
-                                <View style={{width:'50%'}}>
-                                    <Text style={{color:'#fff'}}>PERIODO</Text>
-                                </View>
-                                <View style={{width:'50%'}}>
-                                    <Text style={{color:'#fff'}}>MONTO</Text>
-                                </View>
-                        </View>
-                        <View style={{marginBottom:10}}>
-                            {this.pagosPendientes(adeudo)}
                         </View>
                         
                     </Itemx.Context>

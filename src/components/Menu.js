@@ -9,7 +9,8 @@ import {
     edoCuenta,
     propiedad,
     pagodetalle,
-    VisitaDetalle
+    VisitaDetalle,
+    avisoDetalle
 } from './modules/Indexmodule';
 import {DrawerNavigator} from 'react-navigation'
 import MenuContent from './MenuContent' 
@@ -56,6 +57,10 @@ const Menu = DrawerNavigator(
         VisitaDetalle:{
             path:'/',
             screen: VisitaDetalle
+        },      
+        AvisoDetalle:{
+            path:'/',
+            screen: avisoDetalle
         }
     },
     {

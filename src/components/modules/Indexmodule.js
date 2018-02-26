@@ -7,3 +7,4 @@ export * from './EdoCuenta.js'
 export * from './Propiedad.js'
 export * from './PagoDetalle.js'
 export * from './VisitaDetalle';
+export * from './AvisoDetalle.js';
