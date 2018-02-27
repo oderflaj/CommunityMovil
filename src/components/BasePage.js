@@ -3,6 +3,10 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import Login from './Login';
 import Menu from './Menu';
 import * as RestOp from './functions/RestFunctions';
+import {
+    Permissions,
+    Notifications,
+  } from 'expo';
 import Splash from './Splash'
 
 
@@ -10,7 +14,9 @@ class BasePage extends Component{
 
     constructor(props){
         super(props)
-        this.state = {loged:undefined,mensaje:"Conectando con Community..."}
+        this.generalLogin = this.generalLogin.bind(this)
+        this.state = {loged:undefined,mensaje:"Conectando con Community...", notificationCommunity: {}}
+        
     }
     componentWillMount() {
         let x
@@ -35,8 +41,12 @@ class BasePage extends Component{
             this.setState({mensaje:"Error " + obj.No + ": " + obj.Error})
           }
            
-        });    
+        });  
     }
+
+    _handleNotification = (notification) => {
+        this.setState({notificationCommunity: notification});
+      };
 
     generalLogin(){
         console.debug("Se ha logeado")
@@ -50,21 +60,29 @@ class BasePage extends Component{
             );
 
         if(this.state.loged)
-        {
-            console.debug("Ya esta true..........")
-            return(
-               <Menu/>
-               
-            );
+        { 
+            //Seccion de notificaciones Inicio
+            
+            //RestOp.registerForPushNotificationsAsync();
+            // Handle notifications that are received or selected while the app
+            // is open. If the app was closed and then opened by tapping the
+            // notification (rather than just tapping the app icon to open it),
+            // this function will fire on the next tick after the app starts
+            // with the notification data.
+            this._notificationSubscription = Notifications.addListener(this._handleNotification);
+        
+            //Seccion de notificaciones Fin
+            //console.debug("Ya esta firmado en Community..........")
+            console.debug("El Origin..........",this.state.notificationCommunity.origin)
+            if(this.state.notificationCommunity.origin != undefined && this.state.notificationCommunity.origin === 'selected')
+            {
+                let pushObject = JSON.stringify(this.state.notificationCommunity.data)
+                console.warn(pushObject)
+            }
+            return( <Menu/>);
         }
         return(
-            // <View style={stylex.bgLogin}>
-            //     <Image 
-            //     style={stylex.bgLogin}
-            //     source={require('./../image/bgLogin.png')}
-            //     />
-                <Login login={this.generalLogin.bind(this)} />
-            // </View>
+                <Login LoginGral={this.generalLogin} />
         );
     }
 }

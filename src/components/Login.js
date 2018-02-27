@@ -19,7 +19,9 @@ import axios from 'axios';
      constructor(props){
          super(props);
          this.state = {login:false,error:false, message:'',uniquecode:''};
+         console.debug("---->>",props.LoginGral)
      }
+     
      
      async loginx(_host,_user,_pwrd){
         
@@ -48,8 +50,32 @@ import axios from 'axios';
             r=>{
                 if(r === "ok")
                 {
-                    RestOp.registerForPushNotificationsAsync()
-                    this.props.login()
+                    // let resultPush = RestOp.registerForPushNotificationsAsync()
+                    // if(resultPush.response != "OK"){
+                    //     console.debug("Error en el TOKEN",resultPush)
+                    //     this.setState({message:resultPush.detail})
+                    //     this.setState({error:true})
+                    // }
+                    // else{
+                    //     this.props.login()
+                    // }
+
+                    RestOp.registerForPushNotificationsAsync().then(
+                        r2=>{
+                            console.debug("R2",r2)
+
+                            if(r2.response !="OK")
+                            {
+                                this.setState({message:r2.detail})
+                                this.setState({error:true})
+                                console.debug("Error en el Push")
+                            }
+                            else{
+                                console.debug("EJecucion Correcta---------------",this.props)
+                                this.props.LoginGral
+                            }
+                        }
+                    )
                 }
                 else
                 {
@@ -57,7 +83,7 @@ import axios from 'axios';
                     this.setState({message:"Error al intentar entrar a sesión."})
                     this.setState({error:true})
                 }
-        
+                
                 this.setState({spin:false})
             },
             r=>{

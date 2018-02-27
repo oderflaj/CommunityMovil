@@ -130,7 +130,7 @@ async function postCommunity(_action, _parameters){
         .catch((error) => {
             console.error(error)
             console.log('ERROR 1::::',error)
-            return {No:"101",Error:"Error al entrar a Community, no se tiene sesion.", ErrorDetail:error}
+            return {No:"101",response:`Error`, detail:`Error al entrar a Community, no se tiene sesion. ${error}`}
         })
     
 }
@@ -157,6 +157,7 @@ async function isLoged(){
     
     try{
         result = await getCommunity("base")
+        console.debug(result)
     }
     catch(err){
         console.debug("Cayo error!!!!!",err)
@@ -210,49 +211,67 @@ async function getBase() {
 }
 
 async function registerForPushNotificationsAsync() {
-    const { status: existingStatus } = await Permissions.getAsync(
-      Permissions.NOTIFICATIONS
-    );
-    let finalStatus = existingStatus;
-  
-    // only ask if permissions have not already been determined, because
-    // iOS won't necessarily prompt the user a second time.
-    if (existingStatus !== 'granted') {
-      // Android remote notification permissions are granted during the app
-      // install, so this will only ask on iOS
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      finalStatus = status;
-    }
-  
-    // Stop here if the user did not grant permissions
-    if (finalStatus !== 'granted') {
-      return;
-    }
-    let _infobase = JSON.parse( await AsyncStorage.getItem('infobase'));
-    // Get the token that uniquely identifies this device
-    let token = await Notifications.getExpoPushTokenAsync();
-  
-    // POST the token to your backend server from where you can retrieve it to send push notifications.
-    // return fetch(PUSH_ENDPOINT, {
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     token: {
-    //       value: token,
-    //     },
-    //     user: {
-    //       username: 'Brent',
-    //     },
-    //   }),
-    // });
 
-    let para = `${_infobase.usuario.id}/${token}`
+    try{
+        const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+        );
+        let finalStatus = existingStatus;
+    
+        // only ask if permissions have not already been determined, because
+        // iOS won't necessarily prompt the user a second time.
+        if (existingStatus !== 'granted') {
+        // Android remote notification permissions are granted during the app
+        // install, so this will only ask on iOS
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        finalStatus = status;
+        }
+    
+        // Stop here if the user did not grant permissions
+        if (finalStatus !== 'granted') {
+        return;
+        }
+        let _infobase = JSON.parse( await AsyncStorage.getItem('infobase'));
+        // Get the token that uniquely identifies this device
+        let token = await Notifications.getExpoPushTokenAsync();
+    
+        // POST the token to your backend server from where you can retrieve it to send push notifications.
+        // return fetch(PUSH_ENDPOINT, {
+        //   method: 'POST',
+        //   headers: {
+        //     Accept: 'application/json',
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({
+        //     token: {
+        //       value: token,
+        //     },
+        //     user: {
+        //       username: 'Brent',
+        //     },
+        //   }),
+        // });
 
-    postCommunity('pushNotToken',para)
-    console.warn('TOKEN',token)
+        let para = `${_infobase.usuario.id}/${token}`
+
+        let resultpost = await postCommunity('pushNotToken',para)
+
+        if(resultpost.resp.response != "OK")
+        {
+            console.debug("Cacha el error!!!",resultpost)
+            return {No:"103",response:`Error`, detail:`Error al mandar el token. ${resultpost.resp.detail}`}    
+        }
+        else
+        {
+            return {response:`OK`, detail:`Se registro correctamente el token`}
+        }
+
+        console.warn('TOKEN',token)
+    }
+    catch(error)
+    {
+        return {No:"102",response:`Error`, detail:`Error al revisar notificaciones. ${error}`}
+    }
   }
 
 export {login, isLoged, getBase, getCommunity, registerForPushNotificationsAsync};
