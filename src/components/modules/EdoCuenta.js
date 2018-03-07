@@ -19,7 +19,8 @@ class edoCuenta extends Component {
           </Text>
           <WebView
             source={{uri: 'http://community.tecstrag.com/Edoctacondominio/EdoctaDashboard?periodo=201802%20&print=1'}}
-            style={{marginTop: 20}}
+            style={{marginTop: 10}}
+          javaScriptEnabled={true}
           />
         </Itemx.Context>
       </Itemx.Canvas>
