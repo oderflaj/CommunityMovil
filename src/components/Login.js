@@ -19,7 +19,6 @@ import axios from 'axios';
      constructor(props){
          super(props);
          this.state = {login:false,error:false, message:'',uniquecode:''};
-         console.debug("---->>",props.LoginGral)
      }
      
      
@@ -47,19 +46,10 @@ import axios from 'axios';
         this.setState({message:''})
         
         RestOp.login(_host,_user,_pwrd).then(
+            
             r=>{
                 if(r === "ok")
                 {
-                    // let resultPush = RestOp.registerForPushNotificationsAsync()
-                    // if(resultPush.response != "OK"){
-                    //     console.debug("Error en el TOKEN",resultPush)
-                    //     this.setState({message:resultPush.detail})
-                    //     this.setState({error:true})
-                    // }
-                    // else{
-                    //     this.props.login()
-                    // }
-
                     RestOp.registerForPushNotificationsAsync().then(
                         r2=>{
                             console.debug("R2",r2)
@@ -73,6 +63,7 @@ import axios from 'axios';
                             else{
                                 console.debug("EJecucion Correcta---------------",this.props)
                                 this.props.LoginGral
+                                //this.props.navigation.navigate('Alarma',{})
                             }
                         }
                     )

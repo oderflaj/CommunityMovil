@@ -8,9 +8,14 @@ import Splash from './../Splash'
 class perfil extends Component {
   constructor(props){
     super(props)
-    this.state ={usuario:undefined, propiedades:[]}
+    this.state ={usuario:undefined, propiedades:[],host:undefined,token:undefined}
   }
   async componentWillMount(){
+
+    let _host = await AsyncStorage.getItem('host');
+    let _token = await AsyncStorage.getItem('usertoken');
+
+    this.setState({host:_host,token:_token})
 
     await RestOp.getBase().then(r=>{
             this.setState({usuario:r.usuario})
@@ -25,10 +30,21 @@ class perfil extends Component {
       [
         
         {text: 'ACEPTAR', onPress: () =>{
+          
+
+          
+          console.debug('Tengo->',this.state.token)
+          RestOp.getCommunity("desvincular",this.state.token).then(res=>{
+                        
+          console.debug(res);
           AsyncStorage.removeItem('host')
           AsyncStorage.removeItem('usuario')
           AsyncStorage.removeItem('password')
           AsyncStorage.removeItem('token')
+          AsyncStorage.removeItem('usertoken')
+        })
+
+
           this.props.navigation.navigate('Login')
         }},
         {text: 'CANCELAR', onPress: () => console.log('Cancelo desvincular usuario'),  style: 'cancel'},

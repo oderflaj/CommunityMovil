@@ -11,6 +11,8 @@
     "react-native-ui-xg": "0.0.6",
     "react-native-vector-icons": "^4.4.2",
     "react-navigation": "^1.0.0-beta.21",
-    "react-number-format": "^3.1.2"
+    "react-number-format": "^3.1.2",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2"
   }
 }

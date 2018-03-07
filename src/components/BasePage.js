@@ -8,14 +8,16 @@ import {
     Notifications,
   } from 'expo';
 import Splash from './Splash'
+//import * as actions from '../actions'
+import {connect} from 'react-redux'
 
 
 class BasePage extends Component{
 
     constructor(props){
         super(props)
-        this.generalLogin = this.generalLogin.bind(this)
         this.state = {loged:undefined,mensaje:"Conectando con Community...", notificationCommunity: {}}
+        console.debug("En constructor->",props)
         
     }
     componentWillMount() {
@@ -73,16 +75,31 @@ class BasePage extends Component{
         
             //Seccion de notificaciones Fin
             //console.debug("Ya esta firmado en Community..........")
-            console.debug("El Origin..........",this.state.notificationCommunity.origin)
+            
             if(this.state.notificationCommunity.origin != undefined && this.state.notificationCommunity.origin === 'selected')
             {
-                let pushObject = JSON.stringify(this.state.notificationCommunity.data)
-                console.warn(pushObject)
+//                let pushObject = JSON.stringify(this.state.notificationCommunity.data)
+                let pushObject = this.state.notificationCommunity.data
+                
+                console.debug(pushObject)
+                switch(pushObject.modulo)
+                {
+                    case "Visita":
+                        //console.debug("Entro en Visita");
+                        //console.debug("Las PROPS...",this.props)
+                        //this.props.navigation.navigate('VisitaDetalle',{propiedad:pushObject.objeto, header:pushObject.header});
+                        //return( <Menu modulo={'VisitaDetalle'} param={[{propiedad:pushObject.objeto},{header:pushObject.header}]}/>);
+                        // return(
+                        //         <Login  modulo={'VisitaDetalle'} param={[{propiedad:pushObject.objeto},{header:pushObject.header}]}/>
+                        // );
+                        this.props.notification = {modulo:pushObject.modulo, objeto:{propiedad:pushObject.objeto,header:pushObject.header}}
+                        console.debug("Despues de setear PROPS...",this.props)
+                }
             }
-            return( <Menu/>);
+            return( <Menu LoginGral={this.generalLogin.bind(this)}/>);
         }
         return(
-                <Login LoginGral={this.generalLogin} />
+                <Login />
         );
     }
 }
@@ -99,4 +116,10 @@ const stylex =StyleSheet.create({
     }
   });
 
-export default BasePage;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        notification: state.notiCommunity
+    }
+}
+
+export default connect(mapStateToProps)(BasePage);

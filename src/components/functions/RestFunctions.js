@@ -13,7 +13,7 @@ async function login(_host, _user,_pwrd){
       'Content-Type': 'application/x-www-form-urlencoded'
     }, 
     body: 'grant_type=password&password=' + _pwrd +'&username=' + _user
-  }).then((responsex)=>{ console.log("Entro en Login 2")
+  }).then((responsex)=>{ //console.log("Entro en Login 2")
         var _auth = JSON.parse(responsex._bodyText)
         
         if(_auth.access_token==undefined)
@@ -50,15 +50,15 @@ async function getCommunity(_action, _parameters, _verb){
     let _host = await AsyncStorage.getItem('host');
     let _token = await AsyncStorage.getItem('token');
 
-    console.log("Entra getCommunity ->",`${_host}/api/data/${_action}`)
+    console.debug("Entra getCommunity ->",`${_host}/api/data/${_action}`)
 
-    await NetInfo.isConnected.fetch().then(isConnected => {
-        if( !isConnected )
-        {
-            console.error("No hay internet")
-            return {No:"100",Error:"Error al entrar a Community, compruebe su conexión a internet.", ErrorDetail:error}
-        }
-      });
+    // await NetInfo.isConnected.fetch().then(isConnected => {
+    //     if( !isConnected )
+    //     {
+    //         console.error("No hay internet")
+    //         return {No:"100",Error:"Error al entrar a Community, compruebe su conexión a internet.", ErrorDetail:error}
+    //     }
+    //   });
     
     let requestx = ''
    
@@ -93,15 +93,15 @@ async function postCommunity(_action, _parameters){
     let _host = await AsyncStorage.getItem('host');
     let _token = await AsyncStorage.getItem('token');
 
-    console.log("Entra getCommunity ->",`${_host}/api/data/${_action}`)
+    //console.log("Entra getCommunity ->",`${_host}/api/data/${_action}`)
 
-    await NetInfo.isConnected.fetch().then(isConnected => {
-        if( !isConnected )
-        {
-            console.error("No hay internet")
-            return {No:"100",Error:"Error al entrar a Community, compruebe su conexión a internet.", ErrorDetail:error}
-        }
-      });
+    // await NetInfo.isConnected.fetch().then(isConnected => {
+    //     if( !isConnected )
+    //     {
+    //         console.error("No hay internet")
+    //         return {No:"100",Error:"Error al entrar a Community, compruebe su conexión a internet.", ErrorDetail:error}
+    //     }
+    //   });
     
     let requestx = ''
    
@@ -114,7 +114,7 @@ async function postCommunity(_action, _parameters){
     } 
 
 
-    console.debug("postCommunity",requestx)
+    //console.debug("postCommunity",requestx)
     return await fetch(requestx,{
             method: 'post', 
             headers: {
@@ -157,7 +157,7 @@ async function isLoged(){
     
     try{
         result = await getCommunity("base")
-        console.debug(result)
+        //console.debug("isLoged---->>>",result)
     }
     catch(err){
         console.debug("Cayo error!!!!!",err)
@@ -231,7 +231,14 @@ async function registerForPushNotificationsAsync() {
         if (finalStatus !== 'granted') {
         return;
         }
-        let _infobase = JSON.parse( await AsyncStorage.getItem('infobase'));
+        let _infobase 
+        try{
+            _infobase = JSON.parse( await AsyncStorage.getItem('infobase'));
+        }
+        catch(error){
+            console.debug("No encontro información del usuario")
+            return
+        }
         // Get the token that uniquely identifies this device
         let token = await Notifications.getExpoPushTokenAsync();
     
@@ -251,6 +258,8 @@ async function registerForPushNotificationsAsync() {
         //     },
         //   }),
         // });
+
+        AsyncStorage.setItem('usertoken',token)
 
         let para = `${_infobase.usuario.id}/${token}`
 

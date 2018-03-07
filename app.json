@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "community",
-    "description": "project to synchronize information about the users of community website",
+    "name": "COMMUNITY",
+    "description": "Community es es la aplicación movil para que sepas que sucede en tu condominio y a traves de sus notificaciones y consulta de información relacionada.",
     "slug": "community",
     "privacy": "public",
     "sdkVersion": "23.0.0",
-    "version": "1.0.0",
+    "version": "2.0.1",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "icon": "./assets/tsgicon.png",
@@ -15,7 +15,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tecstrag.community"
+    },
+    "android": {
+      "package": "com.tecstrag.community"
     }
   }
 }

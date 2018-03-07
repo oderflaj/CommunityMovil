@@ -8,11 +8,18 @@ import {  AppRegistry,
         } from 'react-native';
 import BasePage from './src/components/BasePage';
 import * as RestOp from './src/components/functions/RestFunctions';
+import { Provider } from 'react-redux';
+import {createStore} from 'redux';
+import Reducerx from './src/reducers';
+
 
 export default class App extends React.Component {
   render() {
     return (
-      <BasePage/>
+      <Provider store={createStore(Reducerx)}>
+        <BasePage />
+      </Provider>
+      
     );
   }
 }

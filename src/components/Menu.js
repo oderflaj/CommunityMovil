@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
+import alarm from './modules/Alarm';
 import {
-    alarm,
+    //alarm,
     perfil,
     visita,
     aviso,
@@ -38,10 +39,10 @@ const Menu = DrawerNavigator(
             path:'/',
             screen: aviso
         },
-        AreaComun:{
-            path:'/',
-            screen: areaComun
-        },
+        // AreaComun:{
+        //     path:'/',
+        //     screen: areaComun
+        // },
         EdoCuenta:{
             path:'/',
             screen: edoCuenta

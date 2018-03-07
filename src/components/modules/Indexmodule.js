@@ -1,4 +1,4 @@
-export * from './Alarm.js'
+//export * from './Alarm.js'
 export * from './Perfil.js'
 export * from './Visita.js'
 export * from './Aviso.js'

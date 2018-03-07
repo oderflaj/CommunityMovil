@@ -4,7 +4,7 @@ import call from 'react-native-phone-call'
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
-
+import {connect} from 'react-redux'
 
 let args = undefined
 
@@ -16,7 +16,7 @@ class alarm extends Component {
   }
 
   componentWillMount(){
-
+    
     RestOp.getBase().then(r=>{
             //console.log(r.condominio)
             this.args = {
@@ -45,6 +45,10 @@ class alarm extends Component {
 
 
   render() {
+    console.debug("En Alarma",this.props)
+    if(this.props.notification.modulo !== "Alarm"){
+        this.props.navigation.navigate(this.props.notification.modulo,this.props.notification.objeto)
+    }
     let navigate = this.props.navigation;
     
     const {textStyle, buttonStyle, mainShow} = styles;
@@ -112,5 +116,10 @@ const styles={
   }
 };
 
+const mapStateToProps = (state, ownProps) => {
+  return {
+    notification: state.notiCommunity
+  }
+}
 
-export {alarm}
+export default connect(mapStateToProps)(alarm)

@@ -3,23 +3,34 @@ import { View,Text,StyleSheet, Button, Image, TouchableHighlight, TouchableWitho
 import {DrawerNavigator} from 'react-navigation'
 import {MenuItem} from './items/MenuItem'
 import * as RestOp from './functions/RestFunctions';
+import {connect} from 'react-redux'
 
-export default class MenuContent extends Component{
+class MenuContent extends Component{
     constructor(props){
         super(props)
+        console.debug("En menu Context",props)
         this.state = {infobase:undefined, condominio:'', email:'', nombre:''}
         RestOp.getBase().then(r=>{
-            //console.warn("1-RestOp.getBase()--->>>",r)
+            
             this.setState({infobase:r})
         })
         .then(()=>{
             x =  this.state.infobase
-            //console.log(x)
+            
             this.setState({condominio:x.condominio.nombre})
             this.setState({email:x.usuario.email})
             this.setState({nombre: x.usuario.nombre + " " + x.usuario.apepaterno })
         })
     }
+
+    componentWillMount = () => {
+        console.debug("En la notificacion",this.props)
+        if(this.props.notification.modulo !== "Alarm"){
+            this.props.navigation.navigate(this.props.notification.modulo,this.props.notification.objeto)
+        }
+
+    }
+    
 
   
     render(){
@@ -42,7 +53,7 @@ export default class MenuContent extends Component{
                     <MenuItem onPressItem={()=>navigate('Perfil')} onSelected="Perfil" iconMenu="contacts" textMenu="Perfil"/>
                     <MenuItem onPressItem={()=>navigate('Visita')} onSelected="Visita" iconMenu="wc" textMenu="Visitas"/>
                     <MenuItem onPressItem={()=>navigate('Aviso')} onSelected="Aviso" iconMenu="notifications-active" textMenu="Avisos"/>
-                    <MenuItem onPressItem={()=>navigate('AreaComun')} onSelected="AreaComun" iconMenu="toys" textMenu="Area Común"/>
+                    {/* <MenuItem onPressItem={()=>navigate('AreaComun')} onSelected="AreaComun" iconMenu="toys" textMenu="Area Común"/> */}
                     <MenuItem onPressItem={()=>navigate('EdoCuenta')} onSelected="EdoCuenta" iconMenu="confirmation-number" textMenu="Edo Cuenta"/>
                 </View>
             </View>
@@ -81,3 +92,12 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapStateToProps = (state, ownProps) => {
+    return {
+        notification: state.notiCommunity
+    }
+}
+
+
+
+export default connect(mapStateToProps)(MenuContent);
