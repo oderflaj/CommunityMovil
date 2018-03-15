@@ -361,4 +361,41 @@ function decriptaCommunity(desinsumo){
 
 }
 
-export {formatCurrency,formatDate,decriptaCommunity};
+function getMonthNameNumber(month){
+
+    let mes = month.trim().toLowerCase();
+    
+    if(mes.length==1){
+        mes = `0${mes}`
+    }
+    
+    switch(mes){
+        case 'enero': return '01'
+        case '01': return 'enero'
+        case 'febero': return '02'
+        case '02': return 'febrero'
+        case 'marzo': return '03'
+        case '03': return 'marzo'
+        case 'abril': return '04'
+        case '04': return 'abril'
+        case 'mayo': return '05'
+        case '05': return 'mayo'
+        case 'junio': return '06'
+        case '06': return 'junio'
+        case 'julio': return '07'
+        case '07': return 'julio'
+        case 'agosto': return '08'
+        case '08': return 'agosto'
+        case 'septiembre': return '09'
+        case '09': return 'septiembre'
+        case 'octubre': return '10'
+        case '10': return 'octubre'
+        case 'noviembre': return '11'
+        case '11': return 'noviembre'
+        case 'diciembre': return '12'
+        case '12': return 'diciembre'
+    }
+
+}
+
+export {formatCurrency,formatDate,decriptaCommunity,getMonthNameNumber};

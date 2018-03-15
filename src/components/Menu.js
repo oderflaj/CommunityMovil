@@ -11,7 +11,8 @@ import {
     propiedad,
     pagodetalle,
     VisitaDetalle,
-    avisoDetalle
+    avisoDetalle,
+    edoCuentaDetalle
 } from './modules/Indexmodule';
 import {DrawerNavigator} from 'react-navigation'
 import MenuContent from './MenuContent' 
@@ -46,7 +47,11 @@ const Menu = DrawerNavigator(
         EdoCuenta:{
             path:'/',
             screen: edoCuenta
-        },        
+        },
+        EdoCuentaDetalle:{
+            path:'/',
+            screen: edoCuentaDetalle
+        },         
         Propiedad:{
             path:'/',
             screen: propiedad
