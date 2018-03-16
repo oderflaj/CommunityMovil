@@ -13,6 +13,8 @@ const Canvas =({children})=>{
 
 const styles = {
     fill:{
+        flex: 1,
+        flexDirection: 'column',
         borderTopColor:"#222D32", 
         borderTopWidth:24
     }

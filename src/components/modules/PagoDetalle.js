@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Itemx from './../items/IndexItem'
 import Splash from './../Splash'
@@ -78,11 +78,13 @@ class pagodetalle extends Component{
                                 menuItemParams= {{id:params.home.residencia.id}}
                                  />
                 <Itemx.Context>
-                    <Itemx.LabelValueColor statusname='warning' textlabel='MONTO PAGADO' textvalue={`$${params.home.pagado}`} iconshow='monetization-on' textsize={18} />
-                    <View style={{backgroundColor:'#858585', paddingLeft:5, marginTop:20}}>
-                        <Text style={{fontWeight:'bold', color:'#fff', fontSize:16}}>DETALLE  DE  PAGOS</Text>
-                    </View>
-                    {this.pagodet(params.home.pago)}
+                    <ScrollView>
+                        <Itemx.LabelValueColor statusname='warning' textlabel='MONTO PAGADO' textvalue={`$${params.home.pagado}`} iconshow='monetization-on' textsize={18} />
+                        <View style={{backgroundColor:'#858585', paddingLeft:5, marginTop:20}}>
+                            <Text style={{fontWeight:'bold', color:'#fff', fontSize:16}}>DETALLE  DE  PAGOS</Text>
+                        </View>
+                        {this.pagodet(params.home.pago)}
+                    </ScrollView>
                 </Itemx.Context>
             </Itemx.Canvas>
         );

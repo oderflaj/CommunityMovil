@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Alert, AsyncStorage, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Alert, AsyncStorage, TouchableWithoutFeedback,ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
@@ -100,37 +100,39 @@ class perfil extends Component {
         <Itemx.Canvas>
           <Itemx.Header navigation={navigate} nameHeader="Perfil" iconHeader="contacts" />
           <Itemx.Context>
-            <Itemx.LabelValue labelx='NOMBRE' valuex={fullname}  />
-            <Itemx.LabelValue labelx='EMAIL' valuex={this.state.usuario.email} />
-            <Itemx.LabelValue labelx='TELEFONO' valuex={this.state.usuario.celular} />
-            <Itemx.LabelValue labelx='PROPIEDADES' valuex='' />
-              {this.propiedadesButton(this.state.propiedades)}
-            
-            <View style={{flexDirection:'column', justifyContent:'flex-end', flex:1 }}>
-              <View style={{ 
-                borderColor:'#2979FF', 
-                borderWidth:1, 
-                borderRadius:50, 
-                alignContent:'center',
-                justifyContent:'center',
-                padding:5,
-                maxWidth:180,
-                alignSelf:'center',
-                marginBottom:10,
-                marginTop:10
-                }}>
-                <TouchableWithoutFeedback onPress={this.resetUser.bind(this)}>
-                  <View style={{flexDirection:'row', }}>
-                    <View>
-                    <Icon color='#2979FF' name='sync-disabled' size={16} />
+            <ScrollView>
+              <Itemx.LabelValue labelx='NOMBRE' valuex={fullname}  />
+              <Itemx.LabelValue labelx='EMAIL' valuex={this.state.usuario.email} />
+              <Itemx.LabelValue labelx='TELEFONO' valuex={this.state.usuario.celular} />
+              <Itemx.LabelValue labelx='PROPIEDADES' valuex='' />
+                {this.propiedadesButton(this.state.propiedades)}
+              
+              <View style={{flexDirection:'column', justifyContent:'flex-end', flex:1 }}>
+                <View style={{ 
+                  borderColor:'#2979FF', 
+                  borderWidth:1, 
+                  borderRadius:50, 
+                  alignContent:'center',
+                  justifyContent:'center',
+                  padding:5,
+                  maxWidth:180,
+                  alignSelf:'center',
+                  marginBottom:10,
+                  marginTop:10
+                  }}>
+                  <TouchableWithoutFeedback onPress={this.resetUser.bind(this)}>
+                    <View style={{flexDirection:'row', }}>
+                      <View>
+                      <Icon color='#2979FF' name='sync-disabled' size={16} />
+                      </View>
+                      <View >
+                        <Text style={{color:'#2979FF', fontSize:14}}>DESVINCULAR CUENTA</Text>
+                      </View>
                     </View>
-                    <View >
-                      <Text style={{color:'#2979FF', fontSize:14}}>DESVINCULAR CUENTA</Text>
-                    </View>
-                  </View>
-                </TouchableWithoutFeedback>
+                  </TouchableWithoutFeedback>
+                </View>
               </View>
-            </View>
+            </ScrollView>
           </Itemx.Context>
         </Itemx.Canvas>
         

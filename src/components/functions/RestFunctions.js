@@ -129,7 +129,6 @@ async function postCommunity(_action, _parameters){
         })
         .catch((error) => {
             console.error(error)
-            console.log('ERROR 1::::',error)
             return {No:"101",response:`Error`, detail:`Error al entrar a Community, no se tiene sesion. ${error}`}
         })
     
@@ -279,7 +278,7 @@ async function registerForPushNotificationsAsync() {
     }
     catch(error)
     {
-        return {No:"102",response:`Error`, detail:`Error al revisar notificaciones. ${error}`}
+        return {No:"103",response:`Error`, detail:`Error al revisar notificaciones. ${error}`}
     }
   }
 

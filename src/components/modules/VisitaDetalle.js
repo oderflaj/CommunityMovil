@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, Text, AsyncStorage, Switch, Alert } from 'react-native';
+import { View, Text, AsyncStorage, Switch, Alert,ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
@@ -307,7 +307,9 @@ class VisitaDetalle extends Component{
                 <Itemx.Canvas>
                     <Itemx.Header navigation={navigation} nameHeader="Detalle Visitas" iconHeader="wc" menuDirection='back' menuItem='Visita' />
                     <Itemx.Context>
-                        {this.drawview()}
+                        <ScrollView>
+                            {this.drawview()}
+                        </ScrollView>
                     </Itemx.Context>
                 </Itemx.Canvas>
             )

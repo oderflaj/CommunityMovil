@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, Text, Button, TouchableOpacity } from 'react-native';
+import { View, Text, Button, TouchableOpacity,ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
@@ -107,80 +107,81 @@ class propiedad extends Component{
                 <Itemx.Canvas>
                     <Itemx.Header navigation={this.props.navigation} nameHeader={`${casax.residencia.calle} #${casax.residencia.numero}`} iconHeader="contacts" menuDirection='back' menuItem='Perfil' />
                     <Itemx.Context>
-                        <Itemx.LabelValueColor statusname='info' textlabel='ESTATUS' itemValue={true} iconshow='home' >
-                            {this.returnStatus(casax.residencia.estado)}
-                        </Itemx.LabelValueColor>
-                        {/* <Itemx.LabelValueColor statusname='success' textlabel='PAGADO' textvalue={ `$${this.state.pagado}`} iconshow='check-circle' /> */}
-                        <Itemx.LabelValueColor statusname='danger' textlabel='ADEUDO' textvalue={ `$${this.state.adeudo}`} iconshow='cancel' />
-                        
-                        
-                        <View style={styles.rowdetail}>
-                            <View style={styles.coldetail}> 
-                                <Itemx.LabelValue labelx='ULT. PAGO' valuex={casax.residencia.ultPago} />
-                            </View>
-                            <View style={styles.coldetail}>
-                                <Itemx.LabelValue labelx='ULT. PERIODO' valuex={casax.residencia.ultPeriodo} />
-                            </View>
-                        </View>
-                        <View style={styles.rowdetail}>
-                            <View style={styles.coldetail}> 
-                                <Itemx.LabelValue labelx='ESCRITURACION' valuex={casax.residencia.escrituracion}/>
-                            </View>
-                            <View style={styles.coldetail}>
-                                <Itemx.LabelValue labelx='REFERENCIA' valuex={casax.residencia.referencia} />
-                            </View>
-                        </View>
-                        
-                        
-                        <View style={{
-                            flexDirection:'row',
-                            marginTop:20,
-                            //borderColor:'#858585',
-                            //borderBottomWidth:10
-                            }}>
-                                <Text style={{fontWeight:'bold'}}>PAGOS PENDIENTES</Text>
-                        </View>
-                        <View style={{
-                            flexDirection:'row',
-                            backgroundColor:'#858585',
-                            paddingLeft:5
-                            }}>
-                                <View style={{width:'50%'}}>
-                                    <Text style={{color:'#fff'}}>PERIODO</Text>
+                        <ScrollView>
+                            <Itemx.LabelValueColor statusname='info' textlabel='ESTATUS' itemValue={true} iconshow='home' >
+                                {this.returnStatus(casax.residencia.estado)}
+                            </Itemx.LabelValueColor>
+                            {/* <Itemx.LabelValueColor statusname='success' textlabel='PAGADO' textvalue={ `$${this.state.pagado}`} iconshow='check-circle' /> */}
+                            <Itemx.LabelValueColor statusname='danger' textlabel='ADEUDO' textvalue={ `$${this.state.adeudo}`} iconshow='cancel' />
+                            
+                            
+                            <View style={styles.rowdetail}>
+                                <View style={styles.coldetail}> 
+                                    <Itemx.LabelValue labelx='ULT. PAGO' valuex={casax.residencia.ultPago} />
                                 </View>
-                                <View style={{width:'50%'}}>
-                                    <Text style={{color:'#fff'}}>MONTO</Text>
+                                <View style={styles.coldetail}>
+                                    <Itemx.LabelValue labelx='ULT. PERIODO' valuex={casax.residencia.ultPeriodo} />
                                 </View>
-                        </View>
-                        <View style={{marginBottom:10}}>
-                            {this.pagosPendientes(adeudo)}
-                        </View>
-                        <View style={{marginTop:20}}>
-                            <Itemx.DrillButton 
-                                onPress={() =>this.feeDetail(home)}
-                                iconIlust='receipt'
-                                iconDrill='more-vert'
-                                colorFont='#2979FF'
-                                style={{justifyContent: 'center'}}
-                                >
-                                <View style={{
-                                    flex:1,
-                                    flexDirection:'column',
-                                    marginBottom:2,
-                                    alignSelf:'center',
-                                    justifyContent:'center',
-                                    alignContent:'center',
+                            </View>
+                            <View style={styles.rowdetail}>
+                                <View style={styles.coldetail}> 
+                                    <Itemx.LabelValue labelx='ESCRITURACION' valuex={casax.residencia.escrituracion}/>
+                                </View>
+                                <View style={styles.coldetail}>
+                                    <Itemx.LabelValue labelx='REFERENCIA' valuex={casax.residencia.referencia} />
+                                </View>
+                            </View>
+                            
+                            
+                            <View style={{
+                                flexDirection:'row',
+                                marginTop:20,
+                                //borderColor:'#858585',
+                                //borderBottomWidth:10
                                 }}>
-                                    <Text style={{
-                                        color:'#2979FF',
-                                        fontWeight:'bold'
-                                        }}>
-                                        DETALLE PAGOS REALIZADOS
-                                    </Text>
-                                </View>
-                            </Itemx.DrillButton>
-                        </View>
-                        
+                                    <Text style={{fontWeight:'bold'}}>PAGOS PENDIENTES</Text>
+                            </View>
+                            <View style={{
+                                flexDirection:'row',
+                                backgroundColor:'#858585',
+                                paddingLeft:5
+                                }}>
+                                    <View style={{width:'50%'}}>
+                                        <Text style={{color:'#fff'}}>PERIODO</Text>
+                                    </View>
+                                    <View style={{width:'50%'}}>
+                                        <Text style={{color:'#fff'}}>MONTO</Text>
+                                    </View>
+                            </View>
+                            <View style={{marginBottom:10}}>
+                                {this.pagosPendientes(adeudo)}
+                            </View>
+                            <View style={{marginTop:20}}>
+                                <Itemx.DrillButton 
+                                    onPress={() =>this.feeDetail(home)}
+                                    iconIlust='receipt'
+                                    iconDrill='more-vert'
+                                    colorFont='#2979FF'
+                                    style={{justifyContent: 'center'}}
+                                    >
+                                    <View style={{
+                                        flex:1,
+                                        flexDirection:'column',
+                                        marginBottom:2,
+                                        alignSelf:'center',
+                                        justifyContent:'center',
+                                        alignContent:'center',
+                                    }}>
+                                        <Text style={{
+                                            color:'#2979FF',
+                                            fontWeight:'bold'
+                                            }}>
+                                            DETALLE PAGOS REALIZADOS
+                                        </Text>
+                                    </View>
+                                </Itemx.DrillButton>
+                            </View>
+                        </ScrollView>
                     </Itemx.Context>
                 </Itemx.Canvas>
             )

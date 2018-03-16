@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,ScrollView } from 'react-native';
 
 import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
@@ -66,8 +66,10 @@ class aviso extends Component {
      return( <Itemx.Canvas>
         <Itemx.Header navigation={navigate} nameHeader="Avisos" iconHeader="notifications-active"/>
         <Itemx.Context>
-          <Itemx.LabelValue labelx='LISTADO AVISOS' valuex='Seleccione uno de los avisos para ver a detalle la información.'  /> 
-          {this.listaAvisos()}
+          <ScrollView>
+            <Itemx.LabelValue labelx='LISTADO AVISOS' valuex='Seleccione uno de los avisos para ver a detalle la información.'  /> 
+            {this.listaAvisos()}
+          </ScrollView>
         </Itemx.Context>
       </Itemx.Canvas>)
     } 
