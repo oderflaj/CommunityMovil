@@ -12,7 +12,6 @@ import {BigButton, CustomMessage, Spinner} from "./items/IndexItem";
 import * as RestOp from './../components/functions/RestFunctions';
 import * as MisFun from './../components/functions/MiscFunctions';
 
-import axios from 'axios';
 
 //Create Comnponents
  class Login extends Component{
@@ -62,7 +61,7 @@ import axios from 'axios';
                             }
                             else{
                                 console.debug("EJecucion Correcta---------------",this.props)
-                                this.props.LoginGral
+                                this.props.generalLogin();
                                 //this.props.navigation.navigate('Alarma',{})
                             }
                         }
@@ -132,7 +131,7 @@ import axios from 'axios';
          {
              return <Spinner size=""/>;
          }
-
+         
          return(
             <BigButton onPress={
                     this.onEntrarPress.bind(this)

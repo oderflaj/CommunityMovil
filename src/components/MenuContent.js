@@ -10,6 +10,7 @@ class MenuContent extends Component{
         super(props)
         console.debug("En menu Context",props)
         this.state = {infobase:undefined, condominio:'', email:'', nombre:''}
+        //Gets the base information in asychronous mode and then save the object, then save the data into variables
         RestOp.getBase().then(r=>{
             
             this.setState({infobase:r})

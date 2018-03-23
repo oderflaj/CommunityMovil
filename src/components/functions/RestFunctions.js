@@ -233,6 +233,11 @@ async function registerForPushNotificationsAsync() {
         let _infobase 
         try{
             _infobase = JSON.parse( await AsyncStorage.getItem('infobase'));
+            if(_infobase==null){
+                result = await getCommunity("base")
+                AsyncStorage.setItem('infobase',JSON.stringify(result))
+            }
+            
         }
         catch(error){
             console.debug("No encontro información del usuario")

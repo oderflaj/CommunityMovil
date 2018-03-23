@@ -8,7 +8,6 @@ import {
     Notifications,
   } from 'expo';
 import Splash from './Splash'
-//import * as actions from '../actions'
 import {connect} from 'react-redux'
 
 
@@ -78,15 +77,12 @@ class BasePage extends Component{
             
             if(this.state.notificationCommunity.origin != undefined && this.state.notificationCommunity.origin === 'selected')
             {
-//                let pushObject = JSON.stringify(this.state.notificationCommunity.data)
                 let pushObject = this.state.notificationCommunity.data
                 
                 console.debug(pushObject)
                 switch(pushObject.modulo)
                 {
                     case "Visita":
-                        //console.debug("Entro en Visita");
-                        //console.debug("Las PROPS...",this.props)
                         //this.props.navigation.navigate('VisitaDetalle',{propiedad:pushObject.objeto, header:pushObject.header});
                         //return( <Menu modulo={'VisitaDetalle'} param={[{propiedad:pushObject.objeto},{header:pushObject.header}]}/>);
                         // return(
@@ -96,10 +92,10 @@ class BasePage extends Component{
                         console.debug("Despues de setear PROPS...",this.props)
                 }
             }
-            return( <Menu LoginGral={this.generalLogin.bind(this)}/>);
+            return( <Menu />);
         }
         return(
-                <Login />
+                <Login generalLogin={this.generalLogin.bind(this)}/>
         );
     }
 }
