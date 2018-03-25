@@ -5,7 +5,7 @@ import { Permissions, Notifications } from 'expo';
 
 async function login(_host, _user,_pwrd){
     
-   //console.debug("Entro en Login 1 _host",_host,"_user",_user,"_pwrd",_pwrd)
+   console.debug("Entro en Login 1 _host",_host,"_user",_user,"_pwrd",_pwrd)
    let result = await fetch(`${_host}/token`, { 
     method: 'post', 
     headers: {
@@ -13,9 +13,10 @@ async function login(_host, _user,_pwrd){
       'Content-Type': 'application/x-www-form-urlencoded'
     }, 
     body: 'grant_type=password&password=' + _pwrd +'&username=' + _user
-  }).then((responsex)=>{ //console.log("Entro en Login 2")
-        var _auth = JSON.parse(responsex._bodyText)
+  }).then((responsex)=>{ 
         
+        var _auth = JSON.parse(responsex._bodyText)
+        console.warn( `Entro en Login 2[${_auth}]`)
         if(_auth.access_token==undefined)
         {
 
@@ -33,7 +34,7 @@ async function login(_host, _user,_pwrd){
         
     })
     .then(responsey=>{
-        //console.debug("Resultado->",responsey)
+        console.debug("Resultado->",responsey)
         return responsey
     })
     .catch((error) => {console.debug("Entro a un error")
@@ -233,9 +234,13 @@ async function registerForPushNotificationsAsync() {
         let _infobase 
         try{
             _infobase = JSON.parse( await AsyncStorage.getItem('infobase'));
+            //console.warn("INFOBASE->",_infobase)
             if(_infobase==null){
+                //console.warn("INFOBASE->Entra a hacer algo......")
                 result = await getCommunity("base")
                 AsyncStorage.setItem('infobase',JSON.stringify(result))
+                _infobase = JSON.parse( await AsyncStorage.getItem('infobase'));
+                //console.warn("2 INFOBASE->",_infobase)
             }
             
         }
@@ -265,7 +270,9 @@ async function registerForPushNotificationsAsync() {
 
         AsyncStorage.setItem('usertoken',token)
 
-        let para = `${_infobase.usuario.id}/${token}`
+        let para = `${_infobase.usuario.id}/${token}`  
+        console.warn(para);
+        
 
         let resultpost = await postCommunity('pushNotToken',para)
 

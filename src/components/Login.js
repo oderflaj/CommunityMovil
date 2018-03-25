@@ -29,15 +29,13 @@ import * as MisFun from './../components/functions/MiscFunctions';
      onEntrarPress(){
         
         let descript = MisFun.decriptaCommunity(this.state.uniquecode).split('-')
-        console.log(descript)
-        // const _host = 'http://community.tecstrag.com'
-        // const _user = 'acarbajal@tecstrag.com'
-        // const _pwrd = 'A1A1A1A1'
-        const _host = descript[0]
+        console.warn("Desencriptado->",descript)
+        const _host = (descript[0].includes("http://")?descript[0]:`http://${descript[0]}`)
         const _user = descript[1]
         const _pwrd = descript[2]
+
+
         
-        //this.loginx(_host,_user,_pwrd);
         
 
         this.setState({spin:true})
@@ -70,7 +68,7 @@ import * as MisFun from './../components/functions/MiscFunctions';
                 else
                 {
                     //console.log(res)
-                    this.setState({message:"Error al intentar entrar a sesión."})
+                    this.setState({message:`Error al intentar entrar a sesión. ${r}`})
                     this.setState({error:true})
                 }
                 
@@ -83,36 +81,6 @@ import * as MisFun from './../components/functions/MiscFunctions';
             }
         );
         
-        
-        
-
-        //fetch(_host, { 
-        //    method: 'post', 
-        //    headers: {
-        //      //'Authorization': 'Basic '+ btoa('oderflaj@gmail.com:A1A1A1A1'), 
-        //      'Content-Type': 'application/x-www-form-urlencoded'
-        //    }, 
-        //    body: 'grant_type=password&password=' + _pwrd +'&username=' + _user
-        //  }).then((responsex)=>{
-        //        var _auth = JSON.parse(responsex._bodyText)
-        //        this.setState({spin:false})
-        //        if(_auth.access_token==undefined)
-        //        {
-        //            console.log(_auth.error_description) 
-        //            this.setState({message:_auth.error_description})
-        //            this.setState({error:true})
-        //        }
-        //        else
-        //        {
-        //            console.log(_auth.access_token) 
-        //            AsyncStorage.setItem('host',_host)
-        //            AsyncStorage.setItem('usuario',_user)
-        //            AsyncStorage.setItem('password',_pwrd)
-        //            AsyncStorage.setItem('token',_auth.access_token)
-        //        }
-        //        
-        //    });
-
         
          
      }
@@ -143,7 +111,7 @@ import * as MisFun from './../components/functions/MiscFunctions';
 
      //Render Components
      render(){
-        //console.log(MisFun.decriptaCommunity('1B24094509450C4805F5050005001A871CCE15D015D0213615FB1B9009451E3F1CB00945193B1A871D680945061B05FB10A70C48061B1CCE1AFE1CB01A871CCE15D00A5E05FB1A8705FB061B04B105FB268505FB1D540E100945193B1A871D680945061B05FB10A71CB01A871CCE15D00A5E0BF51ADF0BF51ADF0BF51ADF0BF51ADF'))
+        
         const {imgLogo, mainContainer, keyUser,labelUser} = styles;
          return(
             <View style={stylex.bgLogin}>
@@ -168,8 +136,6 @@ import * as MisFun from './../components/functions/MiscFunctions';
                                     onEndEditing={this.clearFocus}
                                     blurOnSubmit={true}
                                     onChangeText={(clave)=>{this.setState({uniquecode:clave})}}
-                                    // value='1B24094509450C4805F5050005001A871CCE15D015D0213615FB1B9009451E3F1CB00945193B1A871D680945061B05FB10A70C48061B1CCE1AFE1CB01A871CCE15D00A5E05FB1A8705FB061B04B105FB268505FB1D540E100945193B1A871D680945061B05FB10A71CB01A871CCE15D00A5E0BF51ADF0BF51ADF0BF51ADF0BF51ADF'
-                                    //value='1B24094509450C4805F5050005001A871CCE15D015D0213615FB1B9009451E3F1CB00945193B1A871D680945061B05FB10A71CB01A871CCE15D00A5E05FB1A8705FB061B04B105FB268505FB1D540E100945193B1A871D680945061B05FB10A71CB01A871CCE15D00A5E0BF51ADF0BF51ADF0BF51ADF0BF51ADF'
                                     />
                     
                     </View>
