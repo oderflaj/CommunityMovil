@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "831865861313",
+    "firebase_url": "https://community-tecstrag.firebaseio.com",
+    "project_id": "community-tecstrag",
+    "storage_bucket": "community-tecstrag.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831865861313:android:fd3a0d0d9d737528",
+        "android_client_info": {
+          "package_name": "com.tecstrag.community"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831865861313-ibvusmft7stom6km3cpjlqjikv8lq4g5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMEbo8HbrW3TYIxEzMYJK7FwnI4z0oENM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

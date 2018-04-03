@@ -217,6 +217,7 @@ async function registerForPushNotificationsAsync() {
         Permissions.NOTIFICATIONS
         );
         let finalStatus = existingStatus;
+        console.warn("Actual estado de notificaciones->",finalStatus)
     
         // only ask if permissions have not already been determined, because
         // iOS won't necessarily prompt the user a second time.
@@ -229,7 +230,8 @@ async function registerForPushNotificationsAsync() {
     
         // Stop here if the user did not grant permissions
         if (finalStatus !== 'granted') {
-        return;
+            console.log("No acepto notificaciones!!!")
+            return;
         }
         let _infobase 
         try{
@@ -271,10 +273,17 @@ async function registerForPushNotificationsAsync() {
         AsyncStorage.setItem('usertoken',token)
 
         let para = `${_infobase.usuario.id}/${token}`  
-        console.warn(para);
+        
         
 
-        let resultpost = await postCommunity('pushNotToken',para)
+        let resultpost = undefined
+        
+        try{
+            resultpost = await postCommunity('pushNotToken',para)
+        }
+        catch(error){
+            return {No:"104",response:`Error`, detail:`Error al registrar Notificaciones en Community. ${error}`}     
+        }
 
         if(resultpost.resp.response != "OK")
         {
@@ -290,7 +299,8 @@ async function registerForPushNotificationsAsync() {
     }
     catch(error)
     {
-        return {No:"103",response:`Error`, detail:`Error al revisar notificaciones. ${error}`}
+        return {No:"103",response:`Error`, detail:`Error al realizar el registro de notificaciones, intentelo mas tarde. ${error}`}
+        //registerForPushNotificationsAsync()
     }
   }
 

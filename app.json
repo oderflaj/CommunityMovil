@@ -19,7 +19,8 @@
       "bundleIdentifier": "com.tecstrag.community"
     },
     "android": {
-      "package": "com.tecstrag.community"
+      "package": "com.tecstrag.community",
+      "googleServicesFile": "./community-google-services.json"
     }
   }
 }
