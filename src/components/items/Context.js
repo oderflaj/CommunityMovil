@@ -23,11 +23,8 @@ const stylex={
         backgroundColor: "#fff",
         height: null,
         margin: 10,
-        borderRadius: 5,
-        borderColor: "#D7D7D7",
-        borderWidth:2,
         padding: 10,
-        // marginBottom: 60
+        
         
         
     },

@@ -87,7 +87,7 @@ class VisitaDetalle extends Component{
             //console.debug(this.state.visitas)
             return(
                 <View style={{paddingLeft:5}}>
-                    <Text style={{fontSize:12, paddingTop:5}}>NO EXISTEN VISITAS PARA LA FECHA SELECCIONADA</Text>
+                    <Text style={{fontSize:12, paddingTop:5, color:'#8F7F7F'}}>NO EXISTEN VISITAS PARA LA FECHA SELECCIONADA</Text>
                 </View>
             )
         }
@@ -104,10 +104,10 @@ class VisitaDetalle extends Component{
 
                 const deta =()=>{
                     if(v.observacion.length>0){
-                        return (<Text style={{color:'#000'}}>{v.detalle1} <Text style={{fontWeight:'bold'}}>OBSERVACION:</Text>{v.observacion}</Text>)
+                        return (<Text style={{color:'#8F7F7F'}}>{v.detalle1} <Text style={{fontWeight:'bold'}}>OBSERVACION:</Text>{v.observacion}</Text>)
                     }
                     return(
-                        <Text style={{color:'#000'}}>{v.detalle1}</Text>
+                        <Text style={{color:'#8F7F7F'}}>{v.detalle1}</Text>
                     )
                 };
 
@@ -211,71 +211,84 @@ class VisitaDetalle extends Component{
 
         return(
             <View>
-                <Itemx.LabelValueColor iconshow='home' statusname={sta} textlabel={`${propiedad.calle} #${propiedad.numero}`} />
-                <View style={{flex:1, flexDirection:'row', paddingTop:20, justifyContent: 'space-between'}}>
-                    <View style={{justifyContent:'center', paddingLeft:5, width:'50%'}}>
-                        <Text style={{fontWeight:'bold'}}>BLOQUEO DE VISITAS</Text>
-                    </View>
-                    <View style={{flexDirection:'row', justifyContent: 'flex-start'}}>
-                        <Switch
-                            value={this.state.sw}
-                            onValueChange={(val) => {console.debug("Switch->",val), this.setState({sw:val,ft:false})}}
-                            disabled={false}
-                        />
-                        <View style={{justifyContent:'center'}}>
-                            {iconStatus()}
+                
+                <Itemx.Marquee labelx={`${propiedad.calle} #${propiedad.numero}`} >
+                    <View style={{
+                        flex:1, 
+                        flexDirection:'row', 
+                        padding:10, 
+                        justifyContent: 'space-between',
+
+                        }}
+                    >
+                        <View style={{justifyContent:'center', paddingLeft:5, width:'50%'}}>
+                            <Text style={{fontWeight:'bold', color:'#0070C4'}}>BLOQUEO DE VISITAS</Text>
                         </View>
-                    </View>
-                    
-                </View>
-                    
-                <View style={{flex:1, flexDirection:'row', paddingTop:20, justifyContent: 'space-between'}}>
-                    <View style={{justifyContent:'center',paddingLeft:5, width:'50%'}}>
-                        <Text style={{fontWeight:'bold'}}>FECHA VISITA</Text>
+                        <View style={{flexDirection:'row', justifyContent: 'flex-start'}}>
+                            <Switch
+                                value={this.state.sw}
+                                onValueChange={(val) => {console.debug("Switch->",val), this.setState({sw:val,ft:false})}}
+                                disabled={false}
+                            />
+                            <View style={{justifyContent:'center'}}>
+                                {iconStatus()}
+                            </View>
+                        </View>
+                        
                     </View>
                         
-                    <DatePicker
-                            showIcon={false}
-                            style={{width: 150, height: 40}}
-                            date={this.state.date}
-                            mode="date"
-                            placeholder={`Fecha actual ${this.state.baseDate}`}
-                            format="YYYY-MM-DD"
-                            minDate="2016-05-01"
-                            maxDate={this.state.baseDate}
-                            confirmBtnText="Confirmar"
-                            cancelBtnText="Cancelar"
-                            customStyles={{
+                    <View style={{flex:1, flexDirection:'row', padding:10, justifyContent: 'space-between'}}>
+                        <View style={{justifyContent:'center',paddingLeft:5, width:'50%'}}>
+                            <Text style={{fontWeight:'bold',color:'#0070C4'}}>FECHA VISITA</Text>
+                        </View>
                             
-                            // dateIcon: {
-                            //     position: 'absolute',
-                            //     left: 0,
-                            //     top: 4,
-                            //     marginLeft: 0
-                            // },
-                            // dateInput: {
-                            //     marginLeft: 36
-                            // }
-                            // ... You can check the source to find the other keys. 
-                            }}
-                            onDateChange={(date) => {
-                                this.setState({ft:true})
-                                this.setState({date: date})
-                                console.log(this.state.date)
-                                this.redDrawList();
-                            }}
-                        />
-                </View>
+                        <DatePicker
+                                showIcon={false}
+                                style={{width: 150, height: 40}}
+                                date={this.state.date}
+                                mode="date"
+                                placeholder={`Fecha actual ${this.state.baseDate}`}
+                                format="YYYY-MM-DD"
+                                minDate="2016-05-01"
+                                maxDate={this.state.baseDate}
+                                confirmBtnText="Confirmar"
+                                cancelBtnText="Cancelar"
+                                customStyles={{
+                                
+                                // dateIcon: {
+                                //     position: 'absolute',
+                                //     left: 0,
+                                //     top: 4,
+                                //     marginLeft: 0
+                                // },
+                                // dateInput: {
+                                //     marginLeft: 36
+                                // }
+                                // ... You can check the source to find the other keys. 
+                                }}
+                                onDateChange={(date) => {
+                                    this.setState({ft:true})
+                                    this.setState({date: date})
+                                    console.log(this.state.date)
+                                    this.redDrawList();
+                                }}
+                            />
+                    </View>
+                </Itemx.Marquee>
+                
                 <View style={{
                     flexDirection:'row',
-                    backgroundColor:'#858585',
-                    paddingLeft:5,
-                    marginTop:20
+                    backgroundColor:'#BF05A9',
+                    paddingLeft:10,
+                    borderTopLeftRadius:12,
+                    borderTopRightRadius:12,
+                    paddingBottom:3,
+                    paddingTop:3
                     }}>
-                        <View style={{width:'20%', justifyContent:'center',flexDirection:'row'}}>
+                        <View style={{width:'50%'}}>
                             <Text style={{color:'#fff'}}>HORA</Text>
                         </View>
-                        <View style={{width:'80%', justifyContent:'center', flexDirection:'row'}}>
+                        <View style={{width:'50%'}}>
                             <Text style={{color:'#fff'}}>DETALLE</Text>
                         </View>
                 </View>

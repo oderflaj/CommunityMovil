@@ -25,7 +25,7 @@ class Header extends React.Component{
                         //onPress={()=>this.state.navigation.goBack()}
                         onPress={() =>this.props.navigation.navigate(this.state.menuItem,this.state.menuItemParams)}
                         >
-                            <Icon color="#fff" name="arrow-back" size={30} style={{ paddingLeft:10}}/>
+                            <Icon color="#4472C4" name="arrow-back" size={30} style={{ paddingLeft:10}}/>
                         </TouchableWithoutFeedback>
                         <View style={styles.textHeader}>
                             <Text style={styles.title}>
@@ -42,7 +42,7 @@ class Header extends React.Component{
                 return(
                     <View style={styles.frameH}>
                         <TouchableWithoutFeedback onPress={()=>this.state.navigation.navigate('DrawerToggle')}>
-                            <Icon color="#fff" name="menu" size={30} style={{ paddingLeft:10}}/>
+                            <Icon color="#4472C4" name="menu" size={30} style={{ paddingLeft:10}}/>
                         </TouchableWithoutFeedback>
                         <View style={styles.textHeader}>
                             <Text style={styles.title}>
@@ -62,19 +62,19 @@ class Header extends React.Component{
 
 styles = {
     frameH:{
-        backgroundColor:"#3C8DBC", 
+        backgroundColor:"#F9E8F7", 
         // backgroundColor:"red", 
         flexDirection:"row",
         alignContent:"stretch",
         justifyContent:"flex-start",
         height: 45,
         paddingTop: 10,
-        paddingLeft: 6
-
+        paddingLeft: 6,
+        borderBottomColor:"#2C3B41"
         
     },
     title:{
-        color: "#FFFFFF",
+        color: "#BF05A9",
         fontSize: 20,
         alignSelf: "center",
         

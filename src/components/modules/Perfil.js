@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Alert, AsyncStorage, TouchableWithoutFeedback,ScrollView } from 'react-native';
+import { View, Text, Alert, AsyncStorage, TouchableWithoutFeedback,ScrollView,TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
+import * as MisFun from './../functions/MiscFunctions';
 import Splash from './../Splash'
 
 class perfil extends Component {
@@ -56,32 +57,34 @@ class perfil extends Component {
   propiedadesButton(propiedades){
 
     return propiedades.map(casa=>{
-          if(casa.estado == 'VENCIDO')
-          {
-            return(<Itemx.DrillButton 
-              onPress={() =>this.props.navigation.navigate('Propiedad',{id:casa.id})}
-              iconIlust='home'
-              iconDrill='more-vert'
-              colorFont='#A94442'
-              key={casa.id}
-            >
-              <Text style={{marginBottom:2}}>{casa.calle} #{casa.numero}</Text>
-              <Itemx.StatusColor statusname='danger' textshow={casa.estado} iconshow='close' colorshow=''/>
-            </Itemx.DrillButton>)
-          }
-          else
-          {
-            return(<Itemx.DrillButton 
-              onPress={() =>this.props.navigation.navigate('Propiedad',{id:casa.id})}
-              iconIlust='home'
-              iconDrill='more-vert'
-              colorFont='#3C763D'
-              key={casa.id}
-            >
-              <Text style={{ marginBottom:2}}>{casa.calle} #{casa.numero}</Text>
-              <Itemx.StatusColor statusname='success' textshow={casa.estado} iconshow='done' colorshow=''/>
-            </Itemx.DrillButton>)
-          }
+      const statusname=(casa.estado=='VENCIDO'?'danger':'success')
+      const icon = (casa.estado=='VENCIDO'?'highlight-off':'check-circle')
+      const conteninfo ={
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+      }
+      let adeudo = MisFun.formatCurrency(Math.abs(casa.adeudo));
+      return(
+      <TouchableOpacity 
+        key={casa.id}
+        onPress={() =>this.props.navigation.navigate('Propiedad',{id:casa.id})}
+      >
+        <Itemx.Marquee labelx={`${casa.calle} #${casa.numero}`} >
+          <View style={conteninfo}>
+            <View style={{ justifyContent:'center'}}>
+              <Itemx.StatusColor statusname={statusname} textshow={casa.estado} iconshow={icon} colorshow=''/>
+            </View>
+            <View style={{ justifyContent:'center'}}>
+            <Text style={{color: '#0070C0'}}>${adeudo}</Text>
+            </View>
+            <Icon color='#BF05A9' name='keyboard-arrow-right' size={35} />
+          </View>
+          
+        </Itemx.Marquee>
+      </TouchableOpacity>
+          )
+
+         
         }
       )
   }
@@ -101,37 +104,25 @@ class perfil extends Component {
           <Itemx.Header navigation={navigate} nameHeader="Perfil" iconHeader="contacts" />
           <Itemx.Context>
             <ScrollView>
-              <Itemx.LabelValue labelx='NOMBRE' valuex={fullname}  />
-              <Itemx.LabelValue labelx='EMAIL' valuex={this.state.usuario.email} />
-              <Itemx.LabelValue labelx='TELEFONO' valuex={this.state.usuario.celular} />
-              <Itemx.LabelValue labelx='PROPIEDADES' valuex='' />
-                {this.propiedadesButton(this.state.propiedades)}
-              
-              <View style={{flexDirection:'column', justifyContent:'flex-end', flex:1 }}>
-                <View style={{ 
-                  borderColor:'#2979FF', 
-                  borderWidth:1, 
-                  borderRadius:50, 
-                  alignContent:'center',
-                  justifyContent:'center',
-                  padding:5,
-                  maxWidth:180,
-                  alignSelf:'center',
-                  marginBottom:10,
-                  marginTop:10
-                  }}>
-                  <TouchableWithoutFeedback onPress={this.resetUser.bind(this)}>
-                    <View style={{flexDirection:'row', }}>
-                      <View>
-                      <Icon color='#2979FF' name='sync-disabled' size={16} />
-                      </View>
-                      <View >
-                        <Text style={{color:'#2979FF', fontSize:14}}>DESVINCULAR CUENTA</Text>
-                      </View>
-                    </View>
-                  </TouchableWithoutFeedback>
+              <View style={{flexDirection:'row', justifyContent:'space-around'}}>
+                <Icon color='#BF05A9' name='account-box' size={100} />
+                <View style={{flexWrap:'wrap'}}>
+                  <Itemx.LabelValue labelx='NOMBRE' valuex={}  >fullname</
+                  <Itemx.LabelValue labelx='EMAIL' valuex={this.state.usuario.email} />
+                  <Itemx.LabelValue labelx='TELEFONO' valuex={this.state.usuario.celular} />
                 </View>
               </View>
+              
+              
+              <View style={{flex:1, flexDirection:'row', justifyContent:'center'}}>
+                <Itemx.LabelValue labelx='MIS PROPIEDADES' valuex='' />  
+              </View>
+              <View style={{paddingLeft:10, paddingRight:10}}>
+                {this.propiedadesButton(this.state.propiedades)}
+              </View>
+              
+              <Itemx.TransparentButton onPress={this.resetUser.bind(this)} icon='sync-disabled' text='DESVINCULAR CUENTA'/>
+              
             </ScrollView>
           </Itemx.Context>
         </Itemx.Canvas>

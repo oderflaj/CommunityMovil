@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet,ScrollView } from 'react-native';
-
+import { View, Text, StyleSheet,ScrollView, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
 import * as MisFun from './../functions/MiscFunctions';
@@ -32,19 +32,48 @@ class aviso extends Component {
 
     return avv.avisos.map(a=>{
 
-      let mensaje = a.mensaje//`<p><a href="http://jsdf.co">&hearts; nice job!</a></p>`;
+      let fechaAux = MisFun.formatDate(a.fecha)
+
+      let fecha = fechaAux.split("/")
+      let dia = fecha[0]
+      let mes = fecha[1]
+      let anno = fecha[2]
+      
+      let fechaAviso=`${dia} ${MisFun.getMonthNameNumber(mes).toUpperCase()} ${anno}`
 
       return (
-        <Itemx.DrillButton 
-            onPress={() =>this.props.navigation.navigate('AvisoDetalle',{aviso:a})}
-            iconIlust='message'
-            iconDrill='more-vert'
-            colorFont='#8A6D3B'
-            key={a.id}
-          >
-            <Text style={{marginBottom:2,fontWeight:'bold'}}>{a.asunto}</Text>
-            <Text style={{marginBottom:2,color:'#5F5F5F'}}>Publicado: {MisFun.formatDate(a.fecha)}</Text>
-          </Itemx.DrillButton>
+        <TouchableOpacity key={a.id} style={{marginBottom:5}} onPress={() =>this.props.navigation.navigate('AvisoDetalle',{aviso:a})}>
+          <View style={{
+              flexDirection:'row',
+              backgroundColor:'#BF05A9',
+              paddingLeft:10,
+              borderTopLeftRadius:12,
+              borderTopRightRadius:12,
+              paddingBottom:3,
+              paddingTop:3
+              }}>
+                  <Text style={{color:'#fff'}}>{fechaAviso}</Text> 
+          </View>
+          <View style={{
+                    borderColor:'#858585',
+                    borderWidth:0.5,
+                    //marginBottom: 10,
+                    borderBottomRightRadius:8,
+                    borderBottomLeftRadius:8
+                    
+                    }}>
+                    <View style={{
+                        //flex:1,
+                        flexDirection:'row',
+                        justifyContent:'space-between',
+                    }}>
+                        <View style={{ justifyContent:'center', paddingLeft:10}}>
+                          <Text style={{fontSize:13,color:'#8F7F7F', fontWeight:"bold"}} numberOfLines={3}>{a.asunto}</Text>
+                        </View>
+                        <Icon color='#BF05A9' name='keyboard-arrow-right' size={35} />
+                    </View>
+                </View>
+        </TouchableOpacity>
       )
 
     });
@@ -67,7 +96,6 @@ class aviso extends Component {
         <Itemx.Header navigation={navigate} nameHeader="Avisos" iconHeader="notifications-active"/>
         <Itemx.Context>
           <ScrollView>
-            <Itemx.LabelValue labelx='LISTADO AVISOS' valuex='Seleccione uno de los avisos para ver a detalle la información.'  /> 
             {this.listaAvisos()}
           </ScrollView>
         </Itemx.Context>

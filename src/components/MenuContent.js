@@ -39,18 +39,18 @@ class MenuContent extends Component{
         let x =  this.state.infobase
         //console.log("Se actualiza 2")
         return(
-            <View style={{borderTopColor:"#000", borderTopWidth:24, backgroundColor: "#222D32", height:"100%"} }>       
+            <View style={{borderTopColor:"#000", borderTopWidth:24, backgroundColor: "#BF05A9", height:"100%"} }>       
                 <View style={styles.menuHeader}>                    
                     <Image
                         style={styles.imgLogo}
-                        source={require('./../image/tgslogo.jpg')}
+                        source={require('./../image/tgslogoC.png')}
                     />
                     <Text style={styles.infoCondo} >{this.state.condominio}</Text>
-                    <Text style={styles.infoUser} >{this.state.email}</Text>
+                    {/* <Text style={styles.infoUser} >{this.state.email}</Text> */}
                     <Text style={styles.infoUser} >{this.state.nombre}</Text>
                 </View>
                 <View style={styles.backgroundContent}>
-                    <MenuItem onPressItem={()=>navigate('Alarma')} onSelected="Alarma" iconMenu="rss-feed" textMenu="Alarma"/>
+                    <MenuItem onPressItem={()=>navigate('Alarma')} onSelected="Alarma" iconMenu="rss-feed" textMenu="Inicio"/>
                     <MenuItem onPressItem={()=>navigate('Perfil')} onSelected="Perfil" iconMenu="contacts" textMenu="Perfil"/>
                     <MenuItem onPressItem={()=>navigate('Visita')} onSelected="Visita" iconMenu="wc" textMenu="Visitas"/>
                     <MenuItem onPressItem={()=>navigate('Aviso')} onSelected="Aviso" iconMenu="notifications-active" textMenu="Avisos"/>
@@ -76,18 +76,18 @@ const styles = StyleSheet.create({
     menuHeader:{
 
         height:200, 
-        backgroundColor:'red'
+        backgroundColor:'white'
     },
     backgroundContent:{
-        backgroundColor: "#222D32"
+        backgroundColor: "#BF05A9"
     },
     infoUser:{
         alignSelf: 'center',
-        color: "#FFFFFF"
+        color: "#0070C1"
     },
     infoCondo:{
         alignSelf: 'center',
-        color: "#FFFFFF",
+        color: "#BF05A9",
         fontWeight: "bold",
         fontSize: 20
     }

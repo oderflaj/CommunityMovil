@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView,TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
@@ -34,27 +34,47 @@ class visita extends Component {
       
       const casas = () =>{
         return propiedades.map(casa=>{
-            let iconColor = (casa.estado=='VIGENTE' ? '#3C763D' : '#A94442')
-            let statusname = casa.novisitas==0 ? '' : 'success'
-            let textshow   = casa.novisitas==0 ? 'BLOQUEO DESACTIVADO' : 'BLOQUEO ACTIVADO'
-            let iconshow   = casa.novisitas==0 ? 'info' : 'done'
+            let statusname = casa.novisitas==0 ? '' : 'danger'
+            let textshow   = casa.novisitas==0 ? 'BLOQUEO DESACTIVADO':'BLOQUEO ACTIVADO'
+            let iconshow   = casa.novisitas==0 ? 'info':'check-circle' 
+
+            const conteninfo ={
+              flexDirection: 'row',
+              justifyContent: 'space-between'
+            }
+
+            return(
+              <TouchableOpacity 
+                key={casa.id}
+                onPress={() =>this.props.navigation.navigate('VisitaDetalle',{propiedad:casa, header:true})}
+              >
+                <Itemx.Marquee labelx={`${casa.calle} #${casa.numero}`} >
+                  <View style={conteninfo}>
+                    <View style={{ justifyContent:'center', paddingLeft:10}}>
+                      <Itemx.StatusColor statusname={statusname} textshow={textshow} iconshow={iconshow} colorshow=''/>
+                    </View>
+                    <Icon color='#BF05A9' name='keyboard-arrow-right' size={35} />
+                  </View>
+                </Itemx.Marquee>
+              </TouchableOpacity>
 
 
-            return(<Itemx.DrillButton 
-                    onPress={() =>this.props.navigation.navigate('VisitaDetalle',{propiedad:casa, header:true})}
-                    iconIlust='home'
-                    iconDrill='more-vert'
-                    colorFont={iconColor}
-                    key={casa.id}
-                  >
-                    <Text style={{marginBottom:2, color:'#5F5F5F'}}>{casa.calle} #{casa.numero}</Text>
-                    <Itemx.StatusColor statusname={statusname} textshow={textshow} iconshow={iconshow} colorshow=''/>
-                  </Itemx.DrillButton>)})
+              // <Itemx.DrillButton 
+              //       onPress={() =>this.props.navigation.navigate('VisitaDetalle',{propiedad:casa, header:true})}
+              //       iconIlust='home'
+              //       iconDrill='more-vert'
+              //       colorFont={iconColor}
+              //       key={casa.id}
+              //     >
+              //       <Text style={{marginBottom:2, color:'#5F5F5F'}}>{casa.calle} #{casa.numero}</Text>
+              //       <Itemx.StatusColor statusname={statusname} textshow={textshow} iconshow={iconshow} colorshow=''/>
+              //     </Itemx.DrillButton>
+            )})
       }
 
       return (
           <View>
-            <Itemx.LabelValue labelx='PROPIEDADES' valuex={`Seleccione la propiedad para consultar sus visitas.`} style={{marginBottom:10}} />
+            {/* <Itemx.LabelValue labelx='PROPIEDADES' valuex={`Seleccione la propiedad para consultar sus visitas.`} style={{marginBottom:10}} /> */}
             {casas()}
           </View>
           

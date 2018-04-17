@@ -7,7 +7,7 @@ const Splash = () =>{
     return(
         <View style={styles.contain}>
             <Image style={styles.look}
-                source={require('./../image/tgslogo.jpg')}
+                source={require('./../image/tgslogoCC.png')}
                 />
             <Spinner/>
         </View>
@@ -19,7 +19,7 @@ const styles = {
         justifyContent: 'center',
         flexDirection: 'column',
         
-        backgroundColor: '#E96633',
+        backgroundColor: '#fff',
         alignItems: 'center',
         height: '100%'
     },

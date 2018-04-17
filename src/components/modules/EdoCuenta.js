@@ -82,41 +82,33 @@ class edoCuenta extends Component {
         
         <Itemx.Canvas>
           <Itemx.Header navigation={navigate} nameHeader="Estado Cuenta" iconHeader="confirmation-number"/>
-          <Itemx.Context>
-            <View>
-              <Text>Seleccione el Año y el Mes del estado de cuenta y presione el botón Consultar</Text>
+          <Itemx.Context >
+            <Text style={{color:"#7F7F7F", marginBottom:10}}>Seleccione el Año y el Mes del estado de cuenta y presione el botón Consultar</Text>
+            <View style={{flexDirection:"row", marginLeft:30, marginRight:30, alignSelf:"center"}}>
               <Itemx.LabelValue labelx={'Año'}>
-              <Picker
-                selectedValue={this.state.año}
-                onValueChange={(itemValue, itemIndex) => this.setState({año: itemValue})}>
-                {this.showYears()}
-              </Picker>
-                </Itemx.LabelValue>
-              </View>
-              <View>
-                <Itemx.LabelValue labelx={'Mes'}>
-                  <Picker
-                      selectedValue={this.state.mes}
-                      onValueChange={(itemValue, itemIndex) => this.setState({mes: itemValue})}>
-                    {this.showMonths()}
-                  </Picker>
-                </Itemx.LabelValue>
-              </View>
-              <View>
-                <Itemx.BigButton onPress={this.consultaEdocta.bind(this)} >
-                  {/* <View style={{flexDirection:'row', }}>
-                    <View>
-                      <Icon color='#fff' name='filter-none' size={20} />
-                      </View>
-                      <View >
-                        <Text style={{color:'#fff', fontSize:20}}>CONSULTAR</Text>
-                      </View>
-                    </View> */}
-                    CONSULTAR
-                </Itemx.BigButton >
-              </View>
-            </Itemx.Context>
-          </Itemx.Canvas>
+                <Picker
+                  selectedValue={this.state.año}
+                  onValueChange={(itemValue, itemIndex) => this.setState({año: itemValue})}>
+                  {this.showYears()}
+                </Picker>
+              </Itemx.LabelValue>
+            </View>
+            <View style={{flexDirection:"row", marginLeft:30, marginRight:30, alignSelf:"center"}}>
+              <Itemx.LabelValue labelx={'Mes'}>
+                <Picker
+                    selectedValue={this.state.mes}
+                    onValueChange={(itemValue, itemIndex) => this.setState({mes: itemValue})}>
+                  {this.showMonths()}
+                </Picker>
+              </Itemx.LabelValue>
+            </View>
+            <View>
+              <Itemx.BigButton onPress={this.consultaEdocta.bind(this)} >
+                CONSULTAR
+              </Itemx.BigButton >
+            </View>
+          </Itemx.Context>
+        </Itemx.Canvas>
         
       );
     }

@@ -82,7 +82,7 @@ class MenuItem extends Component{
                 }} underlayColor='#1E282C'>
                 <View style={this.frameX}>
                     <View style={{flexDirection:'row'}}>
-                        <Icon color="grey" name={this.state.iconMenu} size={25} style={{marginRight: 20}}/>
+                        <Icon color="white" name={this.state.iconMenu} size={25} style={{marginRight: 20}}/>
                         <Text style={styles.textItem}>{this.state.textMenu}</Text>
                     </View>
                 </View>
@@ -99,7 +99,7 @@ class MenuItem extends Component{
 
 const styles = StyleSheet.create({
     frame:{
-        borderBottomColor:"grey",
+        borderBottomColor:"white",
         borderBottomWidth:0.5,
         marginLeft: 3,
         marginRight: 3,
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     },
     textItem:{
         fontSize: 18,
-        color: "grey"
+        color: "white"
     }
 });
 

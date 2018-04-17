@@ -100,17 +100,7 @@ class BasePage extends Component{
     }
 }
 
-const stylex =StyleSheet.create({
-    bgLogin:{
-      flex: 1,
-      justifyContent: 'center',
-      backgroundColor: '#F5FCFF',
-      position: 'absolute',
-      alignSelf: 'center',
-      height: '100%',
-      width: '100%'
-    }
-  });
+
 
 const mapStateToProps = (state, ownProps) => {
     return {

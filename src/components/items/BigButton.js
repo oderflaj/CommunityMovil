@@ -34,8 +34,8 @@ const styles={
     buttonStyle:{
      
         alignSelf:'stretch',
-        backgroundColor: '#C94155',
-        borderRadius: 5,
+        backgroundColor: '#BF05A9',
+        borderRadius: 25,
         borderWidth:0,
         marginLeft: 30,
         marginRight: 30,

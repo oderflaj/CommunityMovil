@@ -15,11 +15,13 @@ class LabelValue extends Component {
         let valuesize = this.props.valuesize || 15
 
         const lstyle = {
-            fontSize: labelsize
+            fontSize: labelsize,
+            color: "#0070C0"
         }
 
         const vstyle ={
-            fontSize: valuesize
+            fontSize: valuesize,
+            color: "#0070C0"
         }
 
         if(this.props.children == undefined)
@@ -42,20 +44,9 @@ class LabelValue extends Component {
 }
 
 
-// const LabelValue =({labelx,valuex}) => {
-    
-//     return (
-//         <View style={styles.contentlv}>
-//             <Text style={styles.labelstyle}>{labelx}</Text>
-//             <Text style={styles.valuestyle}>{valuex}</Text>
-//         </View>
-//     );
-    
-// }
-
 const styles = StyleSheet.create({
     contentlv:{
-        flex: 0,
+        flex: 1,
         flexDirection: 'column',
         marginBottom: 10
 

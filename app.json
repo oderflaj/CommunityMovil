@@ -5,12 +5,12 @@
     "slug": "community",
     "privacy": "public",
     "sdkVersion": "23.0.0",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
-    "icon": "./assets/tsgicon.png",
+    "icon": "./assets/tsgiconc.png",
     "splash": {
-      "image": "./assets/tsgsplash.png",
+      "image": "./assets/tsgsplashC.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

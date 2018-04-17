@@ -52,7 +52,7 @@ class propiedad extends Component{
         if(adeudo==undefined || adeudo.length  == 0){
             return(
             <View style={{paddingLeft:5}}>
-                <Text style={{fontSize:13}}>NO TIENE PAGOS PENDIENTES</Text>
+                <Text style={{fontSize:13,color:'#8F7F7F'}}>NO TIENE PAGOS PENDIENTES</Text>
             </View>
             );
         }
@@ -65,20 +65,20 @@ class propiedad extends Component{
                 borderBottomWidth:1,
                 paddingTop:2,
                 paddingBottom:1,
-                paddingLeft:5
+                paddingLeft:10
                 }}
                 key={ad.id}>
                     <View style={{width:'50%'}}>
-                        <Text >{ad.periodo}</Text>
+                        <Text style={{fontSize:13,color:'#8F7F7F'}}>{ad.periodo}</Text>
                     </View>
                     <View style={{width:'50%'}}>
-                        <Text >${ad.balance}</Text>
+                        <Text style={{fontSize:13,color:'#8F7F7F'}}>${ad.balance}</Text>
                     </View>
             </View>)
         })
         return(
             <View style={{paddingLeft:5}}>
-                <Text style={{fontSize:13}}>NO TIENE PAGOS PENDIENTES</Text>
+                <Text style={{fontSize:13,color:'#8F7F7F'}}>NO TIENE PAGOS PENDIENTES</Text>
             </View>
             );
     }
@@ -105,46 +105,60 @@ class propiedad extends Component{
 
             return(
                 <Itemx.Canvas>
-                    <Itemx.Header navigation={this.props.navigation} nameHeader={`${casax.residencia.calle} #${casax.residencia.numero}`} iconHeader="contacts" menuDirection='back' menuItem='Perfil' />
+                    <Itemx.Header navigation={this.props.navigation} nameHeader='Mi Propiedad' iconHeader="contacts" menuDirection='back' menuItem='Perfil' />
                     <Itemx.Context>
                         <ScrollView>
-                            <Itemx.LabelValueColor statusname='info' textlabel='ESTATUS' itemValue={true} iconshow='home' >
-                                {this.returnStatus(casax.residencia.estado)}
-                            </Itemx.LabelValueColor>
-                            {/* <Itemx.LabelValueColor statusname='success' textlabel='PAGADO' textvalue={ `$${this.state.pagado}`} iconshow='check-circle' /> */}
-                            <Itemx.LabelValueColor statusname='danger' textlabel='ADEUDO' textvalue={ `$${this.state.adeudo}`} iconshow='cancel' />
-                            
-                            
-                            <View style={styles.rowdetail}>
-                                <View style={styles.coldetail}> 
-                                    <Itemx.LabelValue labelx='ULT. PAGO' valuex={casax.residencia.ultPago} />
-                                </View>
-                                <View style={styles.coldetail}>
-                                    <Itemx.LabelValue labelx='ULT. PERIODO' valuex={casax.residencia.ultPeriodo} />
-                                </View>
-                            </View>
-                            <View style={styles.rowdetail}>
-                                <View style={styles.coldetail}> 
-                                    <Itemx.LabelValue labelx='ESCRITURACION' valuex={casax.residencia.escrituracion}/>
-                                </View>
-                                <View style={styles.coldetail}>
-                                    <Itemx.LabelValue labelx='REFERENCIA' valuex={casax.residencia.referencia} />
-                                </View>
-                            </View>
-                            
-                            
+                        <Itemx.Marquee labelx={`${casax.residencia.calle} #${casax.residencia.numero}`} >
                             <View style={{
-                                flexDirection:'row',
-                                marginTop:20,
-                                //borderColor:'#858585',
-                                //borderBottomWidth:10
-                                }}>
-                                    <Text style={{fontWeight:'bold'}}>PAGOS PENDIENTES</Text>
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-around',
+                                        paddingBottom:5,
+                                        paddingTop:5
+                                    }}>
+                                    <Text style={{color: '#0070C0'}}>ADEUDO</Text>
+                                    <Text style={{color: '#0070C0'}}>${this.state.adeudo}</Text>
+                            </View>
+                        </Itemx.Marquee>
+                        
+                        <Itemx.Marquee labelx={`INFORMACION`} >
+                            <View style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-around'
+                                    }}>
+                                    <View>
+                                        <Itemx.LabelValue labelx='ULT.PAGO' valuex={casax.residencia.ultPago}/>
+                                    </View>
+                                    <View>
+                                        <Itemx.LabelValue labelx='MES CUBIERTO' valuex={casax.residencia.ultPeriodo}/>
+                                    </View>
                             </View>
                             <View style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-around'
+                                    }}>
+                                    <View>
+                                        <Itemx.LabelValue labelx='ESCRITURACION' valuex={casax.residencia.escrituracion}/>
+                                    </View>
+                                    <View>
+                                        <Itemx.LabelValue labelx='REFERENCIA' valuex={casax.residencia.referencia}/>
+                                    </View>
+                            </View>
+                        </Itemx.Marquee>
+
+                            
+                            
+                            
+                            <View style={{flex:1, flexDirection:'row', justifyContent:'center',paddingTop:15}}>
+                                <Itemx.LabelValue labelx='PAGOS PENDIENTES' valuex='' />  
+                            </View>
+                            <View style={{
                                 flexDirection:'row',
-                                backgroundColor:'#858585',
-                                paddingLeft:5
+                                backgroundColor:'#BF05A9',
+                                paddingLeft:10,
+                                borderTopLeftRadius:12,
+                                borderTopRightRadius:12,
+                                paddingBottom:3,
+                                paddingTop:3
                                 }}>
                                     <View style={{width:'50%'}}>
                                         <Text style={{color:'#fff'}}>PERIODO</Text>
@@ -153,34 +167,12 @@ class propiedad extends Component{
                                         <Text style={{color:'#fff'}}>MONTO</Text>
                                     </View>
                             </View>
-                            <View style={{marginBottom:10}}>
+                            <View style={{marginBottom:15}}>
                                 {this.pagosPendientes(adeudo)}
                             </View>
-                            <View style={{marginTop:20}}>
-                                <Itemx.DrillButton 
-                                    onPress={() =>this.feeDetail(home)}
-                                    iconIlust='receipt'
-                                    iconDrill='more-vert'
-                                    colorFont='#2979FF'
-                                    style={{justifyContent: 'center'}}
-                                    >
-                                    <View style={{
-                                        flex:1,
-                                        flexDirection:'column',
-                                        marginBottom:2,
-                                        alignSelf:'center',
-                                        justifyContent:'center',
-                                        alignContent:'center',
-                                    }}>
-                                        <Text style={{
-                                            color:'#2979FF',
-                                            fontWeight:'bold'
-                                            }}>
-                                            DETALLE PAGOS REALIZADOS
-                                        </Text>
-                                    </View>
-                                </Itemx.DrillButton>
-                            </View>
+
+                            <Itemx.TransparentButton onPress={() =>this.feeDetail(home)} icon='receipt' text='DETALLE PAGOS REALIZADOS'/>
+                            
                         </ScrollView>
                     </Itemx.Context>
                 </Itemx.Canvas>

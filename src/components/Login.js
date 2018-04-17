@@ -21,10 +21,10 @@ import * as MisFun from './../components/functions/MiscFunctions';
      }
      
      
-     async loginx(_host,_user,_pwrd){
+    //  async loginx(_host,_user,_pwrd){
         
-        await RestOp.login(_host,_user,_pwrd).then(r=>console.log("res---TTTTT>",r),r=>console.log("Todo fallo",r));
-     }
+    //     await RestOp.login(_host,_user,_pwrd).then(r=>console.log("res---TTTTT>",r),r=>console.log("Todo fallo",r));
+    //  }
 
      onEntrarPress(){
         
@@ -104,7 +104,7 @@ import * as MisFun from './../components/functions/MiscFunctions';
             <BigButton onPress={
                     this.onEntrarPress.bind(this)
                 }>
-                ENTRAR
+                Ingresar
             </BigButton>
          );
      }
@@ -117,15 +117,26 @@ import * as MisFun from './../components/functions/MiscFunctions';
             <View style={stylex.bgLogin}>
                 <Image 
                 style={stylex.bgLogin}
-                source={require('./../image/bgLogin.png')}
+                source={require('./../image/bgLogin1.png')}
                 />
 
 
-                <View style={mainContainer}> 
-                    <Image
-                        style={imgLogo}
-                        source={require('./../image/tgslogo.jpg')}
-                    />
+                <View style={mainContainer}>
+                    <View>
+                        <Image
+                            style={imgLogo}
+                            source={require('./../../assets/C.png')}
+                        />
+                        <Text style={{color: "#BF05A9",
+                            fontSize: 20,
+                            alignSelf: "center",
+                            fontWeight:'800'
+
+                            }}>
+                            COMMUNITY
+                        </Text>
+                    </View> 
+                    
                     <View style={{justifyContent: 'space-around'}}>
                         <Text style={labelUser}>
                             CLAVE UNICA USUARIO

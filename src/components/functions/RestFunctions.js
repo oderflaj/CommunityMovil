@@ -194,7 +194,6 @@ async function isLoged(){
     }
     else
     {
-        //console.warn("SET isLoged---infobase--->")
         AsyncStorage.setItem('infobase',JSON.stringify(result))
     }
 
@@ -204,7 +203,6 @@ async function isLoged(){
 async function getBase() {
     let infobase = undefined
     await AsyncStorage.getItem('infobase').then(res=>JSON.parse(res)).then(result=>{
-        //console.log(result)
         infobase = result
     });
     return infobase;
