@@ -72,6 +72,7 @@ class pagodetalle extends Component{
                         flex:1,
                         flexDirection:'row',
                         justifyContent:'space-around',
+                        paddingLeft:5
                     }}>
                         <Itemx.LabelValue labelx='Monto' valuex={`$${pd.feeamount}`} labelsize={12} valuesize={12} />
                         <Itemx.LabelValue labelx='Folio' valuex={pd.folio} labelsize={12} valuesize={12} />

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View,Text, TouchableWithoutFeedback } from 'react-native';
+import { View,Text, TouchableWithoutFeedback, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 class Header extends React.Component{
@@ -25,7 +25,7 @@ class Header extends React.Component{
                         //onPress={()=>this.state.navigation.goBack()}
                         onPress={() =>this.props.navigation.navigate(this.state.menuItem,this.state.menuItemParams)}
                         >
-                            <Icon color="#4472C4" name="arrow-back" size={30} style={{ paddingLeft:10}}/>
+                            <Icon color="#CCC" name="arrow-back" size={30} style={{ paddingLeft:10}}/>
                         </TouchableWithoutFeedback>
                         <View style={styles.textHeader}>
                             <Text style={styles.title}>
@@ -33,7 +33,9 @@ class Header extends React.Component{
                                 {this.state.nameHeader}
                             </Text>    
                         </View>
-                        
+                        <TouchableWithoutFeedback onPress={()=>this.state.navigation.navigate('Alarma')}>
+                            <Image source={require('../../../assets/tsgiconc.png')} style={{width: 30, height: 30}} />
+                        </TouchableWithoutFeedback>
                     </View>
                 );
             break;
@@ -41,46 +43,52 @@ class Header extends React.Component{
             default:
                 return(
                     <View style={styles.frameH}>
-                        <TouchableWithoutFeedback onPress={()=>this.state.navigation.navigate('DrawerToggle')}>
-                            <Icon color="#4472C4" name="menu" size={30} style={{ paddingLeft:10}}/>
-                        </TouchableWithoutFeedback>
-                        <View style={styles.textHeader}>
-                            <Text style={styles.title}>
-                                {/* <Icon color="#fff" name={this.state.iconHeader} size={25} style={{ marginRight:20}}/> */}
-                                {this.state.nameHeader}
-                            </Text>    
-                        </View>
+                        {/* <View style={{flex:1,flexDirection:'row', justifyContent:"flex-start",justifyContent:"space-between"}}> */}
+                            <TouchableWithoutFeedback onPress={()=>this.state.navigation.navigate('DrawerToggle')}>
+                                <Icon color="#CCC" name="menu" size={30} style={{ paddingLeft:10}}/>
+                            </TouchableWithoutFeedback>
+                            <View style={styles.textHeader}>
+                                <Text style={styles.title}>
+                                    {/* <Icon color="#fff" name={this.state.iconHeader} size={25} style={{ marginRight:20}}/> */}
+                                    {this.state.nameHeader}
+                                </Text>    
+                            </View>
+                            <TouchableWithoutFeedback onPress={()=>this.state.navigation.navigate('Alarma')}>
+                                <Image source={require('../../../assets/tsgiconc.png')} style={{width: 30, height: 30}} />
+                            </TouchableWithoutFeedback>
+                        {/* </View> */}
+                        
                         
                     </View>
                 );
         }
 
-        
+
     }
     
 }
 
 styles = {
     frameH:{
-        backgroundColor:"#F9E8F7", 
+        backgroundColor:"#8080C0", 
         // backgroundColor:"red", 
         flexDirection:"row",
-        alignContent:"stretch",
-        justifyContent:"flex-start",
+        //alignContent:"space-around",
+        justifyContent:"space-between",
         height: 45,
         paddingTop: 10,
         paddingLeft: 6,
+        paddingRight: 16,
         borderBottomColor:"#2C3B41"
-        
     },
     title:{
-        color: "#BF05A9",
+        color: "#CCC",
         fontSize: 20,
         alignSelf: "center",
         
     },
     textHeader:{
-        width: "80%",
+        //width: "80%",
     }
 }
 

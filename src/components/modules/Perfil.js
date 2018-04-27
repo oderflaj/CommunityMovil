@@ -107,9 +107,13 @@ class perfil extends Component {
               <View style={{flexDirection:'row', justifyContent:'space-around'}}>
                 <Icon color='#BF05A9' name='account-box' size={100} />
                 <View style={{flexWrap:'wrap'}}>
-                  <Itemx.LabelValue labelx='NOMBRE' valuex={}  >fullname</
+                  <Itemx.LabelValue labelx='NOMBRE' valuex=''  >
+                    <Text style={{color:'#0070C0'}}>{this.state.usuario.nombre}</Text>
+                    <Text style={{color:'#0070C0'}}>{this.state.usuario.apepaterno}</Text>
+                    <Text style={{color:'#0070C0'}}>{this.state.usuario.apematerno}</Text>
+                  </Itemx.LabelValue>
                   <Itemx.LabelValue labelx='EMAIL' valuex={this.state.usuario.email} />
-                  <Itemx.LabelValue labelx='TELEFONO' valuex={this.state.usuario.celular} />
+                  <Itemx.LabelValue labelx='TELEFONO' valuex={this.state.usuario.celular||'No Registrado'} />
                 </View>
               </View>
               

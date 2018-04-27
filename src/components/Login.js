@@ -29,7 +29,7 @@ import * as MisFun from './../components/functions/MiscFunctions';
      onEntrarPress(){
         
         let descript = MisFun.decriptaCommunity(this.state.uniquecode).split('-')
-        console.warn("Desencriptado->",descript)
+        //console.warn("Desencriptado->",descript)
         const _host = (descript[0].includes("http://")?descript[0]:`http://${descript[0]}`)
         const _user = descript[1]
         const _pwrd = descript[2]
@@ -72,7 +72,7 @@ import * as MisFun from './../components/functions/MiscFunctions';
                     this.setState({error:true})
                 }
                 
-                this.setState({spin:false})
+                
             },
             r=>{
                 this.setState({message:"Error al intentar entrar a sesión. Intente de nuevo, si el problema persiste contacte a su administrador para que le proporcione una actualización de clave."})
@@ -184,12 +184,13 @@ const styles = StyleSheet.create({
     keyUser:{
         height: 180,
         width: 280,
-        backgroundColor: '#FFFFCC',
+        backgroundColor: 'rgba(52, 52, 52, 0.5)',
         borderColor: '#FFFFAA',
         borderRadius: 10,
         paddingRight: 10,
 		paddingLeft: 10,
-		paddingTop:15
+        paddingTop:15,
+        color:'#fff'
     }
 })
 

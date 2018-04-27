@@ -12,10 +12,11 @@ class MenuContent extends Component{
         this.state = {infobase:undefined, condominio:'', email:'', nombre:''}
         //Gets the base information in asychronous mode and then save the object, then save the data into variables
         RestOp.getBase().then(r=>{
-            
+            console.debug("MenuContext r->",r)
             this.setState({infobase:r})
         })
         .then(()=>{
+
             x =  this.state.infobase
             
             this.setState({condominio:x.condominio.nombre})
@@ -50,7 +51,7 @@ class MenuContent extends Component{
                     <Text style={styles.infoUser} >{this.state.nombre}</Text>
                 </View>
                 <View style={styles.backgroundContent}>
-                    <MenuItem onPressItem={()=>navigate('Alarma')} onSelected="Alarma" iconMenu="rss-feed" textMenu="Inicio"/>
+                    <MenuItem onPressItem={()=>navigate('Alarma')} onSelected="Alarma" iconMenu="home" textMenu="Inicio"/>
                     <MenuItem onPressItem={()=>navigate('Perfil')} onSelected="Perfil" iconMenu="contacts" textMenu="Perfil"/>
                     <MenuItem onPressItem={()=>navigate('Visita')} onSelected="Visita" iconMenu="wc" textMenu="Visitas"/>
                     <MenuItem onPressItem={()=>navigate('Aviso')} onSelected="Aviso" iconMenu="notifications-active" textMenu="Avisos"/>

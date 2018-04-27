@@ -48,6 +48,7 @@ async function login(_host, _user,_pwrd){
 async function getCommunity(_action, _parameters, _verb){
     //AsyncStorage.setItem('host','http://community.tecstrag.com')
     _verb = _verb || 'get'
+    _parameters = _parameters || ''
     let _host = await AsyncStorage.getItem('host');
     let _token = await AsyncStorage.getItem('token');
 
@@ -64,9 +65,11 @@ async function getCommunity(_action, _parameters, _verb){
     let requestx = ''
    
    if(_parameters !=undefined && _parameters != ''){
+    console.debug("getCommunity con Parametros",`${_host}/api/data/${_action}/${_parameters}`)
     requestx = `${_host}/api/data/${_action}/${_parameters}`
    }
    else{
+    console.debug("getCommunity SIN-> Parametros",`${_host}/api/data/${_action}`)
     requestx = `${_host}/api/data/${_action}`
    } 
    console.debug("getCommunity",requestx)
@@ -234,9 +237,9 @@ async function registerForPushNotificationsAsync() {
         let _infobase 
         try{
             _infobase = JSON.parse( await AsyncStorage.getItem('infobase'));
-            //console.warn("INFOBASE->",_infobase)
-            if(_infobase==null){
-                //console.warn("INFOBASE->Entra a hacer algo......")
+            console.warn("INFOBASE->",_infobase)
+            if(_infobase==null || _infobase == undefined){
+                console.warn("INFOBASE->Entra a hacer algo......")
                 result = await getCommunity("base")
                 AsyncStorage.setItem('infobase',JSON.stringify(result))
                 _infobase = JSON.parse( await AsyncStorage.getItem('infobase'));

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, WebView, AsyncStorage } from 'react-native';
+import { View, Text, StyleSheet, WebView, AsyncStorage,ScrollView } from 'react-native';
 
 import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
@@ -54,10 +54,21 @@ class avisoDetalle extends Component {
      return( <Itemx.Canvas>
         <Itemx.Header navigation={navigation} nameHeader="Detalle Aviso" iconHeader="" menuDirection='back' menuItem='Aviso' />
         <Itemx.Context>
-        <Itemx.LabelValue labelx='ASUNTO:' valuex={aviso.asunto}  />
-        <Itemx.LabelValue labelx='FECHA:' valuex={MisFun.formatDate(aviso.fecha)}  />
-        <Text style={{fontWeight:'bold'}} >MENSAJE:</Text>
-          {this.muestraAviso(aviso)}
+        
+          <View style={{flex:1, justifyContent:'flex-start'}}>
+            <Itemx.LabelValue labelx='ASUNTO:' valuex={aviso.asunto}   />
+            <Itemx.LabelValue labelx='FECHA:' valuex={MisFun.formatDate(aviso.fecha)}  style={{flexShrink:1}}/>
+          </View>
+          
+          
+          <View style={{flex:4, justifyContent:'flex-start'}}>
+          
+            <Text style={{fontWeight:'bold', color:'#0070C0'}} >MENSAJE:</Text>
+            {this.muestraAviso(aviso)}
+          </View>
+        
+          
+        
         </Itemx.Context>
       </Itemx.Canvas>)
     } 

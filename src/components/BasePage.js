@@ -30,7 +30,7 @@ class BasePage extends Component{
             return JSON.parse(x)
 
         }).then(obj=>{
-          //console.warn("OBJ----->>>>>",obj)
+          console.warn("OBJ----->>>>>",obj)
           if(obj && obj.Error == undefined){
             this.setState({loged:true})
           }
@@ -59,7 +59,9 @@ class BasePage extends Component{
             return(
                 <Splash/>
             );
-
+        
+        console.debug("Hara notificaciones")
+        
         if(this.state.loged)
         { 
             //Seccion de notificaciones Inicio
@@ -70,10 +72,11 @@ class BasePage extends Component{
             // notification (rather than just tapping the app icon to open it),
             // this function will fire on the next tick after the app starts
             // with the notification data.
+            console.debug("Hara notificaciones")
             this._notificationSubscription = Notifications.addListener(this._handleNotification);
         
             //Seccion de notificaciones Fin
-            //console.debug("Ya esta firmado en Community..........")
+            console.debug("Ya esta firmado en Community..........")
             
             if(this.state.notificationCommunity.origin != undefined && this.state.notificationCommunity.origin === 'selected')
             {
