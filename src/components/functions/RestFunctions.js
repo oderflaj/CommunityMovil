@@ -16,14 +16,15 @@ async function login(_host, _user,_pwrd){
   }).then((responsex)=>{ 
         
         var _auth = JSON.parse(responsex._bodyText)
-        console.warn( `Entro en Login 2[${_auth}]`)
+        console.debug( `Entro en Login 2[${_auth}]`)
         if(_auth.access_token==undefined)
         {
-
+            console.warn(`Token undefined`)
             return _auth.error_description
         }
         else
         {
+            console.debug(`Token OK Guarda en AsyncStorage el host, usuario, password, token`)
             AsyncStorage.setItem('host',_host)
             AsyncStorage.setItem('usuario',_user)
             AsyncStorage.setItem('password',_pwrd)
@@ -73,6 +74,7 @@ async function getCommunity(_action, _parameters, _verb){
     requestx = `${_host}/api/data/${_action}`
    } 
    console.debug("getCommunity",requestx)
+   console.debug(`TOKEN->${_token}`)
     return await fetch(requestx,{
         method: _verb, 
         headers: {
@@ -81,6 +83,8 @@ async function getCommunity(_action, _parameters, _verb){
         })
         .then(resp=>resp.json())
         .then(r=>{
+            console.debug(`Resultado de getCommunity->${r}\n -->${r.ClassName}`)
+            
             return r
         })
         .catch((error) => {
@@ -218,30 +222,30 @@ async function registerForPushNotificationsAsync() {
         Permissions.NOTIFICATIONS
         );
         let finalStatus = existingStatus;
-        console.warn("Actual estado de notificaciones->",finalStatus)
+        console.debug("Actual estado de notificaciones->",finalStatus)
     
         // only ask if permissions have not already been determined, because
         // iOS won't necessarily prompt the user a second time.
         if (existingStatus !== 'granted') {
-        // Android remote notification permissions are granted during the app
-        // install, so this will only ask on iOS
-        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-        finalStatus = status;
+            // Android remote notification permissions are granted during the app
+            // install, so this will only ask on iOS
+            const { status } =  await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            finalStatus = status;
         }
     
         // Stop here if the user did not grant permissions
         if (finalStatus !== 'granted') {
-            console.log("No acepto notificaciones!!!")
+            console.warn("No acepto notificaciones!!!")
             return;
         }
         let _infobase 
         try{
             _infobase = JSON.parse( await AsyncStorage.getItem('infobase'));
-            console.warn("INFOBASE->",_infobase)
+            console.debug("INFOBASE->",_infobase)
             if(_infobase==null || _infobase == undefined){
-                console.warn("INFOBASE->Entra a hacer algo......")
-                result = await getCommunity("base")
-                AsyncStorage.setItem('infobase',JSON.stringify(result))
+                console.debug("INFOBASE->Entra a hacer algo......")
+                result =  await getCommunity("base")
+                await AsyncStorage.setItem('infobase',JSON.stringify(result))
                 _infobase = JSON.parse( await AsyncStorage.getItem('infobase'));
                 //console.warn("2 INFOBASE->",_infobase)
             }
@@ -281,6 +285,7 @@ async function registerForPushNotificationsAsync() {
         
         try{
             resultpost = await postCommunity('pushNotToken',para)
+            console.debug(`Resultpost->${resultpost}`)
         }
         catch(error){
             return {No:"104",response:`Error`, detail:`Error al registrar Notificaciones en Community. ${error}`}     
