@@ -14,7 +14,7 @@ class MenuItem extends Component{
         this.frameX = styles.frame
         AsyncStorage.getItem('menuItemSelected').then(item=>{
             
-            console.log("componentWillMount ----Seleccionado Item->",item," Select>",this.state.onSelected)
+            console.debug("componentWillMount ----Seleccionado Item->",item," Select>",this.state.onSelected)
             if(item != this.state.onSelected)
             {
                 this.frameX = styles.frame
@@ -75,7 +75,6 @@ class MenuItem extends Component{
         return(
             
             <TouchableHighlight onPress={()=>{
-                //console.log("Presiono boton xxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->",this.state.onSelected)
                 this.setSelected()
                 this.frameX = styles.frameOn
                 this.state.onPressItem()

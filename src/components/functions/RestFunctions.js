@@ -83,7 +83,6 @@ async function getCommunity(_action, _parameters, _verb){
         })
         .then(resp=>resp.json())
         .then(r=>{
-            console.debug(`Resultado de getCommunity->${r}\n -->${r.ClassName}`)
             
             return r
         })
@@ -145,7 +144,6 @@ async function postCommunity(_action, _parameters){
 
 async function isLoged(){
 
-    
     let _user = await AsyncStorage.getItem('usuario');
     //console.log("isLoged---_user--->",_user) 
     let _paswd = await AsyncStorage.getItem('password');
@@ -175,7 +173,7 @@ async function isLoged(){
         if(result.No != '101')
             return result
     }
-    console.debug('SIGUIO',)
+    console.debug('SIGUIO   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx',)
     //Check if there is a token available 
     if(result.usuario == null || result.No == '101' )
     {

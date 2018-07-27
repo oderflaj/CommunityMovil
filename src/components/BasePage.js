@@ -60,7 +60,7 @@ class BasePage extends Component{
                 <Splash/>
             );
         
-        console.debug("Hara notificaciones")
+        console.debug("Hara notificaciones 1")
         
         if(this.state.loged)
         { 
@@ -72,29 +72,36 @@ class BasePage extends Component{
             // notification (rather than just tapping the app icon to open it),
             // this function will fire on the next tick after the app starts
             // with the notification data.
-            console.debug("Hara notificaciones")
+            console.debug("Hara notificaciones 2")
             this._notificationSubscription = Notifications.addListener(this._handleNotification);
         
             //Seccion de notificaciones Fin
             console.debug("Ya esta firmado en Community..........")
+            console.debug(`Empieza el IF ------------------notificationCommunity[${JSON.stringify(this.state.notificationCommunity,null,4)}]`)
             
             if(this.state.notificationCommunity.origin != undefined && this.state.notificationCommunity.origin === 'selected')
             {
                 let pushObject = this.state.notificationCommunity.data
                 
-                console.debug(pushObject)
+                console.debug(`Se Escribe Modulo ${pushObject.modulo}`)
+
                 switch(pushObject.modulo)
                 {
                     case "Visita":
+                        console.debug(`Entro en Vista---------------------------`)
+                        //AsyncStorage.setItem('menuItemSelected',"Visita")
                         //this.props.navigation.navigate('VisitaDetalle',{propiedad:pushObject.objeto, header:pushObject.header});
                         //return( <Menu modulo={'VisitaDetalle'} param={[{propiedad:pushObject.objeto},{header:pushObject.header}]}/>);
                         // return(
                         //         <Login  modulo={'VisitaDetalle'} param={[{propiedad:pushObject.objeto},{header:pushObject.header}]}/>
                         // );
-                        this.props.notification = {modulo:pushObject.modulo, objeto:{propiedad:pushObject.objeto,header:pushObject.header}}
-                        console.debug("Despues de setear PROPS...",this.props)
+
+                        //this.props.notification = {modulo:pushObject.modulo, objeto:{propiedad:pushObject.objeto,header:pushObject.header}}
+                        //console.debug(`Este es el objeto que se muestra:[${pushObject.modulo}] \n\n objeto ${objeto} `)
+                        //console.debug("Despues de setear PROPS...",this.props)
                 }
             }
+            console.debug("Termino el IF ------------------")
             return( <Menu />);
         }
         return(

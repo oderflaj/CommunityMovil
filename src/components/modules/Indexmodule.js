@@ -8,4 +8,5 @@ export * from './EdoCuentaDetalle.js'
 export * from './Propiedad.js'
 export * from './PagoDetalle.js'
 export * from './VisitaDetalle';
+export * from './VisitaImagen';
 export * from './AvisoDetalle.js';

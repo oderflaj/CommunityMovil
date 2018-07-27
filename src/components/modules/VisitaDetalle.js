@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, Text, AsyncStorage, Switch, Alert,ScrollView } from 'react-native';
+import { View, Text, AsyncStorage, Switch, Alert,ScrollView,TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Itemx from './../items/IndexItem'
 import * as RestOp from './../functions/RestFunctions';
@@ -34,7 +34,7 @@ class VisitaDetalle extends Component{
             header = this.props.navigation.state.params.header || false
         }
 
-        this.state = {load:true, propiedad:proper, visitas:undefined, date:cuFec, baseDate:cuFec, sw:false, ft:true, header:header};
+        this.state = {load:true, propiedad:proper, visitas:undefined, date:cuFec, baseDate:cuFec, sw:false, ft:true, header:header, camaras:0};
     }
 
     async componentDidMount(){
@@ -54,8 +54,12 @@ class VisitaDetalle extends Component{
             this.setState({load:false})
             this.setState({sw:(this.props.navigation.state.params.propiedad.novisitas == 0 ? false :(this.props.navigation.state.params.propiedad.novisitas == undefined ? false : true))})
           })
+
+        let result = await RestOp.getCommunity("base")
+
+        this.setState({camaras:result.caracteristicas.camaras|0})
         
-        // console.debug("Se esta cargando la información->",this.state.sw)
+        console.debug("Se carga información base con Camaras->",this.state.camaras)
 
         
     }
@@ -94,39 +98,100 @@ class VisitaDetalle extends Component{
         else{
             let vs = this.state.visitas
 
+            console.debug(`Visitas---->>[${ JSON.stringify(this.state.visitas)}`)
             
             vs.sort((a,b)=>{
                 return a.id > b.id ? 1 : (b.id > a.id ? -1 : 0)
             }).reverse()
 
-            
-            return vs.map(v=>{
+            if(this.state.camaras == 1){
+                return vs.map(v=>{
 
-                const deta =()=>{
-                    if(v.observacion.length>0){
-                        return (<Text style={{color:'#8F7F7F'}}>{v.detalle1} <Text style={{fontWeight:'bold'}}>OBSERVACION:</Text>{v.observacion}</Text>)
-                    }
-                    return(
-                        <Text style={{color:'#8F7F7F'}}>{v.detalle1}</Text>
-                    )
-                };
-
-                return (<View key={v.id} style={{
-                    flexDirection:'row',
-                    paddingLeft:3,
-                    borderBottomColor:'#858585',
-                    borderBottomWidth:1
-                    }}>
-                        <View style={{width:'20%', justifyContent:'center',flexDirection:'row'}}>
-                            <View style={{justifyContent:'center'}}>
-                                <Text style={{color:'#000'}}>{v.horaEntrada}</Text>
+                    const deta =()=>{
+                        if(v.observacion.length>0){
+                            return (
+                                <View style={{justifyContent:'center',flexDirection:'row'}}>
+                                    <View style={{width:'90%'}}>
+                                        <Text style={{color:'#8F7F7F'}}>{v.detalle1} <Text style={{fontWeight:'bold'}}>OBSERVACION:</Text>{v.observacion}</Text>
+                                    </View>
+                                    <View style={{width:'10%'}}>
+                                        <View style={{justifyContent:'center'}}>
+                                            <Icon color='#BF05A9' name='keyboard-arrow-right' size={35} />
+                                        </View>
+                                    </View>
+                                </View>
+                                    )
+                        }
+                        return(
+                            <View style={{justifyContent:'center',flexDirection:'row'}}>
+                                <View style={{width:'90%'}}>
+                                    <Text style={{color:'#8F7F7F'}}>{v.detalle1}</Text>
+                                </View>
+                                <View style={{width:'10%'}}>
+                                    <View style={{justifyContent:'center'}}>
+                                        <Icon color='#BF05A9' name='keyboard-arrow-right' size={35} />
+                                    </View>
+                                </View>
                             </View>
-                        </View>
-                        <View style={{width:'80%', justifyContent: 'flex-start', flexDirection:'row'}}>
-                            {deta()}
-                        </View>
-                </View>)
-            })                                                        
+                        )
+                    };
+    
+                    return (<View key={v.id} style={{
+                        flexDirection:'row',
+                        paddingLeft:3,
+                        borderBottomColor:'#858585',
+                        borderBottomWidth:1
+                        }}>
+                            <TouchableOpacity style={{justifyContent:'center',flexDirection:'row'}}
+                                //key={casa.id}
+                                onPress={() =>this.props.navigation.navigate('VisitaImagen',{idvisita:v.id, header:true})}
+                                
+                            >
+                                <View style={{width:'20%', justifyContent:'center',flexDirection:'row'}}>
+                                    <View style={{justifyContent:'center'}}>
+                                        <Text style={{color:'#000'}}>{v.horaEntrada}</Text>
+                                    </View>
+                                </View>
+                                <View style={{width:'80%', justifyContent: 'flex-start', flexDirection:'row'}}>
+                                    {deta()}
+                                </View>
+                            </TouchableOpacity>
+                            
+                    </View>)
+                })      
+            }
+            else{
+                return vs.map(v=>{
+
+                    const deta =()=>{
+                        if(v.observacion.length>0){
+                            return (<Text style={{color:'#8F7F7F'}}>{v.detalle1} <Text style={{fontWeight:'bold'}}>OBSERVACION:</Text>{v.observacion}</Text>)
+                        }
+                        return(
+                            <Text style={{color:'#8F7F7F'}}>{v.detalle1}</Text>
+                        )
+                    };
+    
+                    return (<View key={v.id} style={{
+                        flexDirection:'row',
+                        paddingLeft:3,
+                        borderBottomColor:'#858585',
+                        borderBottomWidth:1
+                        }}>
+                            <View style={{width:'20%', justifyContent:'center',flexDirection:'row'}}>
+                                <View style={{justifyContent:'center'}}>
+                                    <Text style={{color:'#000'}}>{v.horaEntrada}</Text>
+                                </View>
+                            </View>
+                            <View style={{width:'80%', justifyContent: 'flex-start', flexDirection:'row'}}>
+                                {deta()}
+                            </View>
+                    </View>)
+                })      
+
+            }
+            
+                                                              
         }
     }
 

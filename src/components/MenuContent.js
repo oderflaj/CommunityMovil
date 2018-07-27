@@ -51,8 +51,8 @@ class MenuContent extends Component{
                     <Text style={styles.infoUser} >{this.state.nombre}</Text>
                 </View>
                 <View style={styles.backgroundContent}>
-                    <MenuItem onPressItem={()=>navigate('Alarma')} onSelected="Alarma" iconMenu="home" textMenu="Inicio"/>
-                    <MenuItem onPressItem={()=>navigate('Perfil')} onSelected="Perfil" iconMenu="contacts" textMenu="Perfil"/>
+                    <MenuItem onPressItem={()=>navigate('Alarma')} onSelected="Alarma" iconMenu="toys" textMenu="Inicio"/>
+                    <MenuItem onPressItem={()=>navigate('Perfil')} onSelected="Perfil" iconMenu="home" textMenu="Propiedad"/>
                     <MenuItem onPressItem={()=>navigate('Visita')} onSelected="Visita" iconMenu="wc" textMenu="Visitas"/>
                     <MenuItem onPressItem={()=>navigate('Aviso')} onSelected="Aviso" iconMenu="notifications-active" textMenu="Avisos"/>
                     {/* <MenuItem onPressItem={()=>navigate('AreaComun')} onSelected="AreaComun" iconMenu="toys" textMenu="Area Común"/> */}

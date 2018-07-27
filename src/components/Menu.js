@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Text, View } from 'react-native';
+import React , {Component} from 'react';
+import { Button, Text, View, AsyncStorage } from 'react-native';
 import alarm from './modules/Alarm';
 import {
     //alarm,
@@ -11,12 +11,21 @@ import {
     propiedad,
     pagodetalle,
     VisitaDetalle,
+    visitaImagen,
     avisoDetalle,
     edoCuentaDetalle
 } from './modules/Indexmodule';
 import {DrawerNavigator} from 'react-navigation'
 import MenuContent from './MenuContent' 
 import Login from './Login'
+
+/*
+const primera = async ()=>{
+    let x = await AsyncStorage.getItem('menuItemSelected')
+    console.debug(`XXXXXXXXXXXXXXXXXXXXYYYY----${x}----YYYYYYYYYYYYZZZZZZZZZZZZZZZZZZZZZZZZ`)
+};
+
+primera();*/
 
 const Menu = DrawerNavigator(
     {
@@ -63,6 +72,10 @@ const Menu = DrawerNavigator(
         VisitaDetalle:{
             path:'/',
             screen: VisitaDetalle
+        },      
+        VisitaImagen:{
+            path:'/',
+            screen: visitaImagen
         },      
         AvisoDetalle:{
             path:'/',
