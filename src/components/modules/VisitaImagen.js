@@ -89,12 +89,12 @@ class visitaImagen extends Component{
                     </Itemx.Marquee>
                     <Itemx.Marquee labelx={`IDENTIFICACION`} >
                         <View style={stVisitaImagen.contentImage}>
-                            {this.getImg(this.state.visitante.visitas.camara1)}
+                            {this.getImg(this.state.visitante.visitas.camara2)}
                         </View>
                     </Itemx.Marquee>
                     <Itemx.Marquee labelx={`PLACA`} >
                         <View style={stVisitaImagen.contentImage}>
-                            {this.getImg(this.state.visitante.visitas.camara1)}
+                            {this.getImg(this.state.visitante.visitas.camara3)}
                         </View>
                     </Itemx.Marquee>
                 </View>
@@ -109,7 +109,7 @@ class visitaImagen extends Component{
         if(this.state.visitante==undefined)
         {
             RestOp.getCommunity("fotos",this.state.idvisita).then(visita=>{
-                console.debug(`Se obtuvo el siguiente valor-visita-->>>${JSON.stringify(visita.visitas)}`)
+                //console.debug(`Se obtuvo el siguiente valor-visita-->>>${JSON.stringify(visita.visitas)}`)
                 this.setState({visitante: visita})       
             })
             return(<Splash/>)

@@ -82,7 +82,7 @@ class visita extends Component {
     }
     else{
       //this.setState({menuDirection:'back'})
-      return (<VisitaDetalle propiedad={propiedades[0]} header={false}/>)
+      return (<VisitaDetalle propiedad={propiedades[0]} header={false} navigationx={this.props.navigation}/>)
     }
   }
 

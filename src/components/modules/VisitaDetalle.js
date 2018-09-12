@@ -22,19 +22,22 @@ class VisitaDetalle extends Component{
 
         let proper= undefined 
         let header = undefined
+        let navigate = undefined
         
         if(this.props.navigation==undefined)
         {
             proper = this.props.propiedad
             header = this.props.header || false
+            navigate = this.props.navigationx
         }
         else
         {
             proper = this.props.navigation.state.params.propiedad
             header = this.props.navigation.state.params.header || false
+            navigate = this.props.navigation
         }
 
-        this.state = {load:true, propiedad:proper, visitas:undefined, date:cuFec, baseDate:cuFec, sw:false, ft:true, header:header, camaras:0};
+        this.state = {load:true, propiedad:proper, visitas:undefined, date:cuFec, baseDate:cuFec, sw:false, ft:true, header:header, camaras:0, navigation:navigate};
     }
 
     async componentDidMount(){
@@ -47,19 +50,19 @@ class VisitaDetalle extends Component{
         day = (day.length>1 ? day : `0${day}`)
 
         cuFec = `${fec.getFullYear()}-${mon}-${day}`
+        
         console.debug(`${this.state.propiedad.id}/${cuFec}`)
+        console.debug(`Se muestra lo que viene en NAV->`,this.props.propiedad.novisitas)
+
         await RestOp.getCommunity("visitas",`${this.state.propiedad.id}/${cuFec}`).then(rr=>{
-            //console.log('componentDidMount',`${this.state.propiedad.id}/${cuFec}`,'-->>',rr.visitas)
+            console.debug('componentDidMount',`${this.state.propiedad.id}/${cuFec}`,'-->>',rr.visitas)
             this.setState({visitas:rr.visitas})
             this.setState({load:false})
-            this.setState({sw:(this.props.navigation.state.params.propiedad.novisitas == 0 ? false :(this.props.navigation.state.params.propiedad.novisitas == undefined ? false : true))})
+            this.setState({sw:(this.state.propiedad.novisitas == 0 ? false : true)})
           })
-
         let result = await RestOp.getCommunity("base")
-
         this.setState({camaras:result.caracteristicas.camaras|0})
         
-        console.debug("Se carga información base con Camaras->",this.state.camaras)
 
         
     }
@@ -71,7 +74,7 @@ class VisitaDetalle extends Component{
             // console.log(rr.visitas)
             this.setState({visitas:rr.visitas})
             this.setState({load:false})
-            this.setState({sw:(this.props.navigation.state.params.propiedad.novisitas == 0 ? false :(this.props.navigation.state.params.propiedad.novisitas == undefined ? false : true))})
+            this.setState({sw:(this.state.propiedad.novisitas == 0 ? false :(this.state.propiedad.novisitas == undefined ? false : true))})
           })
 
         
@@ -98,13 +101,11 @@ class VisitaDetalle extends Component{
         else{
             let vs = this.state.visitas
 
-            console.debug(`Visitas---->>[${ JSON.stringify(this.state.visitas)}`)
-            
             vs.sort((a,b)=>{
                 return a.id > b.id ? 1 : (b.id > a.id ? -1 : 0)
             }).reverse()
 
-            if(this.state.camaras == 1){
+            if(this.state.camaras === 1){
                 return vs.map(v=>{
 
                     const deta =()=>{
@@ -144,7 +145,8 @@ class VisitaDetalle extends Component{
                         }}>
                             <TouchableOpacity style={{justifyContent:'center',flexDirection:'row'}}
                                 //key={casa.id}
-                                onPress={() =>this.props.navigation.navigate('VisitaImagen',{idvisita:v.id, header:true})}
+                                onPress={() =>this.state.navigation.navigate('VisitaImagen',{idvisita:v.id, header:true})}
+                                
                                 
                             >
                                 <View style={{width:'20%', justifyContent:'center',flexDirection:'row'}}>

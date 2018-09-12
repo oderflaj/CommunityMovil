@@ -29,8 +29,9 @@ import * as MisFun from './../components/functions/MiscFunctions';
      onEntrarPress(){
         
         let descript = MisFun.decriptaCommunity(this.state.uniquecode).split('-')
-        //console.warn("Desencriptado->",descript)
-        const _host = (descript[0].includes("http://")?descript[0]:`http://${descript[0]}`)
+        console.debug("Desencriptado->",descript)
+        const _host = descript[0].includes("http://")||descript[0].includes("https://") ? descript[0]             
+            : `http://${descript[0]}`
         const _user = descript[1]
         const _pwrd = descript[2]
 
@@ -42,6 +43,8 @@ import * as MisFun from './../components/functions/MiscFunctions';
         this.setState({error:false})
         this.setState({message:''})
         
+        AsyncStorage.setItem('infobase',{})
+
         RestOp.login(_host,_user,_pwrd).then(
             
             r=>{
@@ -55,10 +58,10 @@ import * as MisFun from './../components/functions/MiscFunctions';
                             {
                                 this.setState({message:r2.detail})
                                 this.setState({error:true})
-                                console.debug("Error en el Push")
+                                
                             }
                             else{
-                                console.debug("EJecucion Correcta---------------",this.props)
+                                
                                 this.props.generalLogin();
                                 //this.props.navigation.navigate('Alarma',{})
                             }

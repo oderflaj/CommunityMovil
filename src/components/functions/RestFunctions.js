@@ -173,7 +173,7 @@ async function isLoged(){
         if(result.No != '101')
             return result
     }
-    console.debug('SIGUIO   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx',)
+    
     //Check if there is a token available 
     if(result.usuario == null || result.No == '101' )
     {
