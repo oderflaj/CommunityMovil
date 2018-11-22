@@ -1,22 +1,44 @@
 import React from 'react';
-import {AsyncStorage, NetInfo} from 'react-native';
+import {AsyncStorage} from 'react-native';
 import { Permissions, Notifications } from 'expo';
+import axios from 'axios'
 
+// import {connect} from 'react-redux'
+// import store from "../../store";
+// import {updateInfobase} from "../actions"
 
 async function login(_host, _user,_pwrd){
     
    console.debug("Entro en Login 1 _host",_host,"_user",_user,"_pwrd",_pwrd)
-   let result = await fetch(`${_host}/token`, { 
-    method: 'post', 
-    headers: {
-      //'Authorization': 'Basic '+ btoa('oderflaj@gmail.com:A1A1A1A1'), 
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }, 
-    body: 'grant_type=password&password=' + _pwrd +'&username=' + _user
-  }).then((responsex)=>{ 
-        
-        var _auth = JSON.parse(responsex._bodyText)
-        console.debug( `Entro en Login 2[${_auth}]`)
+
+   let requestx ={
+       url:'token',
+       method:'post',
+       baseURL:_host,
+       auth:{
+           username:_user,
+           password:_pwrd
+       },
+       data:{
+        grant_type:'password'
+
+       }
+   }
+    // let x = await axios.request(requestx).then(response=>{
+    //     console.debug("Respuesta Axios")
+    //     console.debug(response)
+    // })
+
+    let result = await fetch(`${_host}/token`, { 
+        method: 'post', 
+        headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+        }, 
+            body: 'grant_type=password&password=' + _pwrd +'&username=' + _user
+    }).then(function(response) {
+        return response.json();
+    })
+    .then(function(_auth) {
         if(_auth.access_token==undefined)
         {
             console.warn(`Token undefined`)
@@ -29,19 +51,12 @@ async function login(_host, _user,_pwrd){
             AsyncStorage.setItem('usuario',_user)
             AsyncStorage.setItem('password',_pwrd)
             AsyncStorage.setItem('token',_auth.access_token)
-
             return "ok"
         }
-        
-    })
-    .then(responsey=>{
-        console.debug("Resultado->",responsey)
-        return responsey
-    })
-    .catch((error) => {console.debug("Entro a un error")
+    }).catch((error) => {console.debug("Entro a un error")
         console.error(error);
         throw error
-      });
+    });
     return result//.then(r=>{return r});
 }
 
@@ -142,7 +157,7 @@ async function postCommunity(_action, _parameters){
 }
 
 
-async function isLoged(){
+const  isLoged = async () => {
 
     let _user = await AsyncStorage.getItem('usuario');
     //console.log("isLoged---_user--->",_user) 
@@ -186,6 +201,7 @@ async function isLoged(){
             {
                 result = await getCommunity("base")
                 AsyncStorage.setItem('infobase',JSON.stringify(result))
+                AsyncStorage.setItem('infobase',JSON.stringify(result))
                 //console.log(result)
                 return true;
             }
@@ -194,7 +210,8 @@ async function isLoged(){
         }
         catch(err)
         {
-            return {No:"102",Error:"Error intentar iniciar sesion.", ErrorDetail:err}
+            console.error("102 Error intentar iniciar sesion",err)
+            //return {No:"102",Error:"Error intentar iniciar sesion.", ErrorDetail:err}
         }
     }
     else

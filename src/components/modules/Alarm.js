@@ -69,9 +69,9 @@ class alarm extends Component {
 
   render() {
     
-    if(this.props.notification.modulo !== "Alarm"){
-        this.props.navigation.navigate(this.props.notification.modulo,this.props.notification.objeto)
-    }
+    // if(this.props.notification.modulo !== "Alarm"){
+    //     this.props.navigation.navigate(this.props.notification.modulo,this.props.notification.objeto)
+    // }
     let navigate = this.props.navigation;
     
     const {textStyle, buttonStyle, mainShow, faceAse, styletext,generalcontent} = styles;

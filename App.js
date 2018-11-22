@@ -7,16 +7,17 @@ import {  AppRegistry,
           AsyncStorage
         } from 'react-native';
 import BasePage from './src/components/BasePage';
-import * as RestOp from './src/components/functions/RestFunctions';
+//import * as RestOp from './src/components/functions/RestFunctions';
+
 import { Provider } from 'react-redux';
-import {createStore} from 'redux';
-import Reducerx from './src/reducers';
+import store from "./store"
+
 
 
 export default class App extends React.Component {
   render() {
     return (
-      <Provider store={createStore(Reducerx)}>
+      <Provider store={store}>
         <BasePage />
       </Provider>
       

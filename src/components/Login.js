@@ -25,7 +25,11 @@ import * as MisFun from './../components/functions/MiscFunctions';
         
     //     await RestOp.login(_host,_user,_pwrd).then(r=>console.log("res---TTTTT>",r),r=>console.log("Todo fallo",r));
     //  }
-
+    componentDidMount(){
+        AsyncStorage.setItem('infobase',{})
+        //console.debug("El infobase XXXXXXXXXXXXXXXXXXXXXXX",infobase)
+        //AsyncStorage.setItem('infobase',{})
+    }
      onEntrarPress(){
         
         let descript = MisFun.decriptaCommunity(this.state.uniquecode).split('-')
@@ -43,7 +47,8 @@ import * as MisFun from './../components/functions/MiscFunctions';
         this.setState({error:false})
         this.setState({message:''})
         
-        AsyncStorage.setItem('infobase',{})
+        
+        //AsyncStorage.setItem('infobase',{})
 
         RestOp.login(_host,_user,_pwrd).then(
             

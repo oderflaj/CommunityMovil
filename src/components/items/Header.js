@@ -44,7 +44,11 @@ class Header extends React.Component{
                 return(
                     <View style={styles.frameH}>
                         {/* <View style={{flex:1,flexDirection:'row', justifyContent:"flex-start",justifyContent:"space-between"}}> */}
-                            <TouchableWithoutFeedback onPress={()=>this.state.navigation.navigate('DrawerToggle')}>
+                            <TouchableWithoutFeedback onPress={()=>{
+                                console.log(`Presiono MENU`)
+                                //this.state.navigation.navigate('DrawerToggle')
+                                this.state.navigation.toggleDrawer();
+                                }}>
                                 <Icon color="#CCC" name="menu" size={30} style={{ paddingLeft:10}}/>
                             </TouchableWithoutFeedback>
                             <View style={styles.textHeader}>

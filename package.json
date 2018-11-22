@@ -3,14 +3,14 @@
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
-    "expo": "^23.0.0",
+    "expo": "^30.0.0",
     "react": "16.0.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-23.0.0.tar.gz",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-phone-call": "^1.0.4",
     "react-native-ui-xg": "0.0.6",
     "react-native-vector-icons": "^4.4.2",
-    "react-navigation": "^1.0.0-beta.21",
-    "react-number-format": "^3.1.2",
+    "react-navigation": "^2.16.0",
+    "react-number-format": "^3.6.2",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2"
   }

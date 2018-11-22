@@ -12,7 +12,11 @@ class MenuContent extends Component{
         this.state = {infobase:undefined, condominio:'', email:'', nombre:''}
         //Gets the base information in asychronous mode and then save the object, then save the data into variables
         RestOp.getBase().then(r=>{
+            
+            console.debug("MenuContext r.condominio.nombre->",r.condominio.nombre)
+
             console.debug("MenuContext r->",r)
+            
             this.setState({infobase:r})
         })
         .then(()=>{
@@ -26,10 +30,10 @@ class MenuContent extends Component{
     }
 
     componentWillMount = () => {
-        console.debug("En la notificacion",this.props)
-        if(this.props.notification.modulo !== "Alarm"){
-            this.props.navigation.navigate(this.props.notification.modulo,this.props.notification.objeto)
-        }
+        // console.debug("En la notificacion",this.props)
+        // if(this.props.notification.modulo !== "Alarm"){
+        //     this.props.navigation.navigate(this.props.notification.modulo,this.props.notification.objeto)
+        // }
 
     }
     

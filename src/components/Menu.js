@@ -15,19 +15,15 @@ import {
     avisoDetalle,
     edoCuentaDetalle
 } from './modules/Indexmodule';
-import {DrawerNavigator} from 'react-navigation'
+import {createDrawerNavigator} from 'react-navigation'
 import MenuContent from './MenuContent' 
 import Login from './Login'
 
-/*
-const primera = async ()=>{
-    let x = await AsyncStorage.getItem('menuItemSelected')
-    console.debug(`XXXXXXXXXXXXXXXXXXXXYYYY----${x}----YYYYYYYYYYYYZZZZZZZZZZZZZZZZZZZZZZZZ`)
-};
+import { connect } from "react-redux";
 
-primera();*/
+//console.debug("Entra a MENU MENU MENU MENU MENU MENU MENU MENU MENU MENU MENU MENU MENU MENU MENU MENU")
 
-const Menu = DrawerNavigator(
+const Menu = createDrawerNavigator(
     {
         Login:{
             path:'/',
@@ -90,4 +86,10 @@ const Menu = DrawerNavigator(
 
 );
 
-export default Menu;
+const mapStateToProps = state => {
+    return {
+        infobase: state.infobase
+    }
+}
+
+export default connect(mapStateToProps)(Menu);

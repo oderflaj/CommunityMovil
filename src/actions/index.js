@@ -1,6 +1,9 @@
-export const noticommunity = (option) =>{
+const updateInfobase = infobase =>{
     return{
-        type:'selected_module',
-        payload:option
+        type:"UPDATE_INFOBASE",
+        infobase
     }
 }
+
+
+export {updateInfobase};
